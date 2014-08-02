@@ -83,7 +83,7 @@
 				<div class="row">
 <dl class="dl-horizontal">
   <dt>12345</dt>
-  <dd>Tall cabinet</dd>
+  <dd>Super Tall cabinet</dd>
   <dt>67890</dt>
   <dd>Short cabinet</dd>
 </dl>
