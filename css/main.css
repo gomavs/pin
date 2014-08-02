@@ -1,141 +1,35 @@
-/* Containers----------------------------------------------------------------------------------------------------*/
-
-body {
-  background-color: #CFCBC7;
-  margin: 0px;
-  padding: 0px;
-}
-.clearfix:after{
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
+.tree {
+	padding:0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-.clearfix {display: inline-block;}
-
-/* Hides from IE - Mac \*/
-* html .clearfix {height: 1%;}
-.clearfix {display: block;}
-/* End hide from IE - Mac */
-
-a:link {
-    text-decoration: none;
+.tree li {
+	list-style-type:none;
+	cursor:pointer;
 }
 
-a:visited {
-    text-decoration: none;
+.tree .parent:before {
+	content:"\25b6 \0000a0";
 }
 
-a:hover {
-    text-decoration: underline;
+.tree .parent.open:before {
+	content:"\25bc \0000a0";
 }
 
-a:active {
-    text-decoration: underline;
-}
-#topcontainer {
-  width:100%;
-  text-align:center;
-  font: bold 36px Veranda, Arial, Helvetica, sans-serif;
-  padding:10px;
-  background-color:#fff;
-}
-.clickMe{
-	border: 3px #444444 solid;
-	border-radius: 10px;
-	-moz-border-radius; 10%;
-	background: white;
-	color: red;
-	width: 10%;
-	margin: auto;
-}
-.clickMe:hover{
-	border: 3px #ffffff dotted;
-	background: black;
-	color: white;
-}
-#admin
-{
-  display: block;
-  width: 95px;
-  height: 99px;
-  background: url(../images/admin_icon.jpg) no-repeat 0 0;
-
+.tree ul {
+	display:none;
 }
 
-#admin:hover
-{ 
-  background-position: 0 -23px;
+.tree li.open > ul {
+	display:block;
 }
 
-#admin span
-{
-  position: absolute;
-  top: -999em;
+.tree li span {
+	position:absolute;
+	left:50%;
 }
-
-#menubar {
-  width:100%;
-  text-align:center;
-  font: bold 16px Veranda, Arial, Helvetica, sans-serif;
-  padding:10px;
-  background-color:#ff4858;
-	
-}
-#menubar #leftmenu {
-	width: 25%;
-	float:left;
-	text-align: left;
-}
-#menubar #centermenu {
-	width: 50%;
-	float:left;
-}
-#menubar #rightmenu {
-	width: 25%;
-	float: left;
-}
-#infobar {
-  width:100%;
-}
-#infobar #leftside{
-  width: 40%;
-  float:left;
-}
-#infobar #rightside{
-  width: 60%;
-  float:left;
-}
-#infobar #leftside #toprowparent {
-  float:left;
-  width:30%;
-  padding:10px;
-  font: bold 18px Veranda, Arial, Helvetica, sans-serif;
-}
-#infobar #leftside #toprowinput {
-  float:left;
-  padding:10px;
-  font: bold 18px Veranda, Arial, Helvetica, sans-serif;
-}
-#infobar #rightside #toprowheader {
-  float:left;
-  width:20%;
-  padding:10px;
-  font: bold 18px Veranda, Arial, Helvetica, sans-serif;
-}
-#datacontainer {
-  width:100%;
-}
-#datacontainer #datatree {
-  float:left;
-  text-align:left;
-  width:50%;
-}
-#datacontainer #data {
-  float:left;
-  text-align:left;
-  width:50%;
-}
-
