@@ -39,7 +39,7 @@
 
 <a href="admin">
 	<div class="clickMe">
-		Click Me
+		Don't Click Me
 	</div>
 </a>
 <a href="admin" class="btn"><img src="images/admin_icon.jpg" height="32" width="33"/></a>
