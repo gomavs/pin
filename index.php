@@ -1,4 +1,5 @@
 <?php
+require_once 'includes/dbConnect.php'
 
 ?>
 <!DOCTYPE html>
@@ -40,9 +41,9 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Process <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Cutting</a></li>
-							<li><a href="#">Machining</a></li>
-							<li><a href="#">Edgebanding</a></li>
+							<li><a href="cutting.php">Cutting</a></li>
+							<li><a href="machining.php">Machining</a></li>
+							<li><a href="edgebanding.php">Edgebanding</a></li>
 							<li class="divider"></li>
 							<li><a href="#">Assembly</a></li>
 							<li class="divider"></li>
@@ -59,7 +60,7 @@
 							<li><a href="#">Settings</a></li>
 							<li><a href="#">Another action</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Administration</a></li>
+							<li><a href="./admin/admin.php">Administration</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -79,8 +80,7 @@
 					<div class="col-md-6"><input type="text" class="form-control" placeholder="Enter part number"></div>
 				</div>
 				<ul class="tree">
-					<li>
-						Thing <span>Hello world</span>
+					<li>Thing <span>Hello world</span>
 						<ul>
 							<li>Sub Thing 1 <span>Hello world</span></li>
 							<li>

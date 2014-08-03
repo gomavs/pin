@@ -33,3 +33,19 @@
 	position:absolute;
 	left:50%;
 }
+
+.tree li:hover {
+	background-color:#f5f5f5;
+}
+
+.administration .col-lg-4 {
+	margin-bottom: 20px;
+	text-align: center;
+}
+.administration h2 {
+	font-weight: normal;
+}
+.administration .col-lg-4 p {
+	margin-right: 10px;
+	margin-left: 10px;
+}

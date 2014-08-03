@@ -4,6 +4,6 @@
 	if(!$link){
 		die('Could not connect: ' . mysql_error());
 	}
-	echo 'Connected successfully';
+	//echo 'Connected successfully';
 	mysql_close($link);
 ?>

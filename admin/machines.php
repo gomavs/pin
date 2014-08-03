@@ -56,7 +56,7 @@ require_once '../includes/dbConnect.php'
 						<li><a href="#">Settings</a></li>
 						<li><a href="#">Another action</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Administration</a></li>
+						<li><a href="admin.php">Administration</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -65,33 +65,71 @@ require_once '../includes/dbConnect.php'
 </nav>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
-	<li class="active">Administration</li>
+	<li><a href="admin.php">Administration</a></li>
+	<li class="active">Machines</li>
 </ol>
-<div class="container administration">
+<div class="container-fluid">
+	<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 	<div class="row">
-		<div class="col-lg-4">
-			<img class="img-rounded" src="../images/users.png" alt="Users" style="width: 140px; height: 140px;">
-			<h2>Users</h2>
-			<p>Here you can add, edit and deactivate users.</p>
-			<p>
-				<a class="btn btn-default" href="users.php" role="button">Users</a>
-			</p>
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-6"><h3>Add Machine:</h3></div>
+
+			</div>
+			<Form action="">
+			<div class="row">
+				<div class="col-md-3"><h4>Work Center Number:</h4></div>
+				<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><h4>Machine Name:</h4></div>
+				<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><h4>Machine Type:</h4></div>
+				<div class="col-md-3">
+					<select class="form-control" name="type">
+						<option value="1">Machine Center</option>
+						<option value="2">Edgebander</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><h4>Machine Active:</h4></div>
+				<div class="col-md-3">
+					<input type="radio" name="yes" value="yes">Yes <input type="radio" name="no" value="no">NO
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-3">
+						<button type="button" class="btn btn-default" name="submit">Submit</button>
+					</div>
+				</div>
+
+
+			</Form>
 		</div>
-		<div class="col-lg-4">
-			<img class="img-rounded" src="../images/machines.png" alt="Users" style="width: 140px; height: 140px;">
-			<h2>Machines</h2>
-			<p>Here you can add, edit and deactivate machinery.</p>
-			<p>
-				<a class="btn btn-default" href="machines.php" role="button">Machines</a>
-			</p>
-		</div>
-		<div class="col-lg-4">
-			<img class="img-rounded" src="../images/parts.png" alt="Users" style="width: 140px; height: 140px;">
-			<h2>Parts</h2>
-			<p>Here you can add, edit, and delete parts.</p>
-			<p>
-				<a class="btn btn-default" href="parts.php" role="button">Parts</a>
-			</p>
+		<div class="col-md-6">
+			<div class="row">
+				<table class="table table-hover">
+					<tr>
+						<th>id</th>
+						<th>Work Center</th>
+						<th>Machine</th>
+						<th>Type</th>
+						<th>Active</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>221</td>
+						<td>BAZ 1</td>
+						<td>Machining Center</td>
+						<td>Yes</td>
+					</tr>
+				</table>
+			</div>
+
 		</div>
 	</div>
 
