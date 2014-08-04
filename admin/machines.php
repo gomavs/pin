@@ -1,9 +1,26 @@
 <?php
-require_once '../includes/dbConnect.php'
+//require_once '../includes/dbConnect.php';
 
+if (isset( $_POST[ 'submit' ] ) ) {
+
+	$workCenter = $_POST['wcNumber'];
+	$machineName = $_POST['machine'];
+	$type = $_POST['type'];
+	$active = $_POST['active'];
+
+	$link = mysqli_connect('localhost', 'root', '');
+	if(!$link){
+		die('Could not connect: ' . mysql_error());
+	}
+	mysqli_query($link,"INSERT INTO timestudy.workcenter (inservice, name, type, center)
+VALUES ('$active', '$machineName','$type', '$workCenter')");
+
+	mysqli_close($link);
+
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -76,14 +93,14 @@ require_once '../includes/dbConnect.php'
 				<div class="col-md-6"><h3>Add Machine:</h3></div>
 
 			</div>
-			<Form action="">
+			<Form action="" method="post">
 			<div class="row">
 				<div class="col-md-3"><h4>Work Center Number:</h4></div>
-				<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+				<div class="col-md-3"><input type="number" class="form-control" name="wcNumber" placeholder="Required"></div>
 			</div>
 			<div class="row">
 				<div class="col-md-3"><h4>Machine Name:</h4></div>
-				<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+				<div class="col-md-3"><input type="text" class="form-control" name="machine" placeholder="Required"></div>
 			</div>
 			<div class="row">
 				<div class="col-md-3"><h4>Machine Type:</h4></div>
@@ -97,13 +114,14 @@ require_once '../includes/dbConnect.php'
 			<div class="row">
 				<div class="col-md-3"><h4>Machine Active:</h4></div>
 				<div class="col-md-3">
-					<input type="radio" name="yes" value="yes">Yes <input type="radio" name="no" value="no">NO
+					<input type="radio" name="active" value="1" checked>Yes<br>
+					<input type="radio" name="active" value="0">NO
 				</div>
 			</div>
 				<div class="row">
 					<div class="col-md-3"></div>
 					<div class="col-md-3">
-						<button type="button" class="btn btn-default" name="submit">Submit</button>
+						<input name="submit" type="submit" value="Submit" />
 					</div>
 				</div>
 
@@ -120,13 +138,34 @@ require_once '../includes/dbConnect.php'
 						<th>Type</th>
 						<th>Active</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>221</td>
-						<td>BAZ 1</td>
-						<td>Machining Center</td>
-						<td>Yes</td>
-					</tr>
+					<?php
+					$link = mysqli_connect('localhost', 'root', '');
+					if(!$link){
+						die('Could not connect: ' . mysql_error());
+					}
+
+					$result = mysqli_query($link,"SELECT * FROM timestudy.workcenter ORDER BY center ASC");
+
+					while($row = mysqli_fetch_array($result)) {
+						$mid =  $row['id'];
+						$wc = $row['center'];
+						$mName = $row['name'];
+						$mType = $row['type'];
+						$inService = $row['inservice'];
+						if ($mType == 1) {
+							$mType = "Machining Center";
+						}else{
+							$mType = "Edgebander";
+						}
+						if ($inService == 0){
+							$inService = "No";
+						}else{
+							$inService = "Yes";
+						}
+						echo "<tr><td>".$mid."</td><td>".$wc."</td><td>".$mName."</td><td>".$mType."</td><td>".$inService."</td><td></tr>";
+					}
+					mysqli_close($link);
+					?>
 				</table>
 			</div>
 
