@@ -66,7 +66,7 @@ require_once '../includes/dbConnect.php'
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
 	<li><a href="admin.php">Administration</a></li>
-	<li class="active">Machines</li>
+	<li class="active">Users</li>
 </ol>
 <div class="container-fluid">
 	<!-- Stack the columns on mobile by making one full-width and the other half-width -->
@@ -78,31 +78,40 @@ require_once '../includes/dbConnect.php'
 			</div>
 			<Form action="">
 				<div class="row">
-					<div class="col-md-3"><h4>First Name:</h4></div>
-					<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+					<div class="col-md-4"><h4>First Name:</h4></div>
+					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-3"><h4>Last Name:</h4></div>
-					<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+					<div class="col-md-4"><h4>Last Name:</h4></div>
+					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-3"><h4>Email:</h4></div>
-					<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+					<div class="col-md-4"><h4>Email:</h4></div>
+					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-3"><h4>Password:</h4></div>
-					<div class="col-md-3"><input type="text" class="form-control" placeholder="Required"></div>
+					<div class="col-md-4"><h4>Password:</h4></div>
+					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-3"><h4>User Active:</h4></div>
-					<div class="col-md-3">
+					<div class="col-md-4"><h4>Access Level:</h4></div>
+					<div class="col-md-4">
+						<select class="form-control" name="type">
+							<option value="1">Operator</option>
+							<option value="5">Admin</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4"><h4>User Active:</h4></div>
+					<div class="col-md-4">
 						<input type="radio" name="yes" value="yes">Yes <input type="radio" name="no" value="no">NO
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-default" name="submit">Submit</button>
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<button type="button" class="btn btn-default" name="submit">Add User</button>
 					</div>
 				</div>
 

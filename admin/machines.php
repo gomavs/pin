@@ -95,16 +95,16 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 			</div>
 			<Form action="" method="post">
 			<div class="row">
-				<div class="col-md-3"><h4>Work Center Number:</h4></div>
-				<div class="col-md-3"><input type="number" class="form-control" name="wcNumber" placeholder="Required"></div>
+				<div class="col-md-4"><h4>Work Center Number:</h4></div>
+				<div class="col-md-4"><input type="number" class="form-control" name="wcNumber" placeholder="Required"></div>
 			</div>
 			<div class="row">
-				<div class="col-md-3"><h4>Machine Name:</h4></div>
-				<div class="col-md-3"><input type="text" class="form-control" name="machine" placeholder="Required"></div>
+				<div class="col-md-4"><h4>Machine Name:</h4></div>
+				<div class="col-md-4"><input type="text" class="form-control" name="machine" placeholder="Required"></div>
 			</div>
 			<div class="row">
-				<div class="col-md-3"><h4>Machine Type:</h4></div>
-				<div class="col-md-3">
+				<div class="col-md-4"><h4>Machine Type:</h4></div>
+				<div class="col-md-4">
 					<select class="form-control" name="type">
 						<option value="1">Machine Center</option>
 						<option value="2">Edgebander</option>
@@ -112,15 +112,15 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3"><h4>Machine Active:</h4></div>
-				<div class="col-md-3">
+				<div class="col-md-4"><h4>Machine Active:</h4></div>
+				<div class="col-md-4">
 					<input type="radio" name="active" value="1" checked>Yes<br>
 					<input type="radio" name="active" value="0">NO
 				</div>
 			</div>
 				<div class="row">
-					<div class="col-md-3"></div>
-					<div class="col-md-3">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
 						<input name="submit" type="submit" value="Submit" />
 					</div>
 				</div>
@@ -162,7 +162,7 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 						}else{
 							$inService = "Yes";
 						}
-						echo "<tr><td>".$mid."</td><td>".$wc."</td><td>".$mName."</td><td>".$mType."</td><td>".$inService."</td><td></tr>";
+						echo "<tr class=\"clickableRow\" id=\"$mid\"><td>".$mid."</td><td>".$wc."</td><td>".$mName."</td><td>".$mType."</td><td>".$inService."</td><td></tr>";
 					}
 					mysqli_close($link);
 					?>
@@ -176,11 +176,50 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/timeStudy.js"></script>
+<script>
+	//This is to make a table row clickable
+	jQuery(document).ready(function($) {
+		$(".clickableRow").click(function() {
+			
+			//var rowId = $( "ul.nav" ).first().attr( "id" );
+			var rowId = this.id;
+			var request = $.ajax({
+				url: "../ajax/updatemachines.php",
+				type: "POST",
+				data: { id : rowId },
+				dataType: "text"
+			});
+			 
+			request.done(function( msg ) {
+				$( "#log" ).html( msg );
+				alert(msg);
+			});
+			 
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+			
+			//window.alert(this.id);
+		});
+	});
+
+
+
+</script>
+<!--
 <script>
 	$(".tree li:has(ul)").addClass("parent").click(function(event) {
 		$(this).toggleClass("open");
 		event.stopPropagation();
 	});
+	
+	jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
 </script>
+-->
 </body>
 </html>
