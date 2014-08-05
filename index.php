@@ -22,112 +22,87 @@ require_once 'includes/dbConnect.php'
 <![endif]-->
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Pin Time Study</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Process <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="cutting.php">Cutting</a></li>
-							<li><a href="machining.php">Machining</a></li>
-							<li><a href="edgebanding.php">Edgebanding</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Assembly</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Packaging</a></li>
-						</ul>
-					</li>
-				</ul>
-				
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Login</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Settings</a></li>
-							<li><a href="#">Another action</a></li>
-							<li class="divider"></li>
-							<li><a href="./admin/admin.php">Administration</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div><!-- /.navbar-collapse -->
-		</div><!-- /.container-fluid -->
-	</nav>
-	<ol class="breadcrumb">
-		<li><a href="#">Home</a></li>
-		<li class="active">Machining</li>
-	</ol>
+<nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
-		<!-- Stack the columns on mobile by making one full-width and the other half-width -->
-		<div class="row">
-			<div class="col-md-5">
-				<div class="row">
-					<div class="col-md-5"><h4>Parent Part Number:</h4></div>
-					<div class="col-md-6"><input type="text" class="form-control" placeholder="Enter part number"></div>
-				</div>
-				<ul class="tree">
-					<li>Thing <span>Hello world</span>
-						<ul>
-							<li>Sub Thing 1 <span>Hello world</span></li>
-							<li>
-								Sub Thing 2 <span>Hello world</span>
-								<ul>
-									<li>Sub Sub Thing A <span>Hello world</span></li>
-									<li>Sub Sub Thing B <span>Hello world</span></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>Other Thing <span>Hello world</span></li>
-					<li>Other Thing <span>Hello world</span></li>
-				</ul>
-			</div>
-			<div class="col-md-7">
-				<div class="row">
-					<table class="table table-hover">
-						<tr>
-							<th>Work Center</th>
-							<th>Machine</th>
-							<th>Time</th>
-							<th>Action</th>
-						</tr>
-						<tr>
-							<td>221</td>
-							<td>BAZ 1</td>
-							<td>6m 32s</td>
-							<td>
-							<button type="button" class="btn btn-success btn-xs">Start</button>
-							<button type="button" class="btn btn-danger btn-xs" disabled="disabled">Stop</button></td>
-						</tr>
-					</table>
-				</div>
-			
-			</div>
+	<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Pin Time Study</a>
 		</div>
-		
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part Timing <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">Cutting</a></li>
+						<li><a href="machining.php">Machining</a></li>
+						<li><a href="#">Edgebanding</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Assembly</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Packaging</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Login</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="#">Settings</a></li>
+						<li><a href="#">Another action</a></li>
+						<li class="divider"></li>
+						<li><a href="./admin/admin.php">Administration</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<ol class="breadcrumb">
+	<li><a href="#">Home</a></li>
+	<li class="active">Machining</li>
+</ol>
+<div class="container administration">
+	<div class="row">
+		<div class="col-lg-4">
+			<img class="img-rounded" src="images/cuttingtime.png" alt="Cutting Times" style="width: 140px; height: 140px;">
+			<h2>Cutting Times</h2>
+			<p>Here you can add, edit and deactivate users.</p>
+			<p>
+				<a class="btn btn-default" href="#" role="button">Cutting Times</a>
+			</p>
+		</div>
+		<div class="col-lg-4">
+			<img class="img-rounded" src="images/machines.png" alt="Edgebanding Times" style="width: 140px; height: 140px;">
+			<h2>Edgebanding Times</h2>
+			<p>Here you can add, edit and deactivate machinery.</p>
+			<p>
+				<a class="btn btn-default" href="#" role="button">Edgebanding Times</a>
+			</p>
+		</div>
+		<div class="col-lg-4">
+			<img class="img-rounded" src="images/machinestime.png" alt="Machining Times" style="width: 140px; height: 140px;">
+			<h2>Machining Times</h2>
+			<p>Here you can add, edit, and delete parts.</p>
+			<p>
+				<a class="btn btn-default" href="machining.php" role="button">Machining Times</a>
+			</p>
+		</div>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script>
-		$(".tree li:has(ul)").addClass("parent").click(function(event) {
-			$(this).toggleClass("open");
-			event.stopPropagation();
-		});
-	</script>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
 </body>
 </html>

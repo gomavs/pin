@@ -1,22 +1,23 @@
 <?php
-//require_once '../includes/dbConnect.php';
+require_once '../includes/dbConnect.php';
 
 if (isset( $_POST[ 'submit' ] ) ) {
 
-	$workCenter = $_POST['wcNumber'];
-	$machineName = $_POST['machine'];
+	$workCenter = $_POST['center'];
+	$machineName = $_POST['name'];
 	$type = $_POST['type'];
-	$active = $_POST['active'];
+	$active = $_POST['inservice'];
+	$id = $_POST["id"];
 
-	$link = mysqli_connect('localhost', 'root', '');
-	if(!$link){
-		die('Could not connect: ' . mysql_error());
+
+	if (!empty($id)) {
+		$query = $db->prepare("UPDATE timestudy.workcenter SET inservice = ?, name = ?, type = ?, center = ? WHERE id = ?");
+		$query->bind_param("isiii", $active, $machineName, $type, $workCenter, $id);
+		$query->execute();
+	} else {
+		mysqli_query($db,"INSERT INTO timestudy.workcenter (inservice, name, type, center)
+	VALUES ('$active', '$machineName','$type', '$workCenter')");
 	}
-	mysqli_query($link,"INSERT INTO timestudy.workcenter (inservice, name, type, center)
-VALUES ('$active', '$machineName','$type', '$workCenter')");
-
-	mysqli_close($link);
-
 }
 ?>
 <!DOCTYPE html>
@@ -93,40 +94,39 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 				<div class="col-md-6"><h3>Add Machine:</h3></div>
 
 			</div>
-			<Form action="" method="post">
-			<div class="row">
-				<div class="col-md-4"><h4>Work Center Number:</h4></div>
-				<div class="col-md-4"><input type="number" class="form-control" name="wcNumber" placeholder="Required"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-4"><h4>Machine Name:</h4></div>
-				<div class="col-md-4"><input type="text" class="form-control" name="machine" placeholder="Required"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-4"><h4>Machine Type:</h4></div>
-				<div class="col-md-4">
-					<select class="form-control" name="type">
-						<option value="1">Machine Center</option>
-						<option value="2">Edgebander</option>
-					</select>
+			<form action="" method="post" id="add">
+				<input type="hidden" name="id" value=""/>
+				<div class="row">
+					<div class="col-md-4"><h4>Work Center Number:</h4></div>
+					<div class="col-md-4"><input type="number" class="form-control" name="center" placeholder="Required"></div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4"><h4>Machine Active:</h4></div>
-				<div class="col-md-4">
-					<input type="radio" name="active" value="1" checked>Yes<br>
-					<input type="radio" name="active" value="0">NO
+				<div class="row">
+					<div class="col-md-4"><h4>Machine Name:</h4></div>
+					<div class="col-md-4"><input type="text" class="form-control" name="name" placeholder="Required"></div>
 				</div>
-			</div>
+				<div class="row">
+					<div class="col-md-4"><h4>Machine Type:</h4></div>
+					<div class="col-md-4">
+						<select class="form-control" name="type">
+							<option value="1">Machine Center</option>
+							<option value="2">Edgebander</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4"><h4>Machine Active:</h4></div>
+					<div class="col-md-4">
+						<input type="radio" name="inservice" value="1" checked>Yes<br>
+						<input type="radio" name="inservice" value="0">NO
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
 						<input name="submit" type="submit" value="Submit" />
 					</div>
 				</div>
-
-
-			</Form>
+			</form>
 		</div>
 		<div class="col-md-6">
 			<div class="row">
@@ -139,12 +139,12 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 						<th>Active</th>
 					</tr>
 					<?php
-					$link = mysqli_connect('localhost', 'root', '');
-					if(!$link){
+					$db = mysqli_connect('localhost', 'root', '');
+					if(!$db){
 						die('Could not connect: ' . mysql_error());
 					}
 
-					$result = mysqli_query($link,"SELECT * FROM timestudy.workcenter ORDER BY center ASC");
+					$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter ORDER BY center ASC");
 
 					while($row = mysqli_fetch_array($result)) {
 						$mid =  $row['id'];
@@ -164,7 +164,7 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 						}
 						echo "<tr class=\"clickableRow\" id=\"$mid\"><td>".$mid."</td><td>".$wc."</td><td>".$mName."</td><td>".$mType."</td><td>".$inService."</td><td></tr>";
 					}
-					mysqli_close($link);
+					mysqli_close($db);
 					?>
 				</table>
 			</div>
@@ -178,33 +178,31 @@ VALUES ('$active', '$machineName','$type', '$workCenter')");
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/timeStudy.js"></script>
 <script>
+
+	function populate(form, data) {
+		$.each(data, function(key, value) {
+			var $field = $("[name=" + key + "]", form);
+			switch ($field.attr("type")) {
+				case "radio":
+				case "checkbox":
+					$field.each(function(index, element) {
+						element.checked = $(element).val() == value
+					});
+					break;
+				default:
+					$field.val(value);
+			}
+		});
+	}
+
 	//This is to make a table row clickable
-	jQuery(document).ready(function($) {
-		$(".clickableRow").click(function() {
-			
-			//var rowId = $( "ul.nav" ).first().attr( "id" );
-			var rowId = this.id;
-			var request = $.ajax({
-				url: "../ajax/updatemachines.php",
-				type: "POST",
-				data: { id : rowId },
-				dataType: "text"
-			});
-			 
-			request.done(function( msg ) {
-				$( "#log" ).html( msg );
-				alert(msg);
-			});
-			 
-			request.fail(function( jqXHR, textStatus ) {
-				alert( "Request failed: " + textStatus );
-			});
-			
-			//window.alert(this.id);
+	$(".clickableRow").click(function() {
+		var rowId = this.id;
+		var request = $.getJSON("../ajax/updatemachines.php", {id : rowId}, function(data) {
+			populate($("#add"), data);
+			$("[name=submit]", $("#add")).val("Update");
 		});
 	});
-
-
 
 </script>
 <!--

@@ -1,9 +1,8 @@
 <?php
 
-	$link = mysqli_connect('localhost', 'root', '');
-	if(!$link){
+	$db = mysqli_connect('localhost', 'root', '', "timestudy");
+
+	if(!$db){
 		die('Could not connect: ' . mysql_error());
 	}
-	//echo 'Connected successfully';
-	//mysqli_close($link);
 ?>

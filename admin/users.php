@@ -1,6 +1,24 @@
 <?php
-require_once '../includes/dbConnect.php'
+require_once '../includes/dbConnect.php';
 
+if (isset( $_POST[ 'submit' ] ) ) {
+
+	$workCenter = $_POST['center'];
+	$machineName = $_POST['name'];
+	$type = $_POST['type'];
+	$active = $_POST['inservice'];
+	$id = $_POST["id"];
+
+
+	if (!empty($id)) {
+		$query = $db->prepare("UPDATE timestudy.workcenter SET inservice = ?, name = ?, type = ?, center = ? WHERE id = ?");
+		$query->bind_param("isiii", $active, $machineName, $type, $workCenter, $id);
+		$query->execute();
+	} else {
+		mysqli_query($db,"INSERT INTO timestudy.workcenter (inservice, name, type, center)
+	VALUES ('$active', '$machineName','$type', '$workCenter')");
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +109,7 @@ require_once '../includes/dbConnect.php'
 				</div>
 				<div class="row">
 					<div class="col-md-4"><h4>Password:</h4></div>
-					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
+					<div class="col-md-4"><input type="password" class="form-control" placeholder="Required"></div>
 				</div>
 				<div class="row">
 					<div class="col-md-4"><h4>Access Level:</h4></div>
