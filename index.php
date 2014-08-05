@@ -68,8 +68,8 @@ require_once 'includes/dbConnect.php'
 	</div><!-- /.container-fluid -->
 </nav>
 <ol class="breadcrumb">
-	<li><a href="#">Home</a></li>
-	<li class="active">Machining</li>
+
+	<li class="active">Home</li>
 </ol>
 <div class="container administration">
 	<div class="row">

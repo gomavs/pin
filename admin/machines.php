@@ -11,11 +11,11 @@ if (isset( $_POST[ 'submit' ] ) ) {
 
 
 	if (!empty($id)) {
-		$query = $db->prepare("UPDATE timestudy.workcenter SET inservice = ?, name = ?, type = ?, center = ? WHERE id = ?");
+		$query = $db->prepare("UPDATE workcenter SET inservice = ?, name = ?, type = ?, center = ? WHERE id = ?");
 		$query->bind_param("isiii", $active, $machineName, $type, $workCenter, $id);
 		$query->execute();
 	} else {
-		mysqli_query($db,"INSERT INTO timestudy.workcenter (inservice, name, type, center)
+		mysqli_query($db,"INSERT INTO workcenter (inservice, name, type, center)
 	VALUES ('$active', '$machineName','$type', '$workCenter')");
 	}
 }
@@ -90,11 +90,10 @@ if (isset( $_POST[ 'submit' ] ) ) {
 	<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 	<div class="row">
 		<div class="col-md-6">
-			<div class="row">
-				<div class="col-md-6"><h3>Add Machine:</h3></div>
-
-			</div>
 			<form action="" method="post" id="add">
+				<div class="row">
+					<div class="col-md-6" name="addmachine"><h3>Add Machine:</h3></div>
+				</div>
 				<input type="hidden" name="id" value=""/>
 				<div class="row">
 					<div class="col-md-4"><h4>Work Center Number:</h4></div>
@@ -139,12 +138,8 @@ if (isset( $_POST[ 'submit' ] ) ) {
 						<th>Active</th>
 					</tr>
 					<?php
-					$db = mysqli_connect('localhost', 'root', '');
-					if(!$db){
-						die('Could not connect: ' . mysql_error());
-					}
 
-					$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter ORDER BY center ASC");
+					$result = mysqli_query($db,"SELECT * FROM workcenter ORDER BY center ASC");
 
 					while($row = mysqli_fetch_array($result)) {
 						$mid =  $row['id'];
@@ -164,7 +159,7 @@ if (isset( $_POST[ 'submit' ] ) ) {
 						}
 						echo "<tr class=\"clickableRow\" id=\"$mid\"><td>".$mid."</td><td>".$wc."</td><td>".$mName."</td><td>".$mType."</td><td>".$inService."</td><td></tr>";
 					}
-					mysqli_close($db);
+					//mysqli_close($db);
 					?>
 				</table>
 			</div>
@@ -201,6 +196,7 @@ if (isset( $_POST[ 'submit' ] ) ) {
 		var request = $.getJSON("../ajax/updatemachines.php", {id : rowId}, function(data) {
 			populate($("#add"), data);
 			$("[name=submit]", $("#add")).val("Update");
+			$("[name=addmachine]", $("#add")).html("<h3>Update Machine:</h3>");
 		});
 	});
 

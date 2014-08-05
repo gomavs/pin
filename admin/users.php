@@ -2,21 +2,22 @@
 require_once '../includes/dbConnect.php';
 
 if (isset( $_POST[ 'submit' ] ) ) {
-
-	$workCenter = $_POST['center'];
-	$machineName = $_POST['name'];
-	$type = $_POST['type'];
-	$active = $_POST['inservice'];
+	$firstname = $_POST['firstname'];
+	$lastname = $_POST['lastname'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$authlevel = $_POST['authlevel'];
+	$active = $_POST['active'];
 	$id = $_POST["id"];
 
-
 	if (!empty($id)) {
-		$query = $db->prepare("UPDATE timestudy.workcenter SET inservice = ?, name = ?, type = ?, center = ? WHERE id = ?");
-		$query->bind_param("isiii", $active, $machineName, $type, $workCenter, $id);
+		$query = $db->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, password = ?, authlevel = ?, active = ? WHERE id = ?");
+		$query->bind_param("ssssiii", $firstname, $lastname, $email, $password, $authlevel, $active, $id);
 		$query->execute();
 	} else {
-		mysqli_query($db,"INSERT INTO timestudy.workcenter (inservice, name, type, center)
-	VALUES ('$active', '$machineName','$type', '$workCenter')");
+		mysqli_query($db,"INSERT INTO users (firstname, lastname, email, password, authlevel, active)
+	VALUES ('$firstname', '$lastname','$email', '$password', '$authlevel', '$active')");
+	
 	}
 }
 ?>
@@ -89,54 +90,57 @@ if (isset( $_POST[ 'submit' ] ) ) {
 <div class="container-fluid">
 	<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 	<div class="row">
-		<div class="col-md-6">
-			<div class="row">
-				<div class="col-md-6"><h3>Add User:</h3></div>
-
-			</div>
-			<Form action="">
-				<div class="row">
-					<div class="col-md-4"><h4>First Name:</h4></div>
-					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
+		<div class="col-md-5">
+			<form data-toggle="validator" role="form" method="post" id="add">
+				<input type="hidden" name="id" value=""/>
+				<div class="form-group col-md-6">
+					<label for="inputFirstName" class="control-label">First Name</label>
+					<input type="text" class="form-control" id="inputFirstName" name="firstname" placeholder="First Name" required>
 				</div>
-				<div class="row">
-					<div class="col-md-4"><h4>Last Name:</h4></div>
-					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
+				<div class="form-group col-md-6">
+					<label for="inputLastName" class="control-label">Last Name</label>
+					<input type="text" class="form-control" id="inputLastName" name="lastname" placeholder="Last Name" required>
 				</div>
-				<div class="row">
-					<div class="col-md-4"><h4>Email:</h4></div>
-					<div class="col-md-4"><input type="text" class="form-control" placeholder="Required"></div>
-				</div>
-				<div class="row">
-					<div class="col-md-4"><h4>Password:</h4></div>
-					<div class="col-md-4"><input type="password" class="form-control" placeholder="Required"></div>
-				</div>
-				<div class="row">
-					<div class="col-md-4"><h4>Access Level:</h4></div>
-					<div class="col-md-4">
-						<select class="form-control" name="type">
-							<option value="1">Operator</option>
-							<option value="5">Admin</option>
-						</select>
+				<div class="form-group">
+					<label for="inputPassword" class="control-label col-md-8">Password</label>
+					<div class="form-group col-md-6">
+						<input type="password" data-minlength="5" class="form-control pull-left" id="inputPassword" name="password" placeholder="Password" required>
+						<span class="help-block">Minimum of 5 characters</span>
+					</div>
+					<div class="form-group col-md-6">
+						<input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
+						<div class="help-block with-errors"></div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-4"><h4>User Active:</h4></div>
-					<div class="col-md-4">
-						<input type="radio" name="yes" value="yes">Yes <input type="radio" name="no" value="no">NO
-					</div>
+				<div class="form-group col-md-8">
+					<label for="inputEmail" class="control-label">Email</label>
+					<input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" data-error="Bruh, that email address is invalid" required>
+					<div class="help-block with-errors"></div>
 				</div>
-				<div class="row">
-					<div class="col-md-4"></div>
-					<div class="col-md-4">
-						<button type="button" class="btn btn-default" name="submit">Add User</button>
+				
+				<div class="form-group col-md-8">
+					<label for="active" class="control-label">Authorization Level</label>
+					<select class="form-control" name="authlevel">
+						<option value="1">Operator</option>
+						<option value="5">Administrator</option>
+					</select>
+				</div>
+				<div class="form-group col-md-8">
+					<label for="active" class="control-label">Active</label>
+					<div class="radio">
+						<label><input type="radio" name="active" value="1" required checked>Yes</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="active" value="0" required>No</label>
 					</div>
 				</div>
 
-
-			</Form>
+				<div class="form-group col-md-8">
+					<button type="submit" name="submit" class="btn btn-primary" formmethod="post">Submit</button>
+				</div>
+			</form>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-7">
 			<div class="row">
 				<table class="table table-hover">
 					<tr>
@@ -144,15 +148,34 @@ if (isset( $_POST[ 'submit' ] ) ) {
 						<th>First Name</th>
 						<th>Last Name</th>
 						<th>Email</th>
+						<th>Level</th>
 						<th>Active</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>Shawn</td>
-						<td>Brunson</td>
-						<td>sbrunson@pin.com</td>
-						<td>Yes</td>
-					</tr>
+					<?php
+
+					$result = mysqli_query($db,"SELECT * FROM users ORDER BY lastname ASC");
+
+					while($row = mysqli_fetch_array($result)) {
+						$id =  $row['id'];
+						$firstname = $row['firstname'];
+						$lastname = $row['lastname'];
+						$email = $row['email'];
+						$authlevel = $row['authlevel'];
+						$active = $row['active'];
+						if ($authlevel == 5) {
+							$authlevel = "Administrator";
+						}else{
+							$authlevel = "Operator";
+						}
+						if ($active == 0){
+							$active = "No";
+						}else{
+							$active = "Yes";
+						}
+						echo "<tr class=\"clickableRow\" id=\"$id\"><td>".$id."</td><td>".$firstname."</td><td>".$lastname."</td><td>".$email."</td><td>".$authlevel."</td><td>".$active."</td><td></tr>";
+					}
+					mysqli_close($db);
+					?>
 				</table>
 			</div>
 
@@ -163,10 +186,32 @@ if (isset( $_POST[ 'submit' ] ) ) {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/validator.js"></script>
 <script>
-	$(".tree li:has(ul)").addClass("parent").click(function(event) {
-		$(this).toggleClass("open");
-		event.stopPropagation();
+		function populate(form, data) {
+		$.each(data, function(key, value) {
+			var $field = $("[name=" + key + "]", form);
+			switch ($field.attr("type")) {
+				case "radio":
+				case "checkbox":
+					$field.each(function(index, element) {
+						element.checked = $(element).val() == value
+					});
+					break;
+				default:
+					$field.val(value);
+			}
+		});
+	}
+
+	//This is to make a table row clickable
+	$(".clickableRow").click(function() {
+		var rowId = this.id;
+		var request = $.getJSON("../ajax/updateusers.php", {id : rowId}, function(data) {
+			populate($("#add"), data);
+			$("[name=submit]", $("#add")).html("Update");
+			//$("[name=addmachine]", $("#add")).html("<h3>Update Machine:</h3>");
+		});
 	});
 </script>
 </body>
