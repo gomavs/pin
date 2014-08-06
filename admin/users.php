@@ -108,13 +108,13 @@ if (isset( $_POST[ 'submit' ] ) ) {
 						<span class="help-block">Minimum of 5 characters</span>
 					</div>
 					<div class="form-group col-md-6">
-						<input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
+						<input type="password" class="form-control" id="inputPasswordConfirm" name="confirmPassword" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password" required>
 						<div class="help-block with-errors"></div>
 					</div>
 				</div>
 				<div class="form-group col-md-8">
 					<label for="inputEmail" class="control-label">Email</label>
-					<input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" data-error="Bruh, that email address is invalid" required>
+					<input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" data-error="That email address is invalid" required>
 					<div class="help-block with-errors"></div>
 				</div>
 				
@@ -209,6 +209,7 @@ if (isset( $_POST[ 'submit' ] ) ) {
 		var rowId = this.id;
 		var request = $.getJSON("../ajax/updateusers.php", {id : rowId}, function(data) {
 			populate($("#add"), data);
+			$("[name=confirmPassword]").val(data.password);
 			$("[name=submit]", $("#add")).html("Update");
 			//$("[name=addmachine]", $("#add")).html("<h3>Update Machine:</h3>");
 		});

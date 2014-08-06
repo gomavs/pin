@@ -82,7 +82,7 @@ require_once 'includes/dbConnect.php'
 			</p>
 		</div>
 		<div class="col-lg-4">
-			<img class="img-rounded" src="images/machines.png" alt="Edgebanding Times" style="width: 140px; height: 140px;">
+			<img class="img-rounded" src="images/edgebandingtime.png" alt="Edgebanding Times" style="width: 140px; height: 140px;">
 			<h2>Edgebanding Times</h2>
 			<p>Here you can add, edit and deactivate machinery.</p>
 			<p>
