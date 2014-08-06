@@ -132,6 +132,7 @@ require_once 'includes/dbConnect.php'
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script>
 		$(".tree li:has(ul)").addClass("parent").click(function(event) {
