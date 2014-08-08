@@ -13,7 +13,7 @@ while($row = mysqli_fetch_array($result)) {
 	$numberlength = strlen($partnumber);
 	if ($numberlength > 5) {
 
-		/*
+/*
 		$query = $db->prepare("INSERT INTO part SET partnumber = ?, partdesc = ?");
 		$query->bind_param("ss", $partnumber, $partdesc);
 		$query->execute();
@@ -22,7 +22,7 @@ while($row = mysqli_fetch_array($result)) {
 			echo $partnumber." was not inserted<br>";
 			$i++;
 		}
-		*/
+*/
 
 		$cutnumber = mb_strcut($partnumber,0,5);
 		$result2 = mysqli_query($db,"SELECT id FROM part WHERE partnumber = '$cutnumber'");
@@ -37,6 +37,7 @@ while($row = mysqli_fetch_array($result)) {
 			mysqli_query($db,"INSERT INTO part (partnumber, partdesc) VALUES ('$partnumber', '$partdesc')");
 			$j++;
 		}
+
 	}
 }
 //echo $i." was not inserted into database.<br>";

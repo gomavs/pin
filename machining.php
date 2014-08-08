@@ -77,10 +77,11 @@ require_once 'includes/dbConnect.php'
 			<div class="col-md-5">
 				<div class="row">
 					<div class="col-md-5"><h4>Parent Part Number:</h4></div>
-					<div class="col-md-6"><input type="text" name="currency" class="form-control" id="autocomplete" placeholder="Enter part number"></div>
+					<div class="col-md-4"><input type="text" name="partnumber" class="form-control" id="autocomplete" placeholder="Enter part number"></div>
 				</div>
+
 				<ul class="tree">
-					<li>Thing <span>Hello world</span>
+<!--					<li>Thing <span>Hello world</span>
 						<ul>
 							<li>Sub Thing 1 <span>Hello world</span></li>
 							<li>
@@ -93,12 +94,9 @@ require_once 'includes/dbConnect.php'
 						</ul>
 					</li>
 					<li>Other Thing <span>Hello world</span></li>
-					<li>Other Thing <span>Hello world</span></li>
+					<li>Other Thing <span>Hello world</span></li>-->
 				</ul>
-				<div id="outputbox col-md-5">
-					<p id="outputcontent">Choose a currency and the results will display here.</p>
-				</div>
-				
+
 			</div>
 			<div class="col-md-7">
 				<div class="row">
@@ -138,7 +136,7 @@ require_once 'includes/dbConnect.php'
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/currency-autocomplete.js"></script>
+	<script src="js/timeStudy.js"></script>
 	<script>
 		$(".tree li:has(ul)").addClass("parent").click(function(event) {
 			$(this).toggleClass("open");
