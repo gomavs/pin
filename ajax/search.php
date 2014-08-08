@@ -2,7 +2,7 @@
 require_once("../includes/dbConnect.php");
 $q = "{$_GET["query"]}%";
 $data = [];
-$query = $db->prepare("SELECT * FROM part WHERE partnumber LIKE ?");
+$query = $db->prepare("SELECT * FROM part WHERE partnumber LIKE ? LIMIT 100");
 $query->bind_param("s", $q);
 $query->execute();
 $result = $query->get_result();

@@ -74,10 +74,10 @@ require_once 'includes/dbConnect.php'
 	<div class="container-fluid">
 		<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 		<div class="row">
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="row">
-					<div class="col-md-5"><h4>Parent Part Number:</h4></div>
-					<div class="col-md-4"><input type="text" name="partnumber" class="form-control" id="autocomplete" placeholder="Enter part number"></div>
+					<div class="col-md-4"><label>Part Number:</label></div>
+					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" onClick="treefill()" autofocus placeholder="Enter part number"></div>
 				</div>
 
 				<ul class="tree">
@@ -98,7 +98,7 @@ require_once 'includes/dbConnect.php'
 				</ul>
 
 			</div>
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<div class="row">
 					<table class="table table-hover">
 						<tr>
@@ -121,7 +121,7 @@ require_once 'includes/dbConnect.php'
 								$mType = "Edgebander";
 							}
 
-							echo "<tr class=\"clickableRow\" id=\"$mid\"><td>".$wc."</td><td>".$mName."</td><td>No Time</td><td>".$mType."</td></tr>";
+							echo "<tr class=\"clickableRow\" id=\"$mid\"><td>".$wc."</td><td>".$mName."</td><td></td><td></td></tr>";
 						}
 						mysqli_close($db);
 						?>
@@ -142,6 +142,13 @@ require_once 'includes/dbConnect.php'
 			$(this).toggleClass("open");
 			event.stopPropagation();
 		});
+		
+		function treefill(){
+			var test = document.getElementById('autocomplete').value;
+			alert(test);
+			
+		}
+		
 	</script>
 </body>
 </html>
