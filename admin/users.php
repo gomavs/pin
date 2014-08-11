@@ -211,7 +211,6 @@ if (isset( $_POST[ 'submit' ] ) ) {
 			populate($("#add"), data);
 			$("[name=confirmPassword]").val(data.password);
 			$("[name=submit]", $("#add")).html("Update");
-			//$("[name=addmachine]", $("#add")).html("<h3>Update Machine:</h3>");
 		});
 	});
 </script>

@@ -148,6 +148,14 @@ require_once 'includes/dbConnect.php'
 			alert(test);
 			
 		}
+		$(document).keypress(function(e) {
+			if(e.which == 13) {
+				var test = document.getElementById('autocomplete').value;
+			alert(test)
+			
+				//alert('You pressed enter!');
+			}
+		});
 		
 	</script>
 </body>
