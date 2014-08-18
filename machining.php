@@ -153,7 +153,7 @@ require_once 'includes/dbConnect.php'
 				var test = document.getElementById('autocomplete').value;
 			alert(test)
 			
-				//alert('You pressed enter!');
+			
 			}
 		});
 		
