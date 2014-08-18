@@ -31,6 +31,7 @@ echo json_encode(["tree"=>$data]);*/
 display_children(1099, 0);
 
 function display_children($category_id, $level){
+	global $db;
     // retrieve all children
 	$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
 	$query->bind_param("i", $category_id);
