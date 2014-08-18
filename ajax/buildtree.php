@@ -1,13 +1,14 @@
 <?php
 require_once("../includes/dbConnect.php");
+$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
+
 $q = "{$_GET["query"]}";
 $data = [];
 display_children($q, 0);
 
 function display_children($category_id, $level){
-	global $db;
+	global $query;
     // retrieve all children
-	$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
 	$query->bind_param("i", $category_id);
 	$query->execute();
 	$result = $query->get_result();
@@ -17,7 +18,7 @@ function display_children($category_id, $level){
         // indent and display the title of this child
        // if you want to save the hierarchy, replace the following line with your code
         echo str_repeat('  ',$level) . "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . "<span>" . $row['partdesc'] ."</span></li>";
-        //$data[] = ["id"=>$row->id, "partnumber"=>$row->partnumber, "partdesc"=>$row->partdesc];
+        $data[] = ["id"=>$row["id"], "partnumber"=>$row["partnumber"], "partdesc"=>$row["partdesc"]];
        // call this function again to display this child's children
        display_children($row['id'], $level+1);
     }

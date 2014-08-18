@@ -77,7 +77,7 @@ require_once 'includes/dbConnect.php'
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-4"><label>Part Number:</label></div>
-					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" onClick="treefill()" autofocus placeholder="Enter part number"></div>
+					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"></div>
 				</div>
 
 				<ul class="tree">
@@ -143,20 +143,18 @@ require_once 'includes/dbConnect.php'
 			event.stopPropagation();
 		});
 		
-		function treefill(){
-			var test = document.getElementById('autocomplete').value;
-			alert(test);
-			
-		}
+		$("#autocomplete").click(thing);
+		
 		$(document).keypress(function(e) {
 			if(e.which == 13) {
-				var test = document.getElementById('autocomplete').value;
-			alert(test)
-			
-			
+				thing();
 			}
 		});
 		
+		function thing() {
+			var test = $("#autocomplete").val();
+			alert(test);
+		}
 	</script>
 </body>
 </html>
