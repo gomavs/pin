@@ -79,24 +79,7 @@ require_once 'includes/dbConnect.php'
 					<div class="col-md-4"><label>Part Number:</label></div>
 					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"></div>
 				</div>
-
-				<ul class="tree">
-<!--					<li>Thing <span>Hello world</span>
-						<ul>
-							<li>Sub Thing 1 <span>Hello world</span></li>
-							<li>
-								Sub Thing 2 <span>Hello world</span>
-								<ul>
-									<li>Sub Sub Thing A <span>Hello world</span></li>
-									<li>Sub Sub Thing B <span>Hello world</span></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>Other Thing <span>Hello world</span></li>
-					<li>Other Thing <span>Hello world</span></li>-->
-				</ul>
-
+				<div class="tree-holder"></div>
 			</div>
 			<div class="col-md-6">
 				<div class="row">
@@ -136,7 +119,6 @@ require_once 'includes/dbConnect.php'
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/timeStudy.js"></script>
 	<script>
 		$(".tree li:has(ul)").addClass("parent").click(function(event) {
 			$(this).toggleClass("open");
@@ -154,7 +136,29 @@ require_once 'includes/dbConnect.php'
 		function thing() {
 			var test = $("#autocomplete").val();
 			alert(test);
+
+			var request = $.get("ajax/buildtree.php", {query : test}, function(data) {
+
+				$(".tree-holder").html(data);
+			});
+
+
+			//json.forEach(function(obj) { console.log(obj.id); });
+
 		}
+		$(function(){
+
+			$('#autocomplete').autocomplete({
+				serviceUrl:"ajax/search.php",
+				onSelect: function(suggestion) {
+					console.log(suggestion);
+				}
+			});
+
+
+
+		});
+
 	</script>
 </body>
 </html>

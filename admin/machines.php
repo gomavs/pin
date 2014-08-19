@@ -171,7 +171,7 @@ if (isset( $_POST[ 'submit' ] ) ) {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/timeStudy.js"></script>
+
 <script>
 
 	function populate(form, data) {
@@ -201,19 +201,6 @@ if (isset( $_POST[ 'submit' ] ) ) {
 	});
 
 </script>
-<!--
-<script>
-	$(".tree li:has(ul)").addClass("parent").click(function(event) {
-		$(this).toggleClass("open");
-		event.stopPropagation();
-	});
-	
-	jQuery(document).ready(function($) {
-      $(".clickableRow").click(function() {
-            window.document.location = $(this).attr("href");
-      });
-});
-</script>
--->
+
 </body>
 </html>
