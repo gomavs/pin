@@ -13,19 +13,19 @@ function display_children($category_id, $level){
 	$query->execute();
 	$result = $query->get_result();
 	//echo "<ul>";
-	$return_data .= "<ul>";
+	echo "<ul>";
     // display each child
 	while ($row = $result->fetch_array(MYSQLI_ASSOC)){
 		// indent and display the title of this child
 		// if you want to save the hierarchy, replace the following line with your code
 		//echo str_repeat('  ',$level) . "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . "<span>" . $row['partdesc'] ."</span></li>";
-		$return_data .= "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . "<span>" . $row['partdesc'] ."</span></li>";
+		echo "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . "<span>" . $row['partdesc'] ."</span></li>";
 		// $data[] = $row;
 		// call this function again to display this child's children
 		display_children($row['id'], $level+1);
     }
 	//echo "</ul>";
-	$return_data .= "</ul>";
+	echo "</ul>";
 }
 
 echo $return_data;

@@ -135,8 +135,8 @@ require_once 'includes/dbConnect.php'
 		
 		function thing() {
 			var test = $("#autocomplete").val();
-			alert(test);
-
+			//alert(test);
+			test = 1099;
 			var request = $.get("ajax/buildtree.php", {query : test}, function(data) {
 
 				$(".tree-holder").html(data);
