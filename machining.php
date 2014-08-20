@@ -1,5 +1,35 @@
 <?php
-require_once 'includes/dbConnect.php'
+require_once 'includes/dbConnect.php';
+
+$return_data = "";
+if(isset($_POST["partnumber"])){
+	$query = $db->prepare("SELECT * FROM part WHERE partnumber = ?");
+	$query->bind_param("s", $_POST["partnumber"]);
+	$query->execute();
+	$result = $query->get_result();
+	$row = $result->fetch_assoc();
+	$return_data .= "<ul class = \"tree\"><li id=\"" . $row['id'] . "\">". $row['partnumber'] . "<span>" . $row['partdesc'] ."</span></li>";
+	//$count_rows = $db->prepare("COUNT(*) FROM part WHERE parentid = ?");
+	$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
+	display_children($row['id'], 0);
+	$return_data .= "</ul>";
+}
+function display_children($category_id, $level){
+	global $query;
+	global $return_data;
+	$return_data .= "<ul>";
+	$query->bind_param("i", $category_id);
+	$query->execute();
+	$result = $query->get_result();
+	// display each child
+	while ($row = $result->fetch_array(MYSQLI_ASSOC)){
+		// indent and display the title of this child
+		// if you want to save the hierarchy, replace the following line with your code
+		$return_data .= "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . "<span>" . $row['partdesc'] ."</span></li>";
+		// call this function again to display this child's children
+		display_children($row['id'], $level+1);
+	}
+}
 
 ?>
 <!DOCTYPE html>
@@ -76,10 +106,12 @@ require_once 'includes/dbConnect.php'
 		<div class="row">
 			<div class="col-md-6">
 				<div class="row">
+					<form method = "POST">
 					<div class="col-md-4"><label>Part Number:</label></div>
-					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"></div>
+					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/></div>
+					</form>
 				</div>
-				<div class="tree-holder"></div>
+				<div class="tree-holder"><?php echo $return_data; ?></div>
 			</div>
 			<div class="col-md-6">
 				<div class="row">
@@ -124,7 +156,7 @@ require_once 'includes/dbConnect.php'
 			$(this).toggleClass("open");
 			event.stopPropagation();
 		});
-		
+		/*
 		$("#autocomplete").click(thing);
 		
 		$(document).keypress(function(e) {
@@ -146,17 +178,14 @@ require_once 'includes/dbConnect.php'
 			//json.forEach(function(obj) { console.log(obj.id); });
 
 		}
+		*/
 		$(function(){
-
 			$('#autocomplete').autocomplete({
 				serviceUrl:"ajax/search.php",
 				onSelect: function(suggestion) {
 					console.log(suggestion);
 				}
 			});
-
-
-
 		});
 
 	</script>
