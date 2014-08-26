@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/ajax/buildtree.php" line="22" />
+    <bookmark url="file://$PROJECT_DIR$/ajax/buildtree.php" line="19" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9e913e6-9607-4659-ae39-e04dd7001a8e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ajax/buildtree.php" afterPath="$PROJECT_DIR$/ajax/buildtree.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/machining.php" afterPath="$PROJECT_DIR$/machining.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.php" afterPath="$PROJECT_DIR$/test.php" />
     </list>
     <ignored path="pin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,20 +31,30 @@
       <file leaf-file-name="machining.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/machining.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="24" selection-start="4511" selection-end="4511" vertical-scroll-proportion="-14.269231" vertical-offset="1975" max-vertical-offset="2873">
+            <state line="185" column="24" selection-start="6373" selection-end="6373" vertical-scroll-proportion="0.0" vertical-offset="2774" max-vertical-offset="3621">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildtree.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax/buildtree.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="12" selection-start="479" selection-end="479" vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="595">
               <folding>
-                <marker date="1408508543628" expanded="true" signature="3374:3428" placeholder="SELECT * FRO..workcenter..." />
+                <marker date="1409022771434" expanded="true" signature="72:132" placeholder="SELECT id, p..part..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="buildtree.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ajax/buildtree.php">
+      <file leaf-file-name="test.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="12" selection-start="759" selection-end="759" vertical-scroll-proportion="0.3975501" vertical-offset="0" max-vertical-offset="898">
+            <state line="33" column="34" selection-start="1581" selection-end="1581" vertical-scroll-proportion="0.6338983" vertical-offset="0" max-vertical-offset="901">
               <folding>
-                <marker date="1408508648730" expanded="true" signature="72:132" placeholder="SELECT id, p..part..." />
+                <marker date="1409024115348" expanded="true" signature="122:161" placeholder="SELECT * FRO..part..." />
+                <marker date="1409024115348" expanded="true" signature="535:572" placeholder="SELECT * FRO..part..." />
               </folding>
             </state>
           </provider>
@@ -55,7 +63,7 @@
       <file leaf-file-name="timeStudy.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/timeStudy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="3" selection-start="161" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+            <state line="11" column="3" selection-start="161" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="289">
               <folding />
             </state>
           </provider>
@@ -64,7 +72,7 @@
       <file leaf-file-name="updatemachines.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax/updatemachines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="221">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
               <folding>
                 <marker date="1407194973093" expanded="true" signature="72:109" placeholder="SELECT * FRO..workcenter..." />
               </folding>
@@ -75,7 +83,7 @@
       <file leaf-file-name="machines.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/machines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="203" column="0" selection-start="6427" selection-end="6427" vertical-scroll-proportion="-28.653847" vertical-offset="2706" max-vertical-offset="3604">
+            <state line="203" column="0" selection-start="6427" selection-end="6427" vertical-scroll-proportion="0.0" vertical-offset="2706" max-vertical-offset="3604">
               <folding>
                 <marker date="1408411548810" expanded="true" signature="276:356" placeholder="UPDATE workc..." />
                 <marker date="1408411548810" expanded="true" signature="490:603" placeholder="INSERT INTO ..." />
@@ -88,7 +96,7 @@
       <file leaf-file-name="search.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax/search.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="41" selection-start="399" selection-end="399" vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="289">
+            <state line="11" column="41" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="289">
               <folding>
                 <marker date="1408507845702" expanded="true" signature="110:152" placeholder="SELECT * FRO..part..." />
                 <marker date="1408507845702" expanded="true" signature="110:162" placeholder="SELECT * FRO..part..." />
@@ -123,6 +131,7 @@
         <option value="$PROJECT_DIR$/ajax/search.php" />
         <option value="$PROJECT_DIR$/machining.php" />
         <option value="$PROJECT_DIR$/ajax/buildtree.php" />
+        <option value="$PROJECT_DIR$/test.php" />
       </list>
     </option>
   </component>
@@ -329,12 +338,12 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32947367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -356,17 +365,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin/machines.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="25" selection-start="4815" selection-end="4815" vertical-scroll-proportion="0.0" vertical-offset="2363" max-vertical-offset="3825">
-          <folding>
-            <marker date="1408411548810" expanded="true" signature="276:356" placeholder="UPDATE workc..." />
-            <marker date="1408411548810" expanded="true" signature="490:603" placeholder="INSERT INTO ..." />
-            <marker date="1408411548810" expanded="true" signature="4850:4894" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin/users.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="211" column="59" selection-start="7660" selection-end="7660" vertical-scroll-proportion="0.0" vertical-offset="2757" max-vertical-offset="3825" />
@@ -375,9 +373,7 @@
     <entry file="file://$PROJECT_DIR$/machining.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="111" column="0" selection-start="3878" selection-end="3878" vertical-scroll-proportion="0.0" vertical-offset="1104" max-vertical-offset="2533">
-          <folding>
-            <marker date="1408508543628" expanded="true" signature="3374:3428" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -398,9 +394,7 @@
     <entry file="file://$PROJECT_DIR$/machining.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="109" column="0" selection-start="3827" selection-end="3827" vertical-scroll-proportion="0.0" vertical-offset="1070" max-vertical-offset="2516">
-          <folding>
-            <marker date="1408508543628" expanded="true" signature="3374:3428" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -443,9 +437,7 @@
     <entry file="file://$PROJECT_DIR$/machining.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="133" column="4" selection-start="4344" selection-end="4479" vertical-scroll-proportion="0.0" vertical-offset="1652" max-vertical-offset="2516">
-          <folding>
-            <marker date="1408508543628" expanded="true" signature="3374:3428" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -634,14 +626,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery.autocomplete.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="34" selection-start="208" selection-end="262" vertical-scroll-proportion="0.09330406" vertical-offset="0" max-vertical-offset="911">
-          <folding />
-        </state>
+        <state line="5" column="34" selection-start="208" selection-end="262" vertical-scroll-proportion="0.09330406" vertical-offset="0" max-vertical-offset="911" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/machines.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="203" column="0" selection-start="6427" selection-end="6427" vertical-scroll-proportion="-28.653847" vertical-offset="2706" max-vertical-offset="3604">
+        <state line="203" column="0" selection-start="6427" selection-end="6427" vertical-scroll-proportion="0.0" vertical-offset="2706" max-vertical-offset="3604">
           <folding>
             <marker date="1408411548810" expanded="true" signature="276:356" placeholder="UPDATE workc..." />
             <marker date="1408411548810" expanded="true" signature="490:603" placeholder="INSERT INTO ..." />
@@ -668,7 +658,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax/search.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="41" selection-start="399" selection-end="399" vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="289">
+        <state line="11" column="41" selection-start="399" selection-end="399" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="289">
           <folding>
             <marker date="1408507845702" expanded="true" signature="110:152" placeholder="SELECT * FRO..part..." />
             <marker date="1408507845702" expanded="true" signature="110:162" placeholder="SELECT * FRO..part..." />
@@ -678,18 +668,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/machining.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="24" selection-start="4511" selection-end="4511" vertical-scroll-proportion="-14.269231" vertical-offset="1975" max-vertical-offset="2873">
-          <folding>
-            <marker date="1408508543628" expanded="true" signature="3374:3428" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
+        <state line="185" column="24" selection-start="6373" selection-end="6373" vertical-scroll-proportion="0.0" vertical-offset="2774" max-vertical-offset="3621">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax/buildtree.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="12" selection-start="759" selection-end="759" vertical-scroll-proportion="0.3975501" vertical-offset="0" max-vertical-offset="898">
+        <state line="18" column="12" selection-start="479" selection-end="479" vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="595">
           <folding>
-            <marker date="1408508648730" expanded="true" signature="72:132" placeholder="SELECT id, p..part..." />
+            <marker date="1409022771434" expanded="true" signature="72:132" placeholder="SELECT id, p..part..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="34" selection-start="1581" selection-end="1581" vertical-scroll-proportion="0.6338983" vertical-offset="0" max-vertical-offset="901">
+          <folding>
+            <marker date="1409024115348" expanded="true" signature="122:161" placeholder="SELECT * FRO..part..." />
+            <marker date="1409024115348" expanded="true" signature="535:572" placeholder="SELECT * FRO..part..." />
           </folding>
         </state>
       </provider>
