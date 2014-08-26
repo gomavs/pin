@@ -3,7 +3,6 @@ require_once("../includes/dbConnect.php");
 $query = $db->prepare("SELECT id, partnumber, partdesc FROM part WHERE parentid = ?");
 
 $q = "{$_GET["query"]}";
-$data = [];
 display_children($q, 0);
 
 function display_children($category_id, $level){
