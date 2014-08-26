@@ -111,7 +111,22 @@ function display_children($category_id, $level){
 					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/></div>
 					</form>
 				</div>
-				<div class="tree-holder"><?php echo $return_data; ?></div>
+				<!--<div class="tree-holder"><?php //echo $return_data; ?></div>-->
+				<ul class = "tree">
+					<li>Thing 1 <span>This is a test</span></li>
+					<li>Thing 2 <span>This is a test</span>
+						<ul>
+							<li>Thing 2 sub1<span>Another test</span></li>
+							<li>Thing 2 sub2<span>Another test</span></li>
+							<li>Thing 2 sub3<span>Another test</span>
+								<ul>
+									<li>another thing<span>Last test</span></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>Thing 3 <span>This is a test</span></li>
+				</ul>
 			</div>
 			<div class="col-md-6">
 				<div class="row">
