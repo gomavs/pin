@@ -1,6 +1,5 @@
 <?php
 require_once 'includes/dbConnect.php';
-
 $return_data = "";
 if(isset($_POST["partnumber"])){
 	$ul_count = 0;
@@ -10,7 +9,7 @@ if(isset($_POST["partnumber"])){
 	$query->execute();
 	$result = $query->get_result();
 	$row = $result->fetch_assoc();
-	$return_data .= "<ul class = \"tree\"><li id=\"" . $row['id'] . "\">". $row['partnumber'] ." ". "<span>" . $row['partdesc'] ."</span>";
+	$return_data .= "<ul class = \"tree\"><li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] ." ". "<span>" . $row['partdesc'] ."</span>";
 	$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
 	display_children($row['id'], 1);
 	for($ul_count; $ul_count > 0; $ul_count--){
@@ -34,12 +33,12 @@ function display_children($category_id, $level){
 		// if you want to save the hierarchy, replace the following line with your code
 		if($level > $last_level){
 			$test = 1;
-			$return_data .= "<ul><li id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
+			$return_data .= "<ul><li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
 			$ul_count = $ul_count + 1;
 			$last_level = $level;
 			
 		}elseif($level < $last_level){
-			$return_data .= "</ul></li><li id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
+			$return_data .= "</ul></li><li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
 			$ul_count = $ul_count - 1;
 			$last_level = $level;
 			$test = 0;
@@ -48,7 +47,7 @@ function display_children($category_id, $level){
 				$return_data .= "</li>";
 				$test = 0;
 			}
-			$return_data .= "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span></li>";
+			$return_data .= "<li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span></li>";
 			//$test = 0;
 		}
 		//$return_data .= "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] ." " . $row['parentid'] . " " . $level. "</span></li>";
@@ -144,28 +143,22 @@ function display_children($category_id, $level){
 			</div>
 			<div class="col-md-6">
 				<div class="row">
-					<table class="table table-hover">
+					<table class="table table-hover tabletimes">
 						<tr>
-							<th>Work Center</th>
-							<th>Machine</th>
-							<th>Time</th>
-							<th>Action</th>
+							<th width=20%>Work Center</th>
+							<th width=20%>Machine</th>
+							<th width=20%>Date</th>
+							<th width=20%>Time</th>
+							<th width=20%>Action</th>
 						</tr>
 						<?php
-						$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter ORDER BY center ASC");
+						$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter WHERE type = 1 ORDER BY center ASC");
 
 						while($row = mysqli_fetch_array($result)) {
 							$mid =  $row['id'];
 							$wc = $row['center'];
 							$mName = $row['name'];
-							$mType = $row['type'];
-							if ($mType == 1) {
-								$mType = "Machining Center";
-							}else{
-								$mType = "Edgebander";
-							}
-
-							echo "<tr class=\"clickableRow\" id=\"$mid\"><td>".$wc."</td><td>".$mName."</td><td></td><td></td></tr>";
+							echo "<tr class=\"clickableRow\" id=\"machine-$mid\"><td>".$wc."</td><td>".$mName."</td><td class =\"study_date\"></td><td class=\"elapsed_time\"></td><td></td></tr>";
 						}
 						mysqli_close($db);
 						?>
@@ -181,17 +174,12 @@ function display_children($category_id, $level){
 	<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script>
-		/*
+		
 		$(".tree li:has(ul)").addClass("parent").click(function(event) {
 			$(this).toggleClass("open");
 			event.stopPropagation();
 		});
-		*/
-		$('ul.tree li:has(ul)').addClass("parent").click(function() {
-			$(this).children('ul').toggle();
-			event.stopPropagation();
-		});
-		
+
 		$(function(){
 			$('#autocomplete').autocomplete({
 				serviceUrl:"ajax/search.php",
@@ -200,7 +188,20 @@ function display_children($category_id, $level){
 				}
 			});
 		});
-
+			$(".test").click(function() {
+				var rowId = this.id;
+				alert (rowId);
+				var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(partTimes) {
+					console.log(partTimes);
+					
+					$.each([partTimes], function(index, value) {
+						alert ("hello world");
+						$("#machine-" + value.id + " td.study_date").html(value.end_time);
+						$("#machine-" + value.id + " td.elapsed_time").html(value.end_time);
+					});
+					
+				});
+			});
 	</script>
 </body>
 </html>

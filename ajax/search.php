@@ -10,3 +10,4 @@ while (($row = $result->fetch_object()) !== NULL) {
 	$data[] = ["data"=>$row->id, "value"=>$row->partnumber];
 }
 echo json_encode(["suggestions"=>$data]);
+?>
