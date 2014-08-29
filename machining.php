@@ -190,14 +190,14 @@ function display_children($category_id, $level){
 		});
 			$(".test").click(function() {
 				var rowId = this.id;
-				alert (rowId);
-				var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(partTimes) {
-					console.log(partTimes);
-					
-					$.each([partTimes], function(index, value) {
-						alert ("hello world");
-						$("#machine-" + value.id + " td.study_date").html(value.end_time);
-						$("#machine-" + value.id + " td.elapsed_time").html(value.end_time);
+				var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(data) {
+					console.log(data);
+
+					$.each(data, function(key, value) {
+
+						alert (key + ' ' + value.start_time)
+						$("#machine-" + value.machine_id + " td.study_date").html(value.end_time);
+						$("#machine-" + value.machine_id + " td.elapsed_time").html(value.end_time);
 					});
 					
 				});

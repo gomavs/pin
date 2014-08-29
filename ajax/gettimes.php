@@ -9,5 +9,5 @@ $result = $query->get_result();
 while (($row = $result->fetch_object()) !== NULL) {
 	$data[] = ["id"=>$row->id, "machine_id"=>$row->machine_id, "start_time"=>$row->start_time, "end_time"=>$row->end_time];
 }
-echo json_encode(["partTimes"=>$data]);
+echo json_encode($data);
 ?>
