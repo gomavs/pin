@@ -7,7 +7,21 @@ $query->bind_param("s", $q);
 $query->execute();
 $result = $query->get_result();
 while (($row = $result->fetch_object()) !== NULL) {
+	if(!empty ($row->start_time)){
+		
+		$start_time = (object)array("start_time"=>$row->start_time);//my first php object :)
+	}else{
+		$start_time = (object)array("start_time"=>"");
+	}
 	$data[] = ["id"=>$row->id, "machine_id"=>$row->machine_id, "start_time"=>$row->start_time, "end_time"=>$row->end_time];
 }
+if(empty($data)){
+	$empty_set = (object)array("empty_set"=>0);
+	$data[] = [$empty_set];
+}else{
+	$empty_set = (object)array("empty_set"=>1);
+	$data[] = [$empty_set];
+}
 echo json_encode($data);
+
 ?>

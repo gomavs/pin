@@ -12,7 +12,10 @@
 	list-style-type:none;
 	cursor:pointer;
 }
-
+.sub li {
+	list-style-type:none;
+	cursor:pointer;
+}
 .tree .parent:before {
 	content:"\25b6 \0000a0";
 }

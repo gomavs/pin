@@ -9,7 +9,7 @@ if(isset($_POST["partnumber"])){
 	$query->execute();
 	$result = $query->get_result();
 	$row = $result->fetch_assoc();
-	$return_data .= "<ul class = \"tree\"><li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] ." ". "<span>" . $row['partdesc'] ."</span>";
+	$return_data .= "<ul class = \"tree\"><li class=\"items\" id=\"" . $row['id'] . "\">". $row['partnumber'] ." ". "<span>" . $row['partdesc'] ."</span>";
 	$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
 	display_children($row['id'], 1);
 	for($ul_count; $ul_count > 0; $ul_count--){
@@ -33,12 +33,12 @@ function display_children($category_id, $level){
 		// if you want to save the hierarchy, replace the following line with your code
 		if($level > $last_level){
 			$test = 1;
-			$return_data .= "<ul><li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
+			$return_data .= "<ul  class = \"sub\"><li class=\"items	\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
 			$ul_count = $ul_count + 1;
 			$last_level = $level;
 			
 		}elseif($level < $last_level){
-			$return_data .= "</ul></li><li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
+			$return_data .= "</ul></li><li class=\"items\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span>";
 			$ul_count = $ul_count - 1;
 			$last_level = $level;
 			$test = 0;
@@ -47,7 +47,7 @@ function display_children($category_id, $level){
 				$return_data .= "</li>";
 				$test = 0;
 			}
-			$return_data .= "<li class=\"test\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span></li>";
+			$return_data .= "<li class=\"items\" id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] . "</span></li>";
 			//$test = 0;
 		}
 		//$return_data .= "<li id=\"" . $row['id'] . "\">". $row['partnumber'] . " " . "<span>" . $row['partdesc'] ." " . $row['parentid'] . " " . $level. "</span></li>";
@@ -139,6 +139,29 @@ function display_children($category_id, $level){
 					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/></div>
 					</form>
 				</div>
+				<!--
+				<ul>
+					<li class="current">menu1<span>menu1</span></li>
+					<li><a href="#b">menu2</a>
+						<ul class="sub">
+							<li>sub2a<span>sub2a</span></li>
+							<li><a href="#bb">sub2b</a></li>
+							<li>sub2c<span>sub2c</span>
+								<ul class="sub">
+									<li><a href="#ba">sub2c1</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li><a href="#c">menu3</a></li>
+					<li><a href="#d">menu4</a>
+						<ul class="sub">
+							<li><a href="#da">sub4</a></li>
+							<li><a href="#db">sub4b</a></li>
+						</ul>
+					</li>
+				</ul>
+				-->
 				<?php echo $return_data; ?>
 			</div>
 			<div class="col-md-6">
@@ -153,14 +176,16 @@ function display_children($category_id, $level){
 						</tr>
 						<?php
 						$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter WHERE type = 1 ORDER BY center ASC");
-
+						$machine_list = [];
 						while($row = mysqli_fetch_array($result)) {
 							$mid =  $row['id'];
 							$wc = $row['center'];
 							$mName = $row['name'];
-							echo "<tr class=\"clickableRow\" id=\"machine-$mid\"><td>".$wc."</td><td>".$mName."</td><td class =\"study_date\"></td><td class=\"elapsed_time\"></td><td></td></tr>";
+							$machine_list[] = [$mid];
+							echo "<tr id=\"machine-$mid\"><td>".$wc."</td><td>".$mName."</td><td class =\"study_date\"></td><td class=\"elapsed_time\"></td><td class =\"do_action\"></td></tr>";
 						}
-						mysqli_close($db);
+						
+						//mysqli_close($db);
 						?>
 					</table>
 				</div>
@@ -174,12 +199,24 @@ function display_children($category_id, $level){
 	<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script>
-		
+		window.machine_list = <?php echo json_encode($machine_list); ?>;
+		//$(".tree li:has(ul)").addClass("parent").click(function(event) {
 		$(".tree li:has(ul)").addClass("parent").click(function(event) {
+			
 			$(this).toggleClass("open");
 			event.stopPropagation();
 		});
-
+		
+		$(function() {
+			$('ul.sub').hide();
+			$("li:has(.sub)").click(function() {
+				$("ul", this).toggle('slow');
+			});
+			$("li").click(function(event) {
+				event.stopPropagation();
+			});
+		});
+		
 		$(function(){
 			$('#autocomplete').autocomplete({
 				serviceUrl:"ajax/search.php",
@@ -188,16 +225,50 @@ function display_children($category_id, $level){
 				}
 			});
 		});
-			$(".test").click(function() {
+			$(".items").click(function() {
 				var rowId = this.id;
 				var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(data) {
 					console.log(data);
-
+					
+					var start_button = "<button type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
+					$.each(machine_list, function(k, v){
+						$("#machine-" + v + " td.study_date").html(" ");
+						$("#machine-" + v + " td.elapsed_time").html(" ");
+						$("#machine-" + v + " td.do_action").html(start_button);
+					});
+					
 					$.each(data, function(key, value) {
-
-						alert (key + ' ' + value.start_time)
-						$("#machine-" + value.machine_id + " td.study_date").html(value.end_time);
-						$("#machine-" + value.machine_id + " td.elapsed_time").html(value.end_time);
+					
+						var a = new Date(value.start_time*1000);
+						var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+						var year = a.getFullYear();
+						var month = months[a.getMonth() - 1];
+						var date = a.getDate();
+						var timeDiff = value.end_time - value.start_time;
+						var seconds = Math.round(timeDiff % 60);
+						timeDiff = Math.floor(timeDiff / 60);
+						var minutes = Math.round(timeDiff % 60);
+						timeDiff = Math.floor(timeDiff / 60);
+						var hours = Math.round(timeDiff % 24);
+						timeDiff = Math.floor(timeDiff / 24);
+						var days = timeDiff;
+						//var elapsed_time = days + " days, " + hours + ":" + minutes + ":" + seconds;
+						if(!value.end_time){
+							var elapsed_time = " ";
+						}else{
+							var elapsed_time = hours + "hr " + minutes + "m " + seconds + "s";
+						}
+						if(value.start_time > 0 && !value.end_time){
+							var action_button = "<button type=\"button\" class=\"btn btn-danger btn-xs\">Stop</button>";
+						} else if(!value.start_time){
+							var action_button = "<button type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
+						}else{
+							var action_button = "<button type=\"button\" class=\"btn btn-Warning btn-xs\">Reset</button>";
+						}
+						
+						$("#machine-" + value.machine_id + " td.study_date").html(month + " " + date + ", " + year);
+						$("#machine-" + value.machine_id + " td.elapsed_time").html(elapsed_time);
+						$("#machine-" + value.machine_id + " td.do_action").html(action_button);
 					});
 					
 				});
