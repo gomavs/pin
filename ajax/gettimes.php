@@ -15,13 +15,7 @@ while (($row = $result->fetch_object()) !== NULL) {
 	}
 	$data[] = ["id"=>$row->id, "machine_id"=>$row->machine_id, "start_time"=>$row->start_time, "end_time"=>$row->end_time];
 }
-if(empty($data)){
-	$empty_set = (object)array("empty_set"=>0);
-	$data[] = [$empty_set];
-}else{
-	$empty_set = (object)array("empty_set"=>1);
-	$data[] = [$empty_set];
-}
+
 echo json_encode($data);
 
 ?>
