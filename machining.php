@@ -156,6 +156,10 @@ function display_children($category_id, $level){
 		</div>
 		<div class="col-md-6">
 			<div class="row">
+				<div class="col-md-5"><label>Part Number:</label></div>
+				<div class="col-md-5"><label id="partNumber">Testing</label></div>
+			</div>
+			<div class="row">
 				<table class="table table-hover tabletimes">
 					<tr>
 						<th width=20%>Work Center</th>
@@ -172,10 +176,8 @@ function display_children($category_id, $level){
 						$wc = $row['center'];
 						$mName = $row['name'];
 						$machine_list[] = [$mid];
-						echo "<tr id=\"machine-$mid\"><td>".$wc."</td><td>".$mName."</td><td class =\"study_date\"></td><td class=\"elapsed_time\" id=\"runner-$mid\"></td><td class =\"do_action\" id=\"$mid\"><button id=\"startTimer-$mid\" type=\"button\" class=\"btn btn-success btn-xs hide\">Start</button></td></tr>";
+						echo "<tr id=\"machine-$mid\"><td>".$wc."</td><td>".$mName."</td><td class =\"study_date\"></td><td class=\"elapsed_time\" id=\"runner-$mid\"></td><td class =\"do_action\" id=\"$mid\"></td></tr>";
 					}
-					
-					//mysqli_close($db);
 					?>
 				</table>
 			</div>
@@ -188,11 +190,11 @@ function display_children($category_id, $level){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<script src="js/timeStudy.js"></script>
 <script src="js/jquery.runner-min.js" type="text/javascript"></script>
 <script>
 	window.machine_list = <?php echo json_encode($machine_list); ?>;
-	
+	window.partId = "";
 	$(".tree li:has(ul)").addClass("parent").click(function(event) {
 		$(this).toggleClass("open");
 		event.stopPropagation();
@@ -217,21 +219,24 @@ function display_children($category_id, $level){
 		});
 	});
 	$(".items").click(function() {
+		partId = this.id;
 		var rowId = this.id;
+		var partNumber = $(this).text();
+		var arr = partNumber.split(' ');
+		partNumber = arr[0];
 		var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(data) {
 			console.log(data);
-
-			
+			$("#partNumber").html(partNumber);
 			$.each(machine_list, function(k, v){
+				$("#runner-" + v).runner('stop');
+				$("#runner-" + v).runner('reset');
 				var start_button = "<button id=\"startTimer-"+ v +"\" type=\"button\" class=\"btn btn-success btn-xs \">Start</button>";
-				$("#runner-" + v).runner({autostart: false, milliseconds: false});
-				
 				$("#machine-" + v + " td.study_date").html(" ");
-				//$("#machine-" + v + " td.elapsed_time").html(" ");
-				$("#startTimer-" + v).show();
+				$("#machine-" + v + " td.elapsed_time").html(" ");
+				$("#machine-" + v + " td.do_action").html(start_button);
+				$("#runner-" + v).runner({autostart: false, milliseconds: false});
 			});
 			$.each(data, function(key, value) {
-			
 				var a = new Date(value.start_time*1000);
 				var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 				var year = a.getFullYear();
@@ -252,11 +257,19 @@ function display_children($category_id, $level){
 					var elapsed_time = hours + "hr " + minutes + "m " + seconds + "s";
 				}
 				if(value.start_time > 0 && !value.end_time){
-					var action_button = "<button type=\"button\" class=\"btn btn-danger btn-xs\">Stop</button>";
+					var action_button = "<button id=\"stopTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-danger btn-xs\">Stop</button>";
+					var time_now = new Date().getTime();
+					var start_time = value.start_time * 1000;
+					startRunner = time_now - start_time;
+					$("#runner-" + value.machine_id).runner({
+						startAt: startRunner, 
+						milliseconds: false
+					});
+					$("#runner-" + value.machine_id).runner('start');
 				} else if(!value.start_time){
 					var action_button = "<button id=\"myButton\" type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
 				}else{
-					var action_button = "<button type=\"button\" class=\"btn btn-Warning btn-xs\">Reset</button>";
+					var action_button = "<button type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>";
 				}
 				
 				$("#machine-" + value.machine_id + " td.study_date").html(month + " " + date + ", " + year);
@@ -268,31 +281,64 @@ function display_children($category_id, $level){
 	});
 	$(".momma").click(function() {
 		$.each(machine_list, function(k, v){
+			$("#partNumber").html(" ");
+			$("#runner-" + v).runner('stop');
+			$("#runner-" + v).runner('reset');
 			$("#machine-" + v + " td.study_date").html(" ");
 			$("#machine-" + v + " td.elapsed_time").html(" ");
-			//$("#machine-" + v + " td.do_action").html(" ");
+			$("#machine-" + v + " td.do_action").html(" ");
 		});
 	});
-	/*
-	$(".do_action").click(function(){
-	  var id = this.id;
-	  $("#runner-" + id).runner('start');
-	  
-	});
-	*/
-	/*
-	$(function() {
-		$(":button").button().click(function( event ) {
-			alert("test");
-			event.preventDefault();
+
+	$( ".do_action" ).on( "click", "[id^=startTimer-]", function() {
+		var buttonId = this.id;
+		var arr = buttonId.split('-');
+		buttonId = arr[1];
+		$("#runner-" + buttonId).runner('start');
+		var action_button = "<button id=\"stopTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-danger btn-xs\">Stop</button>";
+		$("#machine-" + buttonId + " td.do_action").html(action_button);
+		var request = $.getJSON("ajax/starttimes.php", {id : partId, machine : buttonId}, function(data) {
+			console.log(data);
+			$.each(data, function(key, value) {
+				//alert (value.start_time);
+				var a = format_date(value.start_time);
+				$("#machine-" + buttonId + " td.study_date").html(a);
+			});
 		});
 	});
-	*/
 	
-	$("#startTimer-3").click(function() {
-		//alert ("timer started");
-		$("#runner-" + 3).runner('start');
-		
+	$( ".do_action" ).on( "click", "[id^=stopTimer-]", function() {
+		var buttonId = this.id;
+		var arr = buttonId.split('-');
+		buttonId = arr[1];
+		$("#runner-" + buttonId).runner('stop');
+		var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>";
+		$("#machine-" + buttonId + " td.do_action").html(action_button);
+		var request = $.getJSON("ajax/updatetimes.php", {id : partId, machine : buttonId}, function(data) {
+			console.log(data);
+			/*$.each(data, function(key, value) {
+				//alert (value.start_time);
+				var a = format_date(value.start_time);
+				$("#machine-" + buttonId + " td.study_date").html(a);
+			});*/
+		});
+	});
+	
+	$( ".do_action" ).on( "click", "[id^=resetTimer-]", function() {
+		var buttonId = this.id;
+		var arr = buttonId.split('-');
+		buttonId = arr[1];
+		$("#runner-" + buttonId).runner('reset');
+		var action_button = "<button id=\"startTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
+		$("#machine-" + buttonId + " td.do_action").html(action_button);
+		var request = $.getJSON("ajax/removetimes.php", {id : partId, machine : buttonId}, function(data) {
+			console.log(data);
+			/*$.each(data, function(key, value) {
+				//alert (value.start_time);
+				var a = format_date(value.start_time);
+				$("#machine-" + buttonId + " td.study_date").html(a);
+			});*/
+		});
 	});
 	
 </script>
