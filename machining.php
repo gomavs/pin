@@ -223,7 +223,7 @@ function display_children($category_id, $level){
 
 			
 			$.each(machine_list, function(k, v){
-				var start_button = "<button id=\"startTimer-"+ v +"\" type=\"button\" class=\"btn btn-success btn-xs hide\">Start</button>";
+				var start_button = "<button id=\"startTimer-"+ v +"\" type=\"button\" class=\"btn btn-success btn-xs \">Start</button>";
 				$("#runner-" + v).runner({autostart: false, milliseconds: false});
 				
 				$("#machine-" + v + " td.study_date").html(" ");
