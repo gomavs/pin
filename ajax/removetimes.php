@@ -9,8 +9,8 @@ if(isset($_GET['id']) && isset($_GET['machine'])){
 	$query->bind_param("ii", $item_id, $mid);
 	$query->execute();
 	
-	//$data[] = ["start_time"=>$timenow, "end_time"=>];
-	//echo json_encode($data);
+	$data[] = ["start_time"=>$timenow];
+	echo json_encode($data);
 
 }
 

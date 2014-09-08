@@ -1,5 +1,10 @@
 <?php
-require_once 'includes/dbConnect.php'
+require_once 'includes/dbConnect.php';
+include 'includes/sessionstatus.php';
+
+ $_SESSION["logged"]=0;
+ $_SESSION["name"]="Shawn Brunson";
+ $_SESSION['auth']=5;
 
 ?>
 <!DOCTYPE html>
@@ -51,19 +56,41 @@ require_once 'includes/dbConnect.php'
 					</ul>
 				</li>
 			</ul>
-
+			
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Login</a></li>
+				
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">Settings</a></li>
-						<li><a href="#">Another action</a></li>
-						<li class="divider"></li>
-						<li><a href="./admin/admin.php">Administration</a></li>
+						<?php
+						if($_SESSION['auth'] == 5){
+						 echo "<li class=\"divider\"></li><li><a href=\"./admin/admin.php\">Administration</a></li>";}
+						?>
 					</ul>
 				</li>
 			</ul>
+			<?php
+			if($_SESSION['logged'] == 1){
+			echo "<p class=\"navbar-text navbar-right\">Signed in as <a class=\"navbar-link\" href=\"#\">".$_SESSION['name']."</a></p>";
+			
+			}else{
+			 echo "<form data-toggle=\"validator\" class=\"navbar-form navbar-right\" role=\"form\">";
+				echo "<div class=\"form-group\">";
+					echo "<label class=\"sr-only\" for=\"exampleInputEmail2\">Email address</label>";
+					echo "<input type=\"email\" class=\"form-control input-sm\" id=\"InputEmail\" name=\"email\" placeholder=\"Enter email\" required>&nbsp;";
+				echo "</div>";
+				
+				echo "<div class=\"form-group\">";
+					echo "<label class=\"sr-only\" for=\"exampleInputPassword2\">Password</label>";
+					echo "<input data-minlength=\"5\" type=\"password\" class=\"form-control input-sm\" id=\"InputPassword\" name=\"password\" placeholder=\"Password\" required>&nbsp;";
+				echo "</div>";
+				echo "<div class=\"form-group login_button\">";
+				echo "<button type=\"submit\" class=\"btn btn-primary btn-sm signin\" name=\"signin\">Sign in</button>";
+				echo "</div>";
+			echo "</form>";
+			}
+			?>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
 </nav>
@@ -103,6 +130,8 @@ require_once 'includes/dbConnect.php'
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/validator.js"></script>
+<script src="js/timestudy.js"></script>
 
 </body>
 </html>

@@ -13,7 +13,7 @@ while (($row = $result->fetch_object()) !== NULL) {
 	}else{
 		$start_time = (object)array("start_time"=>"");
 	}
-	$data[] = ["id"=>$row->id, "machine_id"=>$row->machine_id, "start_time"=>$row->start_time, "end_time"=>$row->end_time];
+	$data[] = ["id"=>$row->id, "machine_id"=>$row->machine_id, "start_time"=>$row->start_time, "end_time"=>$row->end_time, "completed"=>$row->completed];
 }
 
 echo json_encode($data);

@@ -199,7 +199,7 @@ function display_children($category_id, $level){
 		$(this).toggleClass("open");
 		event.stopPropagation();
 	});
-/*	
+	
 	$(function() {
 		$('ul.sub').hide();
 		$("li:has(.sub)").click(function() {
@@ -209,7 +209,7 @@ function display_children($category_id, $level){
 			event.stopPropagation();
 		});
 	});
-*/	
+	
 	$(function(){
 		$('#autocomplete').autocomplete({
 			serviceUrl:"ajax/search.php",
@@ -267,9 +267,13 @@ function display_children($category_id, $level){
 					});
 					$("#runner-" + value.machine_id).runner('start');
 				} else if(!value.start_time){
-					var action_button = "<button id=\"myButton\" type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
+					var action_button = "<button id=\"startTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
 				}else{
-					var action_button = "<button type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>";
+					if(value.completed == 0){
+						var action_button = "<button id=\"resetTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>  <button id=\"doneTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-primary btn-xs\">Done</button>";
+					}else{
+						var action_button = "<button id=\"resetTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-warning btn-xs\" disabled>Reset</button>";
+					}
 				}
 				
 				$("#machine-" + value.machine_id + " td.study_date").html(month + " " + date + ", " + year);
@@ -312,15 +316,11 @@ function display_children($category_id, $level){
 		var arr = buttonId.split('-');
 		buttonId = arr[1];
 		$("#runner-" + buttonId).runner('stop');
-		var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>";
+		var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>  <button id=\"doneTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-primary btn-xs\">Done</button>";
 		$("#machine-" + buttonId + " td.do_action").html(action_button);
 		var request = $.getJSON("ajax/updatetimes.php", {id : partId, machine : buttonId}, function(data) {
 			console.log(data);
-			/*$.each(data, function(key, value) {
-				//alert (value.start_time);
-				var a = format_date(value.start_time);
-				$("#machine-" + buttonId + " td.study_date").html(a);
-			});*/
+			
 		});
 	});
 	
@@ -331,13 +331,24 @@ function display_children($category_id, $level){
 		$("#runner-" + buttonId).runner('reset');
 		var action_button = "<button id=\"startTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
 		$("#machine-" + buttonId + " td.do_action").html(action_button);
+		$("#machine-" + buttonId + " td.study_date").html(" ");
 		var request = $.getJSON("ajax/removetimes.php", {id : partId, machine : buttonId}, function(data) {
 			console.log(data);
-			/*$.each(data, function(key, value) {
-				//alert (value.start_time);
-				var a = format_date(value.start_time);
-				$("#machine-" + buttonId + " td.study_date").html(a);
-			});*/
+			$("#machine-" + buttonID + " td.study_date").html(" ");
+			
+		});
+	});
+	
+	$( ".do_action" ).on( "click", "[id^=doneTimer-]", function() {
+		var buttonId = this.id;
+		var arr = buttonId.split('-');
+		buttonId = arr[1];
+		$("#runner-" + buttonId).runner('stop');
+		var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\" disabled>Reset</button>";
+		$("#machine-" + buttonId + " td.do_action").html(action_button);
+		var request = $.getJSON("ajax/finishtimes.php", {id : partId, machine : buttonId}, function(data) {
+			console.log(data);
+			
 		});
 	});
 	

@@ -1,3 +1,18 @@
+//login script
+$( ".signin" ).on( "click", function() {
+	var email = $('#InputEmail').val();
+	var password = $('#InputPassword').val();
+	
+	var request = $.getJSON("ajax/signin.php", {useremail : email, userpassword : password}, function(data) {
+		console.log(data);
+		alert("test");
+		var login_button = "<button type=\"submit\" class=\"btn btn-primary btn-sm signout\" name=\"signout\">Sign Out</button>";
+		$(".login_button").html(login_button);
+		//var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\" disabled>Reset</button>";
+		
+	});
+});
+
 function format_date(time_stamp){
 
 	var a = new Date(time_stamp*1000);
