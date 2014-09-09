@@ -1,49 +1,6 @@
 <?php
-require '../includes/check_login.php';
-//require_once '../includes/dbConnect.php';
+require 'includes/check_login.php';
 
-if (isset( $_POST[ 'submit' ] ) ) {
-	$firstname = $_POST['firstname'];
-	$lastname = $_POST['lastname'];
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	$authlevel = $_POST['authlevel'];
-	$active = $_POST['active'];
-	$id = $_POST["id"];
-
-	if (!empty($id)) {
-		$query = $db->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, password = ?, authlevel = ?, active = ? WHERE id = ?");
-		$query->bind_param("ssssiii", $firstname, $lastname, $email, $password, $authlevel, $active, $id);
-		$query->execute();
-	} else {
-		mysqli_query($db,"INSERT INTO users (firstname, lastname, email, password, authlevel, active)
-	VALUES ('$firstname', '$lastname','$email', '$password', '$authlevel', '$active')");
-	
-	}
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>PIN Time Study</title>
-
-	<!-- Bootstrap -->
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../css/main.css" rel="stylesheet">
-
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-<?php
-include '../includes/navbar.php';
 ?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>

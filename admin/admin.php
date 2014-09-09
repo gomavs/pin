@@ -1,5 +1,6 @@
 <?php
-require_once '../includes/dbConnect.php'
+require '../includes/check_login.php';
+//require_once '../includes/dbConnect.php'
 
 ?>
 <!DOCTYPE html>
@@ -22,47 +23,9 @@ require_once '../includes/dbConnect.php'
 	<![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
-	<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="..">Pin Time Study</a>
-		</div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Operations <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="users.php">Users</a></li>
-						<li><a href="machines.php">Machines</a></li>
-						<li><a href="parts.php">Parts</a></li>
-					</ul>
-				</li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Login</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Settings</a></li>
-						<li><a href="#">Another action</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Administration</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
-</nav>
+<?php
+include '../includes/navbar.php';
+?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
 	<li class="active">Administration</li>

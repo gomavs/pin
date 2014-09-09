@@ -14,9 +14,7 @@ if(isset($_GET['id']) && isset($_GET['machine'])){
 	$result = $query->get_result();
 	$row = $result->fetch_assoc();
 	$start_time = $row['start_time'];
-	//$data[] = ["start_time"=>$timenow, "end_time"=>$timenow];
-	//echo json_encode($data);
+
 	echo $start_time;
-	echo "test";
 }
 ?>

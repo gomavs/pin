@@ -1,8 +1,6 @@
 <?php
-require_once 'includes/dbConnect.php';
-include 'includes/sessionstatus.php';
-echo $_SESSION['FIRST_NAME'];
-
+require 'includes/check_login.php';
+//require_once 'includes/dbConnect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,75 +22,10 @@ echo $_SESSION['FIRST_NAME'];
 <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
-	<div class="container-fluid">
-	<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Pin Time Study</a>
-		</div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part Timing <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Cutting</a></li>
-						<li><a href="machining.php">Machining</a></li>
-						<li><a href="#">Edgebanding</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Assembly</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Packaging</a></li>
-					</ul>
-				</li>
-			</ul>
-			
-			<ul class="nav navbar-nav navbar-right">
-				
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Settings</a></li>
-						<?php
-						if($_SESSION['AUTH_LEVEL'] == 5){
-						 echo "<li class=\"divider\"></li><li><a href=\"./admin/admin.php\">Administration</a></li>";}
-						?>
-					</ul>
-				</li>
-			</ul>
-			<?php
-			if($_SESSION['LOGGED'] == 1){
-			echo "<p class=\"navbar-text navbar-right\">Signed in as <a class=\"navbar-link\" href=\"#\">".$_SESSION['FIRST_NAME']."</a></p>";
-			
-			}else{
-			 echo "<form data-toggle=\"validator\" class=\"navbar-form navbar-right\" role=\"form\">";
-				echo "<div class=\"form-group\">";
-					echo "<label class=\"sr-only\" for=\"exampleInputEmail2\">Email address</label>";
-					echo "<input type=\"email\" class=\"form-control input-sm\" id=\"InputEmail\" name=\"email\" placeholder=\"Enter email\" required>&nbsp;";
-				echo "</div>";
-				
-				echo "<div class=\"form-group\">";
-					echo "<label class=\"sr-only\" for=\"exampleInputPassword2\">Password</label>";
-					echo "<input data-minlength=\"5\" type=\"password\" class=\"form-control input-sm\" id=\"InputPassword\" name=\"password\" placeholder=\"Password\" required>&nbsp;";
-				echo "</div>";
-				echo "<div class=\"form-group login_button\">";
-				echo "<button type=\"button\" class=\"btn btn-primary btn-sm signin\" name=\"signin\">Sign in</button>";
-				echo "</div>";
-			echo "</form>";
-			}
-			?>
-		</div><!-- /.navbar-collapse -->
-	</div><!-- /.container-fluid -->
-</nav>
+<?php
+include 'includes/navbar.php';
+?>
 <ol class="breadcrumb">
-
 	<li class="active">Home</li>
 </ol>
 <div class="container administration">
