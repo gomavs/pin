@@ -5,11 +5,16 @@ $( ".signin" ).on( "click", function() {
 	
 	var request = $.getJSON("ajax/signin.php", {useremail : email, userpassword : password}, function(data) {
 		console.log(data);
-		alert("test");
-		var login_button = "<button type=\"submit\" class=\"btn btn-primary btn-sm signout\" name=\"signout\">Sign Out</button>";
+		var login_button = "<button type=\"button\" class=\"btn btn-primary btn-sm signout\" name=\"signout\">Sign Out</button>";
 		$(".login_button").html(login_button);
-		//var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\" disabled>Reset</button>";
-		
+		//$("[name=email]").val(data.first_name);
+		var logged = data.logged;
+		var user_id = data.user_id;
+		var first_name = data.first_name;
+		var last_name = data.last_name;
+		var auth_level = data.auth_level;
+
+
 	});
 });
 

@@ -1,10 +1,7 @@
 <?php
 require_once 'includes/dbConnect.php';
 include 'includes/sessionstatus.php';
-
- $_SESSION["logged"]=0;
- $_SESSION["name"]="Shawn Brunson";
- $_SESSION['auth']=5;
+echo $_SESSION['FIRST_NAME'];
 
 ?>
 <!DOCTYPE html>
@@ -64,15 +61,15 @@ include 'includes/sessionstatus.php';
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">Settings</a></li>
 						<?php
-						if($_SESSION['auth'] == 5){
+						if($_SESSION['AUTH_LEVEL'] == 5){
 						 echo "<li class=\"divider\"></li><li><a href=\"./admin/admin.php\">Administration</a></li>";}
 						?>
 					</ul>
 				</li>
 			</ul>
 			<?php
-			if($_SESSION['logged'] == 1){
-			echo "<p class=\"navbar-text navbar-right\">Signed in as <a class=\"navbar-link\" href=\"#\">".$_SESSION['name']."</a></p>";
+			if($_SESSION['LOGGED'] == 1){
+			echo "<p class=\"navbar-text navbar-right\">Signed in as <a class=\"navbar-link\" href=\"#\">".$_SESSION['FIRST_NAME']."</a></p>";
 			
 			}else{
 			 echo "<form data-toggle=\"validator\" class=\"navbar-form navbar-right\" role=\"form\">";
@@ -86,7 +83,7 @@ include 'includes/sessionstatus.php';
 					echo "<input data-minlength=\"5\" type=\"password\" class=\"form-control input-sm\" id=\"InputPassword\" name=\"password\" placeholder=\"Password\" required>&nbsp;";
 				echo "</div>";
 				echo "<div class=\"form-group login_button\">";
-				echo "<button type=\"submit\" class=\"btn btn-primary btn-sm signin\" name=\"signin\">Sign in</button>";
+				echo "<button type=\"button\" class=\"btn btn-primary btn-sm signin\" name=\"signin\">Sign in</button>";
 				echo "</div>";
 			echo "</form>";
 			}

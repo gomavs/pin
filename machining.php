@@ -1,6 +1,8 @@
 <?php
 require_once 'includes/dbConnect.php';
+include 'includes/sessionstatus.php';
 $return_data = "";
+echo $_SESSION['FIRST_NAME'];
 if(isset($_POST["partnumber"])){
 	$ul_count = 0;
 	$last_level = 0;

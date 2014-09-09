@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once '../includes/dbConnect.php';
 
 //Array to store validation errors
@@ -54,12 +54,13 @@ if($result) {
 		//Login Successful
 		session_regenerate_id();
 		$row = $result->fetch_assoc();
-		$_SESSION['SESS_LOGGED'] = 1;
-		$_SESSION['SESS_FIRST_NAME'] = $row['firstname'];
-		$_SESSION['SESS_LAST_NAME'] = $row['lastname'];
-		$_SESSION['SESS_AUTH_LEVEL'] = $row['authlevel'];
+		$_SESSION['LOGGED'] = 1;
+		$_SESSION['USER_ID'] = $row['id'];
+		$_SESSION['FIRST_NAME'] = $row['firstname'];
+		$_SESSION['LAST_NAME'] = $row['lastname'];
+		$_SESSION['AUTH_LEVEL'] = $row['authlevel'];
 		session_write_close();
-		$data = (object)array("logged"=>$_SESSION['SESS_LOGGED'], "first_name"=>$_SESSION['SESS_FIRST_NAME'], "last_name"=>$_SESSION['SESS_LAST_NAME'],"auth_level"=>$_SESSION['SESS_AUTH_LEVEL']); 
+		$data = (object)array("logged"=>$_SESSION['LOGGED'], "user_id"=>$_SESSION['USER_ID'], "first_name"=>$_SESSION['FIRST_NAME'], "last_name"=>$_SESSION['LAST_NAME'],"auth_level"=>$_SESSION['AUTH_LEVEL']);
 		echo json_encode($data);
 		
 	}else {
@@ -70,7 +71,7 @@ if($result) {
 			$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 			session_write_close();
 		}
-		$data = (object)array("auth_level"=>0, "error_code"=>$_SESSION['ERRMSG_ARR']);
+		$data = (object)array("auth_level"=>0, "logged_in"=>0, "error_code"=>$_SESSION['ERRMSG_ARR']);
 		echo json_encode($data);
 	}
 }else {
