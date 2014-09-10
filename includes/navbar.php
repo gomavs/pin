@@ -18,8 +18,8 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part Timing <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">Cutting</a></li>
-						<li><a href="machining.php">Machining</a></li>
 						<li><a href="#">Edgebanding</a></li>
+						<li><a href="machining.php">Machining</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Assembly</a></li>
 						<li class="divider"></li>

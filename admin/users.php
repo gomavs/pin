@@ -43,7 +43,7 @@ if (isset( $_POST[ 'submit' ] ) ) {
 </head>
 <body>
 <?php
-include '../includes/navbar.php';
+include '../includes/navbar2.php';
 ?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>

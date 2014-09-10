@@ -1,5 +1,6 @@
 <?php
-require 'includes/check_login.php';
+session_start();
+//require 'includes/check_login.php';
 require_once 'includes/dbConnect.php';
 if(isset($_SESSION['logged']) && $_SESSION['logged'] == 1){
 	header("location:index.php");
