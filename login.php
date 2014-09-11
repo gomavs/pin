@@ -62,7 +62,7 @@ if(isset($_POST['submit'])){
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" formmethod="post">
                     Sign in</button>
                 <label class="checkbox pull-left">
-                    <input type="checkbox" value="remember-me">
+                    <input type="checkbox" value="remember-me" disabled>
                     Remember me
                 </label>
                 <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>

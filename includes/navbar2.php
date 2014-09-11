@@ -40,7 +40,7 @@
 				</li>
 			</ul>
 
-			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="#"><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?></a></p>
+			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="#"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?></b></a></p>
  
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->
