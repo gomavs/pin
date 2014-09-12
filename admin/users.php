@@ -6,18 +6,17 @@ if (isset( $_POST[ 'submit' ] ) ) {
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
 	$email = $_POST['email'];
-	$password = $_POST['password'];
 	$authlevel = $_POST['authlevel'];
 	$active = $_POST['active'];
 	$id = $_POST["id"];
-
+	$hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 	if (!empty($id)) {
-		$query = $db->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, password = ?, authlevel = ?, active = ? WHERE id = ?");
-		$query->bind_param("ssssiii", $firstname, $lastname, $email, $password, $authlevel, $active, $id);
+		$query = $db->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, authlevel = ?, active = ? WHERE id = ?");
+		$query->bind_param("sssiii", $firstname, $lastname, $email, $authlevel, $active, $id);
 		$query->execute();
 	} else {
 		mysqli_query($db,"INSERT INTO users (firstname, lastname, email, password, authlevel, active)
-	VALUES ('$firstname', '$lastname','$email', '$password', '$authlevel', '$active')");
+	VALUES ('$firstname', '$lastname','$email', '$hashed_password', '$authlevel', '$active')");
 	
 	}
 }
@@ -85,6 +84,7 @@ include '../includes/navbar2.php';
 					<label for="active" class="control-label">Authorization Level</label>
 					<select class="form-control" name="authlevel">
 						<option value="1">Operator</option>
+						<option value="3">Manager</option>
 						<option value="5">Administrator</option>
 					</select>
 				</div>
@@ -127,6 +127,8 @@ include '../includes/navbar2.php';
 						$active = $row['active'];
 						if ($authlevel == 5) {
 							$authlevel = "Administrator";
+						}elseif($authlevel == 3){
+							$authlevel = "Manager";
 						}else{
 							$authlevel = "Operator";
 						}

@@ -2,29 +2,37 @@
 session_start();
 //require 'includes/check_login.php';
 require_once 'includes/dbConnect.php';
+$errors = array();
 if(isset($_SESSION['logged']) && $_SESSION['logged'] == 1){
-	header("location:index.php");
+	//header("location:index.php");
 }
 if(isset($_POST['submit'])){
 	$email = $_POST['email'];
 	$password = $_POST['password'];
-	//$password = SHA1($_POST['password']);
-	$query = $db->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
-	$query->bind_param("ss", $email, $password);
+	$query = $db->prepare("SELECT * FROM users WHERE email = ?");
+	$query->bind_param("s", $email);
 	$query->execute();
 	$result = $query->get_result();
 	while (($row = $result->fetch_object()) !== NULL) {
-		$_SESSION['user_id'] = $row->id;
-		$_SESSION['user_first_name'] = $row->firstname;
-		$_SESSION['user_last_name'] = $row->lastname;
-		$_SESSION['user_email'] = $row->email;
-		$_SESSION['user_pass'] = $row->password;
-		$_SESSION['user_auth_level'] = $row->authlevel;
-		$_SESSION['logged'] = 1;
-		$logged_in = 1;
-		header("location:index.php");
-		
+		$hash = $row->password;
+		if (password_verify($password, $hash)) {
+			//Password is verified
+			if($row->active == 1){
+				$_SESSION['user_id'] = $row->id;
+				$_SESSION['user_first_name'] = $row->firstname;
+				$_SESSION['user_last_name'] = $row->lastname;
+				$_SESSION['user_email'] = $row->email;
+				$_SESSION['user_pass'] = $password;
+				$_SESSION['user_auth_level'] = $row->authlevel;
+				$_SESSION['logged'] = 1;
+				$logged_in = 1;
+				header("location:index.php");
+			}else{
+				$errors[] = "This is not an active account.  Please contact a Time Study administrator.";
+			}
+		}
 	}
+	
 }
 
 ?>
@@ -57,15 +65,24 @@ if(isset($_POST['submit'])){
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">
                 <form data-toggle=\"validator\" class="form-signin" method="post">
-                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required autofocus>
-                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
-                <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" formmethod="post">
-                    Sign in</button>
-                <label class="checkbox pull-left">
-                    <input type="checkbox" value="remember-me" disabled>
-                    Remember me
-                </label>
-                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+					<input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required autofocus>
+					<input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" formmethod="post">
+						Sign in</button>
+					<label class="checkbox pull-left">
+						<input type="checkbox" value="remember-me" disabled>
+						Remember me
+					</label>
+					<a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+					<div class="login_errors">
+						<?php 
+							if (count($errors) > 0){
+								foreach ($errors AS $Errors){
+									echo $Errors."<br>";
+								}
+							}
+						?>
+					</div>
                 </form>
             </div>
         </div>

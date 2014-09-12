@@ -108,3 +108,17 @@
 tr.clickableRow {
 	cursor: pointer;
 }
+
+.panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e080";    
+    float: right; 
+    color: white; 
+}
+.panel-heading a.collapsed:after {
+    content: "\e114";
+}
+
+.login_errors {
+	font-color: red;
+}

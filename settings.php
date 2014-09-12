@@ -1,6 +1,31 @@
 <?php
 require 'includes/check_login.php';
+if(isset($_POST['changeName'])){
+	$new_first_name = $_POST['firstname'];
+	$new_last_name = $_POST['lastname'];
+	$query = $db->prepare("UPDATE users SET firstname = ?, lastname = ? WHERE id = ? ");
+	$query->bind_param("ssi", $new_first_name, $new_last_name, $_SESSION['user_id']);
+	$query->execute();
+	$_SESSION['user_first_name'] = $new_first_name;
+	$_SESSION['user_last_name'] = $new_last_name;
+}
 
+if(isset($_POST['changeEmail'])){
+	$new_email = $_POST['email'];
+	$query = $db->prepare("UPDATE users SET email = ? WHERE id = ? ");
+	$query->bind_param("si", $new_email, $_SESSION['user_id']);
+	$query->execute();
+	$_SESSION['user_email'] = $new_email;
+
+}
+
+if(isset($_POST['changePass'])){
+	$old_password = $_POST['oldpassword'];
+	$new_password = $_POST['password'];
+
+	$hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+	echo $hashed_password;
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,22 +57,18 @@ include 'includes/navbar.php';
 </ol>
 <div class="container">
 	<div class="row">
-		<div class="col-lg-3">
-	
-		</div>
+		<div class="col-lg-3"></div>
 		<div class="col-lg-6">
 			<div class="panel-group" id="accordion">
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel1">
 					<div class="panel-heading">
-						<div class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-							<b>
+						<div class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
 								Name
-							</b>
-							Shawn Brunson
+							</a>
 						</div>
-						
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse">
+					<div id="collapseOne" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<?php echo $_SESSION['user_first_name']. " " . $_SESSION['user_last_name']; ?>
 							<form data-toggle="validator" role="form" method="post" id="changeName">
@@ -59,49 +80,63 @@ include 'includes/navbar.php';
 									<label for="inputLastName" class="control-label">Last Name</label>
 									<input type="text" class="form-control" id="inputLastName" name="lastname" placeholder="Last Name" required>
 								</div>
+								<div class="form-group col-md-8">
+									<button type="submit" name="changeName" class="btn btn-primary" formmethod="post">Change Name</button>
+								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel2">
 					<div class="panel-heading">
-						<h4 class="panel-title">
+						<div class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
 								Email
 							</a>
-						</h4>
+						</div>
 					</div>
 					<div id="collapseTwo" class="panel-collapse collapse">
 						<div class="panel-body">
 							<?php echo $_SESSION['user_email']; ?>
 							<form data-toggle="validator" role="form" method="post" id="changeEmail">
-								<div class="form-group col-md-8">
-									<label for="inputEmail" class="control-label">Email</label>
-									<input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" data-error="That email address is invalid" required>
+								<div class="form-group">
+									<label for="inputEmail" class="control-label col-md-12" >Email</label>
+									<div class="form-group col-md-6">
+										<input type="email" class="form-control col-md-6" id="inputEmail" name="email" placeholder="Email" data-error="That email address is invalid" required>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<input type="email" class="form-control" id="confirmEmail" name="confirmemail" placeholder="Email" data-match="#inputEmail" data-error="The email addresses do not match." required>
 									<div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group col-md-8">
 									<button type="submit" name="changeEmail" class="btn btn-primary" formmethod="post">Change Email</button>
-								</div>
+								</div>								
 							</form>
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel3">
 					<div class="panel-heading">
-						<h4 class="panel-title">
+						<div class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
 								Password
 							</a>
-						</h4>
+						</div>
 					</div>
 					<div id="collapseThree" class="panel-collapse collapse">
 						<div class="panel-body">
 							<form data-toggle="validator" role="form" method="post" id="changePassword">
 								<div class="form-group">
+									<label for="inputPassword" class="control-label col-md-12">Current Password</label>
+									<div class="form-group col-md-6">
+										<input type="password" class="form-control pull-left" id="oldPassword" name="oldpassword" placeholder="Current Password" required>
+										
+									</div>
 									<label for="inputPassword" class="control-label col-md-12">New Password</label>
 									<div class="form-group col-md-6">
-										<input type="password" data-minlength="5" class="form-control pull-left" id="inputPassword" name="password" placeholder="Password" required>
+										<input type="password" data-minlength="5" class="form-control pull-left" id="inputPassword" name="password" placeholder="New Password" required>
 										<span class="help-block">Minimum of 5 characters</span>
 									</div>
 									<div class="form-group col-md-6">

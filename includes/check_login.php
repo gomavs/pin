@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'dbConnect.php';
-
+$errors = array();
 if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 	$logged_in = 0;
 	header('location:login.php');
@@ -32,8 +32,8 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 	$user_password = stripslashes($row['password']);
 	$active = $row['active'];
 	if ($active == 1) {
-		if($_SESSION['user_pass'] == $user_password){
-			$_SESSION['user_pass'] = $user_password;
+		$hash = $row['password'];
+		if (password_verify($_SESSION['user_pass'], $hash)) {
 			$_SESSION['user_id'] = $row['id'];
 			$_SESSION['user_first_name'] = $row['firstname'];
 			$_SESSION['user_last_name'] = $row['lastname'];
@@ -49,11 +49,6 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 		}
 	}
 }
-
 // clean up
 unset($row['password']);
-
-$_SESSION['user_email'] = stripslashes($_SESSION['user_email']);
-
-
 ?>
