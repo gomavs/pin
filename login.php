@@ -94,8 +94,19 @@ if(isset($_POST['submit'])){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/validator.js"></script>
-<script src="js/timestudy.js"></script>
-
+<script>
+	$(".need-help").click(function() {
+		var list = 5;
+		var request = $.getJSON("ajax/adminlist.php", {admin : list}, function(data) {
+			console.log(data);
+			var alertMessage = "If you can't remember your login email or password, please conatct one of the administrators listed below. \n" + " \f";
+			$.each(data, function(key, value) {
+				alertMessage += value.firstname + " " + value.lastname + "\n";
+			});
+			alert(alertMessage);
+		});
+	});
+</script>
 </body>
 </html>
 

@@ -13,30 +13,42 @@ if(isset($_POST['changeName'])){
 
 if(isset($_POST['changeEmail'])){
 	$new_email = $_POST['email'];
-	$query = $db->prepare("UPDATE users SET email = ? WHERE id = ? ");
-	$query->bind_param("si", $new_email, $_SESSION['user_id']);
+	$query = $db->prepare("SELECT id FROM users WHERE email = ?");
+	$query->bind_param("s", $new_email);
 	$query->execute();
-	$_SESSION['user_email'] = $new_email;
+	$result = $query->get_result();
+	$row = $result->fetch_assoc();
+	if ($row['id'] == NULL){
+		$query = $db->prepare("UPDATE users SET email = ? WHERE id = ? ");
+		$query->bind_param("si", $new_email, $_SESSION['user_id']);
+		$query->execute();
+		$_SESSION['user_email'] = $new_email;
+	}else{
+		$errors[] = "That email address is already in use.";
+	}
 }
 
 if(isset($_POST['changePass'])){
 	$old_password = $_POST['oldpassword'];
-	$new_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-	$query = $db->prepare("SELECT * FROM users WHERE id = ?");
-	$query->bind_param("s", $_SESSION['user_id']);
+	$user_email = $_SESSION['user_email'];
+	$query = $db->prepare("SELECT password FROM users WHERE email = ?");
+	$query->bind_param("s", $user_email);
 	$query->execute();
 	$result = $query->get_result();
-	$row = $result->fetch_assoc();
-	$hash = $row['password'];
-	if (password_verify($old_password, $hash)) {
-		$query = $db->prepare("UPDATE users SET password = ? WHERE id = ? ");
-		$query->bind_param("si", $new_password, $_SESSION['user_id']);
-		$query->execute();
-		$_SESSION['user_pass']=$_POST['password'];
-	}else{
-		$errors[] = "The password you entered is incorrect.";
+	while (($row = $result->fetch_object()) !== NULL){
+		$hash = $row->password;
+		if(password_verify($old_password, $hash)){
+			$hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+			$query = $db->prepare("UPDATE users SET password = ? WHERE email = ? ");
+			$query->bind_param("si", $hashed_password, $_SESSION['user_email']);
+			$query->execute();
+			$_SESSION['user_pass'] = $hashed_password;
+		}else{
+			$errors[] = "The entered password is incorrect.";
+		}
 	}
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -118,7 +130,7 @@ include 'includes/navbar.php';
 									</div>
 								</div>
 								<div class="form-group col-md-6">
-									<input type="email" class="form-control" id="confirmEmail" name="confirmemail" placeholder="Email" data-match="#inputEmail" data-error="The email addresses do not match." required>
+									<input type="email" class="form-control" id="confirmEmail" name="confirmemail" placeholder="Confirm Email" data-match="#inputEmail" data-error="The email addresses do not match." required>
 									<div class="help-block with-errors"></div>
 								</div>
 								<div class="form-group col-md-8">
@@ -143,7 +155,6 @@ include 'includes/navbar.php';
 									<label for="inputPassword" class="control-label col-md-12">Current Password</label>
 									<div class="form-group col-md-6">
 										<input type="password" class="form-control pull-left" id="oldPassword" name="oldpassword" placeholder="Current Password" required>
-										
 									</div>
 									<label for="inputPassword" class="control-label col-md-12">New Password</label>
 									<div class="form-group col-md-6">
@@ -157,25 +168,21 @@ include 'includes/navbar.php';
 								</div>
 								<div class="form-group col-md-8">
 									<button type="submit" name="changePass" class="btn btn-primary" formmethod="post">Change Password</button>
-									<div class="settings-error">
-										<?php
-										if (count($errors) > 0){
-											foreach ($errors AS $Errors){
-												echo $Errors."<br>";
-											}
-										}
-										?>
-									</div>
 								</div>
-								
 							</form>
 						</div>
 					</div>
 				</div>
 			</div> 
-			  
-			
-			
+			<div class="error-block">
+				<?php
+					if (count($errors) > 0){
+						foreach ($errors AS $Errors){
+							echo $Errors."<br>";
+						}
+					}
+				?>
+			</div>
 		</div>
 		<div class="col-lg-3">
 	

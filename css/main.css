@@ -36,7 +36,10 @@
 	position:absolute;
 	left:50%;
 }
-.tree li.hover, .tree li.boom {
+.tree ul:hover{
+	background-color:#fff;
+}
+.tree li:hover {
 	background-color:#f5f5f5;
 }
 
@@ -116,9 +119,10 @@ tr.clickableRow {
     content: "\e114";
 }
 
-.settings-error {
-	color: red;
+.error-block{
+ color: red;
 }
-tr.test {
-	background-color: #f5f5f5;
+
+.newpass{
+	color: blue;
 }

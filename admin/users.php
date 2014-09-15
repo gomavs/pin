@@ -20,6 +20,31 @@ if (isset( $_POST[ 'submit' ] ) ) {
 	}
 }
 
+if(isset($_POST['updateuser'])){
+	$user_id = $_POST['update_user'];
+	$user_first_name = $_POST['firstname'];
+	$user_last_name = $_POST['lastname'];
+	$user_email = $_POST['email'];
+	$user_auth_level = $_POST['authlevel'];
+	$user_active = $_POST['active'];
+	$query = $db->prepare("UPDATE users SET firstname = ?, lastname = ?, email = ?, authlevel = ?, active = ? WHERE id = ? ");
+	$query->bind_param("sssiii", $user_first_name, $user_last_name, $user_email, $user_auth_level, $user_active, $user_id);
+	$query->execute();
+}
+
+if(isset($_POST['resetpass'])){
+	$user_id = $_POST['update_user'];
+	//echo $user_id;
+	$length = 8;
+	$charset="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	$str = '';
+    $count = strlen($charset);
+    while ($length--) {
+		$str .= $charset[mt_rand(0, $count-1)];
+    }
+	echo $str;
+}
+
 $table_data = "";
 $result = mysqli_query($db,"SELECT * FROM users ORDER BY lastname ASC");
 while($row = mysqli_fetch_array($result)) {
@@ -37,15 +62,15 @@ while($row = mysqli_fetch_array($result)) {
 	}
 	if ($active == 0){
 		$user_active = "No";
-		$radio_active = "<label class=\"col-md-3\"><input type=\"radio\" name=\"active\" value=\"1\" required>Yes</label><label><input type=\"radio\" name=\"active\" value=\"0\" required checked>No</label></div>";
+		$radio_active = "<label class=\"col-md-4\"><input type=\"radio\" name=\"active\" value=\"1\" required>Yes</label><label><input type=\"radio\" name=\"active\" value=\"0\" required checked>No</label></div>";
 	}else{
 		$user_active = "Yes";
-		$radio_active = "<label class=\"col-md-3\"><input type=\"radio\" name=\"active\" value=\"1\" required checked>Yes</label><label><input type=\"radio\" name=\"active\" value=\"0\" required>No</label></div>";
+		$radio_active = "<label class=\"col-md-4\"><input type=\"radio\" name=\"active\" value=\"1\" required checked>Yes</label><label><input type=\"radio\" name=\"active\" value=\"0\" required>No</label></div>";
 	}
 
 	$table_data .= "<tr id=\"$id\"><td>".$row['id']."</td><td>". $row['firstname']."</td><td>".$row['lastname']."</td><td>".$row['email']."</td><td>".$authorized."</td><td>".$user_active."</td></tr>";
 	$table_data .= "<tr class=\"test\"><td colspan=\"6\">";
-	$table_data .= "<form id=\"user-". $row['id']."\"><input type=\"hidden\" name=\"".$row['id']."\" value=\"\"/>";
+	$table_data .= "<form id=\"user-". $row['id']."\"><input type=\"hidden\" name=\"update_user\" value=\"".$row['id']."\"/>";
 	$table_data .= "<div class=\"row\"><div class=\"form-group col-md-3\">";
 	$table_data .= "<label for=\"inputFirstName\" class=\"control-label\">First Name</label>";
 	$table_data .= "<input type=\"text\" class=\"form-control\" id=\"inputFirstName\" name=\"firstname\" value=\"".$row['firstname']."\" required></div>";
@@ -54,7 +79,10 @@ while($row = mysqli_fetch_array($result)) {
 	$table_data .= "<input type=\"text\" class=\"form-control\" id=\"inputLastName\" name=\"lastname\" value=\"".$row['lastname']."\" required></div>";
 	$table_data .= "<div class=\"form-group col-md-3\">";
 	$table_data .= "<label for=\"active\" class=\"control-label\">Authorization Level</label>";
-	$table_data .= "<select class=\"form-control\" name=\"authlevel\">.$authlist.</select></div></div>";
+	$table_data .= "<select class=\"form-control\" name=\"authlevel\">.$authlist.</select></div>";
+	$table_data .= "<div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"newpass\" class=\"control-label newpasslabel\">New Password</label>";
+	$table_data .= "<h4 for=\"newpass\" class=\"control-label newpass\" >T0vR23zY</h4></div></div>";
 	$table_data .= "<div class=\"row\"><div class=\"form-group col-md-3\">";
 	$table_data .= "<label for=\"inputEmail\" class=\"control-label\">Email</label>";
 	$table_data .= "<input type=\"email\" class=\"form-control\" id=\"inputEmail\" name=\"email\" value=\"".$row['email']."\" data-error=\"That email address is invalid\" required>";
@@ -62,14 +90,13 @@ while($row = mysqli_fetch_array($result)) {
 	$table_data .= "<div class=\"form-group col-md-3\">";
 	$table_data .= "<label for=\"active\" class=\"control-label\">Active</label>";
 	$table_data .= "<div class=\"radio\">".$radio_active."</div>";
-	$table_data .= "<div class=\"form-group col-md-3\">";
-	$table_data .= "<label for=\"active\" class=\"control-label col-md-12\">&nbsp;</label>";
+	$table_data .= "<div class=\"form-group col-md-6\">";
+	$table_data .= "<label for=\"button\" class=\"control-label col-md-12\">&nbsp;</label>";
 	$table_data .= "<button type=\"submit\" name=\"updateuser\" class=\"btn btn-primary btn-sm\" formmethod=\"post\">Update User</button>&nbsp;&nbsp;<button type=\"submit\" name=\"resetpass\" class=\"btn btn-warning btn-sm\" formmethod=\"post\">Reset Password</button></div>";
 	$table_data .= "<div class=\"form-group col-md-3\">";
 	$table_data .= "</div>";
 	$table_data .= "</form></td></tr>";
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -167,7 +194,7 @@ include '../includes/navbar2.php';
 					?>
 				</table>
 			</div>
-
+			
 		</div>
 	</div>
 
@@ -207,6 +234,7 @@ include '../includes/navbar2.php';
 */
 
 	$("#users").jExpand();
+	
 </script>
 </body>
 </html>
