@@ -37,7 +37,7 @@ include '../includes/navbar2.php';
 			<h2>Users</h2>
 			<p>Here you can add, edit and deactivate users.</p>
 			<p>
-				<a class="btn btn-default" href="users.php" role="button">Users</a>
+				<a class="btn btn-primary" href="users.php" role="button">Users</a>
 			</p>
 		</div>
 		<div class="col-lg-4">
@@ -45,7 +45,7 @@ include '../includes/navbar2.php';
 			<h2>Machines</h2>
 			<p>Here you can add, edit and deactivate machinery.</p>
 			<p>
-				<a class="btn btn-default" href="machines.php" role="button">Machines</a>
+				<a class="btn btn-primary" href="machines.php" role="button">Machines</a>
 			</p>
 		</div>
 		<div class="col-lg-4">
@@ -53,7 +53,7 @@ include '../includes/navbar2.php';
 			<h2>Parts</h2>
 			<p>Here you can add, edit, and delete parts.</p>
 			<p>
-				<a class="btn btn-default" href="parts.php" role="button">Parts</a>
+				<a class="btn btn-primary" href="parts.php" role="button">Parts</a>
 			</p>
 		</div>
 	</div>
@@ -62,6 +62,7 @@ include '../includes/navbar2.php';
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="js/timeStudy.js"></script>
 <script>
 	$(".tree li:has(ul)").addClass("parent").click(function(event) {
 		$(this).toggleClass("open");

@@ -1,5 +1,6 @@
 <?php
 require 'includes/check_login.php';
+$errors = array();
 if(isset($_POST['changeName'])){
 	$new_first_name = $_POST['firstname'];
 	$new_last_name = $_POST['lastname'];
@@ -16,15 +17,25 @@ if(isset($_POST['changeEmail'])){
 	$query->bind_param("si", $new_email, $_SESSION['user_id']);
 	$query->execute();
 	$_SESSION['user_email'] = $new_email;
-
 }
 
 if(isset($_POST['changePass'])){
 	$old_password = $_POST['oldpassword'];
-	$new_password = $_POST['password'];
-
-	$hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-	echo $hashed_password;
+	$new_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+	$query = $db->prepare("SELECT * FROM users WHERE id = ?");
+	$query->bind_param("s", $_SESSION['user_id']);
+	$query->execute();
+	$result = $query->get_result();
+	$row = $result->fetch_assoc();
+	$hash = $row['password'];
+	if (password_verify($old_password, $hash)) {
+		$query = $db->prepare("UPDATE users SET password = ? WHERE id = ? ");
+		$query->bind_param("si", $new_password, $_SESSION['user_id']);
+		$query->execute();
+		$_SESSION['user_pass']=$_POST['password'];
+	}else{
+		$errors[] = "The password you entered is incorrect.";
+	}
 }
 ?>
 
@@ -146,6 +157,15 @@ include 'includes/navbar.php';
 								</div>
 								<div class="form-group col-md-8">
 									<button type="submit" name="changePass" class="btn btn-primary" formmethod="post">Change Password</button>
+									<div class="settings-error">
+										<?php
+										if (count($errors) > 0){
+											foreach ($errors AS $Errors){
+												echo $Errors."<br>";
+											}
+										}
+										?>
+									</div>
 								</div>
 								
 							</form>

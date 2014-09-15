@@ -1,6 +1,5 @@
 <?php
-require 'includes/check_login.php';
-//require_once 'includes/dbConnect.php';
+require '../includes/check_login.php';
 $return_data = "";
 
 if(isset($_POST["partnumber"])){
@@ -74,92 +73,76 @@ function display_children($category_id, $level){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PIN Time Study</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PIN Time Study</title>
 
-<!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/main.css" rel="stylesheet">
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 <body>
 <?php
-include 'includes/navbar.php';
+include '../includes/navbar2.php';
 ?>
 <ol class="breadcrumb">
 	<li><a href="index.php">Home</a></li>
-	<li class="active">Machining</li>
+	<li><a href="admin.php">Administration</a></li>
+	<li class="active">Parts</li>
 </ol>
 <div class="container-fluid">
 	<!-- Stack the columns on mobile by making one full-width and the other half-width -->
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div class="row">
 				<form method = "POST">
-				<div class="col-md-4"><label>Part Number:</label></div>
-				<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/></div>
+					<div class="col-md-4"><label>Part Number:</label></div>
+					<div class="col-md-5"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/></div>
 				</form>
 			</div>
 
 			<ul class="tree">
-			<?php echo $return_data; ?>
-			
+				<?php echo $return_data; ?>
+
 			</ul>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div class="row">
-				<div class="col-md-5"><label>Part Number:</label></div>
-				<div class="col-md-5"><label id="partNumber">Testing</label></div>
+
 			</div>
+
+		</div>
+		<div class="col-md-4">
 			<div class="row">
-				<table class="table table-hover tabletimes">
-					<tr>
-						<th width=20%>Work Center</th>
-						<th width=20%>Machine</th>
-						<th width=20%>Date</th>
-						<th width=20%>Time</th>
-						<th width=20%>Action</th>
-					</tr>
-					<?php
-					$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter WHERE type = 1 ORDER BY center ASC");
-					$machine_list = [];
-					while($row = mysqli_fetch_array($result)) {
-						$mid =  $row['id'];
-						$wc = $row['center'];
-						$mName = $row['name'];
-						$machine_list[] = [$mid];
-						echo "<tr id=\"machine-$mid\"><td>".$wc."</td><td>".$mName."</td><td class =\"study_date\"></td><td class=\"elapsed_time\" id=\"runner-$mid\"></td><td class =\"do_action\" id=\"$mid\"></td></tr>";
-					}
-					?>
-				</table>
+
 			</div>
-		
+
 		</div>
 	</div>
-	
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/timeStudy.js"></script>
-<script src="js/jquery.runner-min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.autocomplete.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/timeStudy.js"></script>
+<script src=../js/jquery.runner-min.js" type="text/javascript"></script>
 <script>
-	window.machine_list = <?php echo json_encode($machine_list); ?>;
+
 	window.partId = "";
 	$(".tree li:has(ul)").addClass("parent").click(function(event) {
 		$(this).toggleClass("open");
 		event.stopPropagation();
 	});
-	
+
 	$(function() {
 		$('.tree ul.sub').hide();
 		$(".tree li:has(.sub)").click(function() {
@@ -178,10 +161,10 @@ include 'includes/navbar.php';
 		$(this).removeClass("hover");
 		event.stopPropagation();
 	});
-	
+
 	$(function(){
 		$('#autocomplete').autocomplete({
-			serviceUrl:"ajax/search.php",
+			serviceUrl:"../ajax/search.php",
 			onSelect: function(suggestion) {
 				console.log(suggestion);
 			}
@@ -195,74 +178,10 @@ include 'includes/navbar.php';
 		partNumber = arr[0];
 		$(".boom").removeClass("boom");
 		$(this).addClass("boom");
-		var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(data) {
-			console.log(data);
-			$("#partNumber").html(partNumber);
-			$.each(machine_list, function(k, v){
-				$("#runner-" + v).runner('stop');
-				$("#runner-" + v).runner('reset');
-				var start_button = "<button id=\"startTimer-"+ v +"\" type=\"button\" class=\"btn btn-success btn-xs \">Start</button>";
-				$("#machine-" + v + " td.study_date").html(" ");
-				$("#machine-" + v + " td.elapsed_time").html(" ");
-				$("#machine-" + v + " td.do_action").html(start_button);
-				$("#runner-" + v).runner({autostart: false, milliseconds: false});
-			});
-			$.each(data, function(key, value) {
-				var a = new Date(value.start_time*1000);
-				var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-				var year = a.getFullYear();
-				var month = months[a.getMonth() - 1];
-				var date = a.getDate();
-				var timeDiff = value.end_time - value.start_time;
-				var seconds = Math.round(timeDiff % 60);
-				timeDiff = Math.floor(timeDiff / 60);
-				var minutes = Math.round(timeDiff % 60);
-				timeDiff = Math.floor(timeDiff / 60);
-				var hours = Math.round(timeDiff % 24);
-				timeDiff = Math.floor(timeDiff / 24);
-				var days = timeDiff;
-				//var elapsed_time = days + " days, " + hours + ":" + minutes + ":" + seconds;
-				if(!value.end_time){
-					var elapsed_time = " ";
-				}else{
-					var elapsed_time = hours + "hr " + minutes + "m " + seconds + "s";
-				}
-				if(value.start_time > 0 && !value.end_time){
-					var action_button = "<button id=\"stopTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-danger btn-xs\">Stop</button>";
-					var time_now = new Date().getTime();
-					var start_time = value.start_time * 1000;
-					startRunner = time_now - start_time;
-					$("#runner-" + value.machine_id).runner({
-						startAt: startRunner, 
-						milliseconds: false
-					});
-					$("#runner-" + value.machine_id).runner('start');
-				} else if(!value.start_time){
-					var action_button = "<button id=\"startTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-success btn-xs\">Start</button>";
-				}else{
-					if(value.completed == 0){
-						var action_button = "<button id=\"resetTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-warning btn-xs\">Reset</button>  <button id=\"doneTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-primary btn-xs\">Done</button>";
-					}else{
-						var action_button = "<button id=\"resetTimer-"+ value.machine_id +"\" type=\"button\" class=\"btn btn-warning btn-xs\" disabled>Reset</button>";
-					}
-				}
-				
-				$("#machine-" + value.machine_id + " td.study_date").html(month + " " + date + ", " + year);
-				$("#machine-" + value.machine_id + " td.elapsed_time").html(elapsed_time);
-				$("#machine-" + value.machine_id + " td.do_action").html(action_button);
-			});
-			
-		});
+
 	});
 	$(".momma").click(function() {
-		$.each(machine_list, function(k, v){
-			$("#partNumber").html(" ");
-			$("#runner-" + v).runner('stop');
-			$("#runner-" + v).runner('reset');
-			$("#machine-" + v + " td.study_date").html(" ");
-			$("#machine-" + v + " td.elapsed_time").html(" ");
-			$("#machine-" + v + " td.do_action").html(" ");
-		});
+
 	});
 
 	$( ".do_action" ).on( "click", "[id^=startTimer-]", function() {
@@ -281,7 +200,7 @@ include 'includes/navbar.php';
 			});
 		});
 	});
-	
+
 	$( ".do_action" ).on( "click", "[id^=stopTimer-]", function() {
 		var buttonId = this.id;
 		var arr = buttonId.split('-');
@@ -291,10 +210,10 @@ include 'includes/navbar.php';
 		$("#machine-" + buttonId + " td.do_action").html(action_button);
 		var request = $.getJSON("ajax/updatetimes.php", {id : partId, machine : buttonId}, function(data) {
 			console.log(data);
-			
+
 		});
 	});
-	
+
 	$( ".do_action" ).on( "click", "[id^=resetTimer-]", function() {
 		var buttonId = this.id;
 		var arr = buttonId.split('-');
@@ -306,10 +225,10 @@ include 'includes/navbar.php';
 		var request = $.getJSON("ajax/removetimes.php", {id : partId, machine : buttonId}, function(data) {
 			console.log(data);
 			$("#machine-" + buttonID + " td.study_date").html(" ");
-			
+
 		});
 	});
-	
+
 	$( ".do_action" ).on( "click", "[id^=doneTimer-]", function() {
 		var buttonId = this.id;
 		var arr = buttonId.split('-');
@@ -319,10 +238,10 @@ include 'includes/navbar.php';
 		$("#machine-" + buttonId + " td.do_action").html(action_button);
 		var request = $.getJSON("ajax/finishtimes.php", {id : partId, machine : buttonId}, function(data) {
 			console.log(data);
-			
+
 		});
 	});
-	
+
 </script>
 </body>
 </html>

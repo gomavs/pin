@@ -39,8 +39,10 @@
 					</ul>
 				</li>
 			</ul>
-
-			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="#"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?></b></a></p>
+			<ul class="nav navbar-nav navbar-right">
+				<a href="logout.php" class="btn btn-default navbar-btn btn-xs">Sign Out</a>
+			</ul>
+			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="settings.php"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?>&nbsp;</b></a></p>
  
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->

@@ -1,18 +1,16 @@
 <?php
 session_start();
 require_once 'dbConnect.php';
+
 $errors = array();
 if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 	$logged_in = 0;
 	header('location:login.php');
 	
 } else {
-	// remember, $_SESSION['password'] will be encrypted.
     if(!get_magic_quotes_gpc()) {
         $_SESSION['user_email'] = addslashes($_SESSION['user_email']);
     }
-    // addslashes to session user_email before using in a query.
-
 	$query = $db->prepare("SELECT * FROM users WHERE email = ?");
 	$query->bind_param("s", $_SESSION['user_email']);
 	$query->execute();
@@ -48,7 +46,6 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 			header('location:login.php');
 		}
 	}
+	unset($row['password']);
 }
-// clean up
-unset($row['password']);
 ?>

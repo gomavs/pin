@@ -4,7 +4,7 @@ session_start();
 require_once 'includes/dbConnect.php';
 $errors = array();
 if(isset($_SESSION['logged']) && $_SESSION['logged'] == 1){
-	//header("location:index.php");
+	header("location:index.php");
 }
 if(isset($_POST['submit'])){
 	$email = $_POST['email'];
@@ -30,6 +30,8 @@ if(isset($_POST['submit'])){
 			}else{
 				$errors[] = "This is not an active account.  Please contact a Time Study administrator.";
 			}
+		}else{
+			$errors[] = "The entered email address or the password is incorrect.";
 		}
 	}
 	

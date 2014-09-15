@@ -1,6 +1,5 @@
 <?php
 require '../includes/check_login.php';
-//require_once '../includes/dbConnect.php';
 
 if (isset( $_POST[ 'submit' ] ) ) {
 	$firstname = $_POST['firstname'];
@@ -20,6 +19,58 @@ if (isset( $_POST[ 'submit' ] ) ) {
 	
 	}
 }
+
+$table_data = "";
+$result = mysqli_query($db,"SELECT * FROM users ORDER BY lastname ASC");
+while($row = mysqli_fetch_array($result)) {
+	$id =  $row['id'];
+	$firstname = $row['firstname'];
+	$lastname = $row['lastname'];
+	$email = $row['email'];
+	$authlevel = $row['authlevel'];
+	$active = $row['active'];
+	switch($authlevel){
+		case 1: $authorized = "Operator"; $authlist = "<option value=\"1\" selected>Operator</option><option value=\"3\">Manager</option><option value=\"5\">Administrator</option>"; break;
+		case 3: $authorized = "Manager"; $authlist = "<option value=\"1\">Operator</option><option value=\"3\" selected>Manager</option><option value=\"5\">Administrator</option>"; break;
+		case 5: $authorized = "Administrator"; $authlist = "<option value=\"1\">Operator</option><option value=\"3\">Manager</option><option value=\"5\" selected>Administrator</option>"; break;
+		default: $authorized = "None"; $authlist = "<option value=\"1\">Operator</option><option value=\"3\">Manager</option><option value=\"5\">Administrator</option>"; break;
+	}
+	if ($active == 0){
+		$user_active = "No";
+		$radio_active = "<label class=\"col-md-3\"><input type=\"radio\" name=\"active\" value=\"1\" required>Yes</label><label><input type=\"radio\" name=\"active\" value=\"0\" required checked>No</label></div>";
+	}else{
+		$user_active = "Yes";
+		$radio_active = "<label class=\"col-md-3\"><input type=\"radio\" name=\"active\" value=\"1\" required checked>Yes</label><label><input type=\"radio\" name=\"active\" value=\"0\" required>No</label></div>";
+	}
+
+	$table_data .= "<tr id=\"$id\"><td>".$row['id']."</td><td>". $row['firstname']."</td><td>".$row['lastname']."</td><td>".$row['email']."</td><td>".$authorized."</td><td>".$user_active."</td></tr>";
+	$table_data .= "<tr class=\"test\"><td colspan=\"6\">";
+	$table_data .= "<form id=\"user-". $row['id']."\"><input type=\"hidden\" name=\"".$row['id']."\" value=\"\"/>";
+	$table_data .= "<div class=\"row\"><div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"inputFirstName\" class=\"control-label\">First Name</label>";
+	$table_data .= "<input type=\"text\" class=\"form-control\" id=\"inputFirstName\" name=\"firstname\" value=\"".$row['firstname']."\" required></div>";
+	$table_data .= "<div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"inputLastName\" class=\"control-label\">Last Name</label>";
+	$table_data .= "<input type=\"text\" class=\"form-control\" id=\"inputLastName\" name=\"lastname\" value=\"".$row['lastname']."\" required></div>";
+	$table_data .= "<div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"active\" class=\"control-label\">Authorization Level</label>";
+	$table_data .= "<select class=\"form-control\" name=\"authlevel\">.$authlist.</select></div></div>";
+	$table_data .= "<div class=\"row\"><div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"inputEmail\" class=\"control-label\">Email</label>";
+	$table_data .= "<input type=\"email\" class=\"form-control\" id=\"inputEmail\" name=\"email\" value=\"".$row['email']."\" data-error=\"That email address is invalid\" required>";
+	$table_data .= "<div class=\"help-block with-errors\"></div></div>";
+	$table_data .= "<div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"active\" class=\"control-label\">Active</label>";
+	$table_data .= "<div class=\"radio\">".$radio_active."</div>";
+	$table_data .= "<div class=\"form-group col-md-3\">";
+	$table_data .= "<label for=\"active\" class=\"control-label col-md-12\">&nbsp;</label>";
+	$table_data .= "<button type=\"submit\" name=\"updateuser\" class=\"btn btn-primary btn-sm\" formmethod=\"post\">Update User</button>&nbsp;&nbsp;<button type=\"submit\" name=\"resetpass\" class=\"btn btn-warning btn-sm\" formmethod=\"post\">Reset Password</button></div>";
+	$table_data .= "<div class=\"form-group col-md-3\">";
+	$table_data .= "</div>";
+	$table_data .= "</form></td></tr>";
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,10 +142,7 @@ include '../includes/navbar2.php';
 				<div class="form-group col-md-8">
 					<label for="active" class="control-label">Active</label>
 					<div class="radio">
-						<label><input type="radio" name="active" value="1" required checked>Yes</label>
-					</div>
-					<div class="radio">
-						<label><input type="radio" name="active" value="0" required>No</label>
+						<label class="col-md-2"><input type="radio" name="active" value="1" required checked>Yes</label><label><input type="radio" name="active" value="0" required>No</label>
 					</div>
 				</div>
 
@@ -105,7 +153,7 @@ include '../includes/navbar2.php';
 		</div>
 		<div class="col-md-7">
 			<div class="row">
-				<table class="table table-hover">
+				<table class="table table-hover" id="users">
 					<tr>
 						<th>id</th>
 						<th>First Name</th>
@@ -115,31 +163,7 @@ include '../includes/navbar2.php';
 						<th>Active</th>
 					</tr>
 					<?php
-
-					$result = mysqli_query($db,"SELECT * FROM users ORDER BY lastname ASC");
-
-					while($row = mysqli_fetch_array($result)) {
-						$id =  $row['id'];
-						$firstname = $row['firstname'];
-						$lastname = $row['lastname'];
-						$email = $row['email'];
-						$authlevel = $row['authlevel'];
-						$active = $row['active'];
-						if ($authlevel == 5) {
-							$authlevel = "Administrator";
-						}elseif($authlevel == 3){
-							$authlevel = "Manager";
-						}else{
-							$authlevel = "Operator";
-						}
-						if ($active == 0){
-							$active = "No";
-						}else{
-							$active = "Yes";
-						}
-						echo "<tr class=\"clickableRow\" id=\"$id\"><td>".$id."</td><td>".$firstname."</td><td>".$lastname."</td><td>".$email."</td><td>".$authlevel."</td><td>".$active."</td><td></tr>";
-					}
-					mysqli_close($db);
+						echo $table_data;
 					?>
 				</table>
 			</div>
@@ -152,8 +176,9 @@ include '../includes/navbar2.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/validator.js"></script>
+<script src="../js/jExpand.js"></script>
 <script>
-		function populate(form, data) {
+	function populate(form, data) {
 		$.each(data, function(key, value) {
 			var $field = $("[name=" + key + "]", form);
 			switch ($field.attr("type")) {
@@ -170,7 +195,8 @@ include '../includes/navbar2.php';
 	}
 
 	//This is to make a table row clickable
-	$(".clickableRow").click(function() {
+/*
+		$(".clickableRow").click(function() {
 		var rowId = this.id;
 		var request = $.getJSON("../ajax/updateusers.php", {id : rowId}, function(data) {
 			populate($("#add"), data);
@@ -178,6 +204,9 @@ include '../includes/navbar2.php';
 			$("[name=submit]", $("#add")).html("Update");
 		});
 	});
+*/
+
+	$("#users").jExpand();
 </script>
 </body>
 </html>

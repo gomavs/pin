@@ -36,10 +36,7 @@
 	position:absolute;
 	left:50%;
 }
-.tree ul:hover{
-	background-color:#fff;
-}
-.tree li:hover {
+.tree li.hover, .tree li.boom {
 	background-color:#f5f5f5;
 }
 
@@ -119,6 +116,9 @@ tr.clickableRow {
     content: "\e114";
 }
 
-.login_errors {
-	font-color: red;
+.settings-error {
+	color: red;
+}
+tr.test {
+	background-color: #f5f5f5;
 }
