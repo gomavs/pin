@@ -26,6 +26,18 @@
 						<li><a href="#">Packaging</a></li>
 					</ul>
 				</li>
+				<?php
+					if($_SESSION['user_auth_level'] >= 3){
+						echo "<li class=\"dropdown\">";
+						echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Reports <span class=\"caret\"></span></a>";
+						echo "<ul class=\"dropdown-menu\" role=\"menu\">";
+						echo "<li><a href=\"#\">Machining Times</a></li>";
+						echo "<li><a href=\"#\">Weekly Times</a></li>";
+						echo "<li><a href=\"#\">Monthly Times</a></li>";
+						echo "</ul>";
+						echo "</li>";
+					}
+					?>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
