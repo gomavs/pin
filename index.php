@@ -1,6 +1,5 @@
 <?php
 require 'includes/check_login.php';
-//require_once 'includes/dbConnect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
