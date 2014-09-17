@@ -154,6 +154,7 @@ include 'includes/navbar.php';
 <script src="js/jquery.runner-min.js" type="text/javascript"></script>
 <script>
 	window.machine_list = <?php echo json_encode($machine_list); ?>;
+	window.user_id = <?php echo $_SESSION['user_id']; ?>;
 	window.partId = "";
 	$(".tree li:has(ul)").addClass("parent").click(function(event) {
 		$(this).toggleClass("open");
@@ -317,7 +318,7 @@ include 'includes/navbar.php';
 		$("#runner-" + buttonId).runner('stop');
 		var action_button = "<button id=\"resetTimer-"+ buttonId +"\"type=\"button\" class=\"btn btn-warning btn-xs\" disabled>Reset</button>";
 		$("#machine-" + buttonId + " td.do_action").html(action_button);
-		var request = $.getJSON("ajax/finishtimes.php", {id : partId, machine : buttonId}, function(data) {
+		var request = $.getJSON("ajax/finishtimes.php", {id : partId, machine : buttonId, userid : user_id}, function(data) {
 			console.log(data);
 			
 		});

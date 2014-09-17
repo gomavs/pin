@@ -2,6 +2,7 @@
 require '../includes/check_login.php';
 
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -23,7 +24,13 @@ require '../includes/check_login.php';
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
-
+	
+	<link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+	<link href="../css/sb-admin-2.css" rel="stylesheet">
+	<link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="../css/jquery-ui.css" rel="stylesheet">
+	<!--<link href="../css/jquery-ui.structure.css" rel="stylesheet">-->
+	<link href="../css/jquery-ui.theme.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -101,7 +108,7 @@ require '../includes/check_login.php';
 </ol>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-sm-3 col-md-2 sidebar">
+		<div class="col-md-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li class="active"><a href="#">Overview</a></li>
 				<li><a href="#">Reports</a></li>
@@ -117,9 +124,118 @@ require '../includes/check_login.php';
 			</ul>
 
 		</div>
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h1 class="page-header">Reports</h1>
+		
+		
+		
+			<div class="row">
+			<!--	<div class="col-lg-3 col-md-6">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+									<i class="fa fa-comments fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-right">
+									<div class="huge">26</div>
+									<div>New Comments!</div>
+								</div>
+							</div>
+						</div>
+						<a href="#">
+							<div class="panel-footer">
+								<span class="pull-left">View Details</span>
+								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+						<div class="panel panel-green">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-tasks fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">12</div>
+										<div>New Tasks!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span>
+									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-yellow">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-shopping-cart fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">124</div>
+										<div>New Orders!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span>
+									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="panel panel-red">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3">
+										<i class="fa fa-support fa-5x"></i>
+									</div>
+									<div class="col-xs-9 text-right">
+										<div class="huge">13</div>
+										<div>Support Tickets!</div>
+									</div>
+								</div>
+							</div>
+							<a href="#">
+								<div class="panel-footer">
+									<span class="pull-left">View Details</span>
+									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+									<div class="clearfix"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>-->
 
+
+		<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">
+			
+			
+			<h1 class="page-header">Reports Overview</h1>
+
+			
+			<div class="row">
+				<div class="col-md-6">
+					<label for="from">From</label>
+					<input type="text" id="from" name="from">
+					<label for="to">to</label>
+					<input type="text" id="to" name="to">
+				</div>
+				<div class="col-md-3 do_action">
+					<button id="plotgraph" type="button" class="btn btn-primary btn-xs">Plot Graph</button>
+				</div>
+			</div>
 			<div id="myfirstchart" style="height: 250px;"></div>
 
 		</div>
@@ -131,10 +247,46 @@ require '../includes/check_login.php';
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../assets/js/docs.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<!--<script src="../assets/js/docs.min.js"></script>-->
+
 <script>
+
+	$(function() {
+		$( "#from" ).datepicker({
+			defaultDate: "+1w",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onClose: function( selectedDate ) {
+				$( "#to" ).datepicker( "option", "minDate", selectedDate );
+			}
+		});
+		$( "#to" ).datepicker({
+			defaultDate: "+1w",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onClose: function( selectedDate ) {
+				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		});
+	});
+
+	$(function() {
+		$( "#startdate" ).datepicker({ dateFormat: "yy-mm-dd" });
+	});
+	$(function() {
+		$( "#enddate" ).datepicker({ dateFormat: "yy-mm-dd" });
+	});
+	
+	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
+		var start_date = $( "#from" ).val();
+		var end_date = $( "#to" ).val();
+		//alert(start_date);
+		//alert(end_date);
+		var date = new Date('start_date');
+		alert(date);
+	});
+	
 	new Morris.Line({
 		// ID of the element in which to draw the chart.
 		element: 'myfirstchart',

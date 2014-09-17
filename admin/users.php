@@ -42,10 +42,10 @@ while($row = mysqli_fetch_array($result)) {
 	$authlevel = $row['authlevel'];
 	$active = $row['active'];
 	switch($authlevel){
-		case 1: $authorized = "Operator"; $authlist = "<option value=\"1\" selected>Operator</option><option value=\"3\">Manager</option><option value=\"5\">Administrator</option>"; break;
-		case 3: $authorized = "Manager"; $authlist = "<option value=\"1\">Operator</option><option value=\"3\" selected>Manager</option><option value=\"5\">Administrator</option>"; break;
-		case 5: $authorized = "Administrator"; $authlist = "<option value=\"1\">Operator</option><option value=\"3\">Manager</option><option value=\"5\" selected>Administrator</option>"; break;
-		default: $authorized = "None"; $authlist = "<option value=\"1\">Operator</option><option value=\"3\">Manager</option><option value=\"5\">Administrator</option>"; break;
+		case 1: $authorized = "Time Keeper"; $authlist = "<option value=\"1\" selected>Time Keeper</option><option value=\"3\">Manager</option><option value=\"5\">Administrator</option>"; break;
+		case 3: $authorized = "Manager"; $authlist = "<option value=\"1\">Time Keeper</option><option value=\"3\" selected>Manager</option><option value=\"5\">Administrator</option>"; break;
+		case 5: $authorized = "Administrator"; $authlist = "<option value=\"1\">Time Keeper</option><option value=\"3\">Manager</option><option value=\"5\" selected>Administrator</option>"; break;
+		default: $authorized = "None"; $authlist = "<option value=\"1\">Time Keeper</option><option value=\"3\">Manager</option><option value=\"5\">Administrator</option>"; break;
 	}
 	if ($active == 0){
 		$user_active = "No";
@@ -148,7 +148,7 @@ include '../includes/navbar2.php';
 				<div class="form-group col-md-8">
 					<label for="active" class="control-label">Authorization Level</label>
 					<select class="form-control" name="authlevel">
-						<option value="1">Operator</option>
+						<option value="1">Time Keeper</option>
 						<option value="3">Manager</option>
 						<option value="5">Administrator</option>
 					</select>
