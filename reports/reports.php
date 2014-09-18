@@ -255,6 +255,7 @@ require '../includes/check_login.php';
 	$(function() {
 		$( "#from" ).datepicker({
 			defaultDate: "+1w",
+			dateFormat:"dd M yy",
 			changeMonth: true,
 			numberOfMonths: 3,
 			onClose: function( selectedDate ) {
@@ -263,6 +264,7 @@ require '../includes/check_login.php';
 		});
 		$( "#to" ).datepicker({
 			defaultDate: "+1w",
+			dateFormat:"dd M yy",
 			changeMonth: true,
 			numberOfMonths: 3,
 			onClose: function( selectedDate ) {
@@ -271,20 +273,45 @@ require '../includes/check_login.php';
 		});
 	});
 
-	$(function() {
-		$( "#startdate" ).datepicker({ dateFormat: "yy-mm-dd" });
-	});
-	$(function() {
-		$( "#enddate" ).datepicker({ dateFormat: "yy-mm-dd" });
-	});
-	
 	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
 		var start_date = $( "#from" ).val();
-		var end_date = $( "#to" ).val();
-		//alert(start_date);
-		//alert(end_date);
-		var date = new Date('start_date');
-		alert(date);
+		var end_date = end_date = $( "#to" ).val();
+		start_date=start_date.split(" ");
+		var newStartDate=start_date[1]+"/"+start_date[0]+"/"+start_date[2];
+		end_date=end_date.split(" ");
+		var newEndDate=end_date[1]+"/"+end_date[0]+"/"+end_date[2];
+		//alert(new Date(newStartDate).getTime());
+		//alert(new Date(newEndDate).getTime());
+		var request = $.getJSON("../ajax/graph1.php", {starttime : start_date, endtime : end_date}, function(data) {
+			console.log(data);
+			
+		});
+		
+		
+		$("#myfirstchart").html(" ");
+		new Morris.Line({
+		// ID of the element in which to draw the chart.
+		element: 'myfirstchart',
+		// Chart data records -- each entry in this array corresponds to a point on
+		// the chart.
+		data: [
+			{ year: '2008', value: 0 },
+			{ year: '2009', value: 20 },
+			{ year: '2010', value: 5 },
+			{ year: '2011', value: 20 },
+			{ year: '2012', value: 10 },
+			{ year: '2013', value: 20 },
+			{ year: '2014', value: 15 }
+		],
+		// The name of the data record attribute that contains x-values.
+		xkey: 'year',
+		// A list of names of data record attributes that contain y-values.
+		ykeys: ['value'],
+		// Labels for the ykeys -- will be displayed when you hover over the
+		// chart.
+		labels: ['Value']
+	});
+		
 	});
 	
 	new Morris.Line({
@@ -297,9 +324,16 @@ require '../includes/check_login.php';
 			{ year: '2009', value: 10 },
 			{ year: '2010', value: 5 },
 			{ year: '2011', value: 5 },
-			{ year: '2012', value: 20 },
+			{ year: '2012', value: 50 },
 			{ year: '2013', value: 14 },
-			{ year: '2014', value: 12 }
+			{ year: '2014', value: 12 },
+			{ year: '2015', value: -10 },
+			{ year: '2016', value: 20 },
+			{ year: '2017', value: 5 },
+			{ year: '2018', value: 20 },
+			{ year: '2019', value: 10 },
+			{ year: '2020', value: 20 },
+			{ year: '2021', value: 15 }
 		],
 		// The name of the data record attribute that contains x-values.
 		xkey: 'year',
