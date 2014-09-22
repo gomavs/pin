@@ -28,7 +28,7 @@
 				</li>
 				<?php
 					if($_SESSION['user_auth_level'] >= 3){
-						echo "<li><a href=\"reports/reports.php\">Reports</a></li>";
+						echo "<li><a href=\"reports/index.php\">Reports</a></li>";
 					}
 					?>
 			</ul>

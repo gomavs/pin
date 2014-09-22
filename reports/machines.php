@@ -94,14 +94,15 @@ require '../includes/check_login.php';
 </div>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
-	<li class="active">Reports</li>
+	<li><a href="index.php">Reports</a></li>
+	<li class="active">Machine Reports</li>
 </ol>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li class="active"><a href="#">Overview</a></li>
-				<li><a href="#">Machine Reports</a></li>
+				<li><a href="index.php">Overview</a></li>
+				<li class="active"><a href="#">Machine Reports</a></li>
 				<li><a href="#">User Reports</a></li>
 				<li><a href="#">Performed Studies</a></li>
 			</ul>
@@ -207,7 +208,7 @@ require '../includes/check_login.php';
 
 
 		<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">
-			<h1 class="page-header">Completed Time Studies</h1>
+			<h1 class="page-header">Completed By Machine</h1>
 			<div class="row">
 				<div class="col-md-6">
 					<label for="from">From</label>
@@ -215,7 +216,16 @@ require '../includes/check_login.php';
 					<label for="to">to</label>
 					<input type="text" id="to" name="to">
 				</div>
-				<div class="col-md-3 do_action">
+				<div class="col-md-4">
+					<label>Select Machines</label>
+					<select>
+						<option>BAZ 1- WC 221</option>
+						<option>test</option>
+						<option>test</option>
+						<option>test</option>
+					</select>
+				</div>
+				<div class="col-md-2 do_action">
 					<button id="plotgraph" type="button" class="btn btn-primary btn-xs">Plot Graph</button>
 				</div>
 			</div>
@@ -261,7 +271,14 @@ require '../includes/check_login.php';
 			}
 		});
 	});
-
+	
+	$("select").change(function () {
+		if($("select option:selected").length > 3) {
+			//your code here
+		}
+	});
+	
+	
 	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
 		var start_date = $( "#from" ).val();
 		var end_date = end_date = $( "#to" ).val();
