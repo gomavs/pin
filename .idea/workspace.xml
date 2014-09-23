@@ -26,7 +26,7 @@
       <file leaf-file-name="admin.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin/admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="2" selection-start="848" selection-end="848" vertical-scroll-proportion="-3.9230769" vertical-offset="357" max-vertical-offset="1343">
+            <state line="27" column="2" selection-start="848" selection-end="848" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1343">
               <folding />
             </state>
           </provider>
@@ -35,19 +35,28 @@
       <file leaf-file-name="machining.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/machining.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="30" selection-start="593" selection-end="622" vertical-scroll-proportion="94.15385" vertical-offset="2754" max-vertical-offset="5678">
-              <folding>
-                <element signature="n#style#0;n#input#1;n#div#1;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="18" column="30" selection-start="593" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="5678">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reports.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="reports.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reports/reports.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="299" column="12" selection-start="9971" selection-end="9971" vertical-scroll-proportion="0.6403118" vertical-offset="4508" max-vertical-offset="5848">
+            <state line="247" column="30" selection-start="8673" selection-end="8673" vertical-scroll-proportion="-12.961538" vertical-offset="3862" max-vertical-offset="5185">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="machines.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reports/machines.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="232" column="56" selection-start="8004" selection-end="8004" vertical-scroll-proportion="0.56792873" vertical-offset="3434" max-vertical-offset="5678">
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -55,10 +64,8 @@
       <file leaf-file-name="graph1.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax/graph1.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="25" selection-start="1441" selection-end="1441" vertical-scroll-proportion="-25.384615" vertical-offset="71" max-vertical-offset="969">
-              <folding>
-                <marker date="1411096757562" expanded="true" signature="1209:1289" placeholder="SELECT * FRO..times..." />
-              </folding>
+            <state line="47" column="5" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0" vertical-offset="139" max-vertical-offset="1020">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -93,7 +100,7 @@
       <file leaf-file-name="updateusers.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax/updateusers.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="2" selection-start="242" selection-end="242" vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="221">
+            <state line="7" column="2" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="221">
               <folding>
                 <marker date="1407286847780" expanded="true" signature="72:104" placeholder="SELECT * FRO..users..." />
               </folding>
@@ -104,7 +111,7 @@
       <file leaf-file-name="gettimes.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax/gettimes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="9" selection-start="612" selection-end="636" vertical-scroll-proportion="-10.461538" vertical-offset="0" max-vertical-offset="391">
+            <state line="16" column="9" selection-start="612" selection-end="636" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="391">
               <folding>
                 <marker date="1410823612086" expanded="true" signature="107:144" placeholder="SELECT * FRO..times..." />
               </folding>
@@ -158,6 +165,7 @@
         <option value="$PROJECT_DIR$/css/dashboard.css" />
         <option value="$PROJECT_DIR$/ajax/graph1.php" />
         <option value="$PROJECT_DIR$/reports/reports.php" />
+        <option value="$PROJECT_DIR$/reports/machines.php" />
       </list>
     </option>
   </component>
@@ -223,88 +231,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="reports" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="morris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="includes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -461,11 +387,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/admin/users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="63" selection-start="4012" selection-end="4012" vertical-scroll-proportion="0.0" vertical-offset="1377" max-vertical-offset="3043" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/includes/dbConnect.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="57" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="221" />
@@ -557,19 +478,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data.bak.csv">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="502877" />
       </provider>
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="45" selection-start="1088" selection-end="1088" vertical-scroll-proportion="-581.9664" vertical-offset="501978" max-vertical-offset="502877" />
-      </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="45" selection-start="1088" selection-end="1088" vertical-scroll-proportion="-581.9664" vertical-offset="501978" max-vertical-offset="502877" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/import.php">
@@ -649,13 +570,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/machines.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="9" selection-start="1506" selection-end="1587" vertical-scroll-proportion="0.0" vertical-offset="521" max-vertical-offset="2975">
-          <folding>
-            <marker date="1410311709838" expanded="true" signature="-1:-1" placeholder="UPDATE workc..." />
-            <marker date="1410311709838" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1410311709838" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
-        </state>
+        <state line="48" column="9" selection-start="1506" selection-end="1587" vertical-scroll-proportion="0.0" vertical-offset="521" max-vertical-offset="2975" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jExpand.js">
@@ -670,9 +585,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="10" selection-start="6469" selection-end="6469" vertical-scroll-proportion="0.0" vertical-offset="1309" max-vertical-offset="4199">
-          <folding />
-        </state>
+        <state line="116" column="10" selection-start="6469" selection-end="6469" vertical-scroll-proportion="0.0" vertical-offset="1309" max-vertical-offset="4199" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
@@ -691,9 +604,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/includes/navbar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="63" selection-start="518" selection-end="518" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="1003">
-          <folding />
-        </state>
+        <state line="10" column="63" selection-start="518" selection-end="518" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="1003" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/css/dashboard.css">
@@ -705,63 +616,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax/updateusers.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="2" selection-start="242" selection-end="242" vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="221">
+        <state line="7" column="2" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="221">
           <folding>
             <marker date="1407286847780" expanded="true" signature="72:104" placeholder="SELECT * FRO..users..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ajax/gettimes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="9" selection-start="612" selection-end="636" vertical-scroll-proportion="-10.461538" vertical-offset="0" max-vertical-offset="391">
-          <folding>
-            <marker date="1410823612086" expanded="true" signature="107:144" placeholder="SELECT * FRO..times..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/machining.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="593" selection-end="622" vertical-scroll-proportion="94.15385" vertical-offset="2754" max-vertical-offset="5678">
-          <folding>
-            <element signature="n#style#0;n#input#1;n#div#1;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="18" column="30" selection-start="593" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="5678">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/parts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="5" selection-start="3385" selection-end="3385" vertical-scroll-proportion="-1.959322" vertical-offset="3315" max-vertical-offset="5644">
-          <folding>
-            <marker date="1410912739089" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..part..." />
-            <marker date="1410912739089" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..part..." />
-            <marker date="1410912739089" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..part..." />
-            <marker date="1410912739089" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..workcenter..." />
-          </folding>
-        </state>
+        <state line="93" column="5" selection-start="3385" selection-end="3385" vertical-scroll-proportion="-1.959322" vertical-offset="3315" max-vertical-offset="5644" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="2" selection-start="848" selection-end="848" vertical-scroll-proportion="-3.9230769" vertical-offset="357" max-vertical-offset="1343">
+        <state line="27" column="2" selection-start="848" selection-end="848" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1343">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax/graph1.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="25" selection-start="1441" selection-end="1441" vertical-scroll-proportion="-25.384615" vertical-offset="71" max-vertical-offset="969">
+        <state line="47" column="5" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0" vertical-offset="139" max-vertical-offset="1020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax/gettimes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="9" selection-start="612" selection-end="636" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="391">
           <folding>
-            <marker date="1411096757562" expanded="true" signature="1209:1289" placeholder="SELECT * FRO..times..." />
+            <marker date="1410823612086" expanded="true" signature="107:144" placeholder="SELECT * FRO..times..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reports/reports.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="299" column="12" selection-start="9971" selection-end="9971" vertical-scroll-proportion="0.6403118" vertical-offset="4508" max-vertical-offset="5848">
+        <state line="247" column="30" selection-start="8673" selection-end="8673" vertical-scroll-proportion="-12.961538" vertical-offset="3862" max-vertical-offset="5185">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reports/machines.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="232" column="56" selection-start="8004" selection-end="8004" vertical-scroll-proportion="0.56792873" vertical-offset="3434" max-vertical-offset="5678">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

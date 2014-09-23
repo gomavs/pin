@@ -206,9 +206,12 @@ require '../includes/check_login.php';
 					</div>
 				</div>-->
 
-
-		<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">
-			<h1 class="page-header">Completed By Machine</h1>
+		<div class="row">
+			<div class="col-sm-12 col-sm-offset-3 col-md-12 col-md-offset-2 main">
+				<h1 class="page-header">Completed By Machine</h1>
+			</div>
+		</div>
+		<div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
 			<div class="row">
 				<div class="col-md-6">
 					<label for="from">From</label>
@@ -216,21 +219,30 @@ require '../includes/check_login.php';
 					<label for="to">to</label>
 					<input type="text" id="to" name="to">
 				</div>
-				<div class="col-md-4">
-					<label>Select Machines</label>
-					<select>
+				<div class="col-md-2 do_action">
+					<button id="plotgraph" type="button" class="btn btn-primary btn-xs">Plot Graph</button>
+				</div>
+			</div>
+			<div class="row">
+				<div id="myfirstchart" style="height: 250px;"></div>
+			</div>
+		</div>
+		<div class="col-sm-3 ">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Select Machines</label>&nbsp;(up to 3)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<select multiple size="1">
 						<option>BAZ 1- WC 221</option>
 						<option>test</option>
 						<option>test</option>
 						<option>test</option>
 					</select>
 				</div>
-				<div class="col-md-2 do_action">
-					<button id="plotgraph" type="button" class="btn btn-primary btn-xs">Plot Graph</button>
-				</div>
 			</div>
-			<div id="myfirstchart" style="height: 250px;"></div>
-
 		</div>
 	</div>
 </div>
