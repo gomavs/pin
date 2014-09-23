@@ -126,3 +126,8 @@ tr.clickableRow {
 .newpass{
 	color: blue;
 }
+
+.legend label span {
+	position:absolute;
+	left:40%;
+}

@@ -4,10 +4,7 @@ require_once("../includes/dbConnect.php");
 $start_time = strtotime($_GET['starttime']);
 $end_time = strtotime($_GET['endtime']);
 $time_diff = $end_time - $start_time;
-if($time_diff < 86400*2){// less than 2 days = hours
-	$multiplier = 3600;
-	$skip_by = "PT1H";
-}elseif($time_diff >= 86400*2 && $time_diff < 86400*15){//between 2 days and 15 days = days
+if($time_diff < 86400*15){//less than 16 days = days
 	$multiplier = 86400;
 	$skip_by = "P1D";
 }elseif($time_diff >= 86400*15 && $time_diff < 86400*30){// between 15 days and 1 month = weeks

@@ -129,7 +129,7 @@ include 'includes/navbar.php';
 						<th width=20%>Action</th>
 					</tr>
 					<?php
-					$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter WHERE type = 1 ORDER BY center ASC");
+					$result = mysqli_query($db,"SELECT * FROM timestudy.workcenter WHERE type = 1 AND inservice = 1 ORDER BY center ASC");
 					$machine_list = [];
 					while($row = mysqli_fetch_array($result)) {
 						$mid =  $row['id'];

@@ -1,5 +1,14 @@
 <?php
 require '../includes/check_login.php';
+$machine_list = "<option>Select a Machine</option>";
+$result = mysqli_query($db,"SELECT * FROM workcenter WHERE type = 1 AND inservice = 1 ORDER BY center ASC");
+while($row = mysqli_fetch_array($result)) {
+	$mid =  $row['id'];
+	$wc = $row['center'];
+	$mName = $row['name'];
+	$machine_list .= "<option value=\"".$mid."\">WC ".$wc."&nbsp; &nbsp;-&nbsp; &nbsp;".$mName."</option>";
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -29,6 +38,7 @@ require '../includes/check_login.php';
 	<link href="../css/sb-admin-2.css" rel="stylesheet">
 	<link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="../css/jquery-ui.css" rel="stylesheet">
+	<link href="../css/main.css" rel="stylesheet">
 	<!--<link href="../css/jquery-ui.structure.css" rel="stylesheet">-->
 	<link href="../css/jquery-ui.theme.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -69,7 +79,7 @@ require '../includes/check_login.php';
 				</li>
 				<?php
 					if($_SESSION['user_auth_level'] >= 3){
-						echo "<li><a href=\"reports/reports.php\">Reports</a></li>";
+						echo "<li><a href=\"index.php\">Reports</a></li>";
 					}
 				?>
 			</ul>
@@ -115,132 +125,59 @@ require '../includes/check_login.php';
 			</ul>
 		</div>
 		
-			<div class="row">
-			<!--	<div class="col-lg-3 col-md-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-xs-3">
-									<i class="fa fa-comments fa-5x"></i>
-								</div>
-								<div class="col-xs-9 text-right">
-									<div class="huge">26</div>
-									<div>New Comments!</div>
-								</div>
-							</div>
-						</div>
-						<a href="#">
-							<div class="panel-footer">
-								<span class="pull-left">View Details</span>
-								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-								<div class="clearfix"></div>
-							</div>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-						<div class="panel panel-green">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-3">
-										<i class="fa fa-tasks fa-5x"></i>
-									</div>
-									<div class="col-xs-9 text-right">
-										<div class="huge">12</div>
-										<div>New Tasks!</div>
-									</div>
-								</div>
-							</div>
-							<a href="#">
-								<div class="panel-footer">
-									<span class="pull-left">View Details</span>
-									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-									<div class="clearfix"></div>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="panel panel-yellow">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-3">
-										<i class="fa fa-shopping-cart fa-5x"></i>
-									</div>
-									<div class="col-xs-9 text-right">
-										<div class="huge">124</div>
-										<div>New Orders!</div>
-									</div>
-								</div>
-							</div>
-							<a href="#">
-								<div class="panel-footer">
-									<span class="pull-left">View Details</span>
-									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-									<div class="clearfix"></div>
-								</div>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="panel panel-red">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-3">
-										<i class="fa fa-support fa-5x"></i>
-									</div>
-									<div class="col-xs-9 text-right">
-										<div class="huge">13</div>
-										<div>Support Tickets!</div>
-									</div>
-								</div>
-							</div>
-							<a href="#">
-								<div class="panel-footer">
-									<span class="pull-left">View Details</span>
-									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-									<div class="clearfix"></div>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>-->
 
-		<div class="row">
-			<div class="col-sm-12 col-sm-offset-3 col-md-12 col-md-offset-2 main">
-				<h1 class="page-header">Completed By Machine</h1>
+		<div class="col-md-10 col-md-offset-2 main">
+			<h2 class="page-header">Completed By Machine</h2>
+		</div>
+
+		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<form data-toggle="validator" role="form" id="graph_machine">
+				<div class="row">
+					<div class="form-group col-md-3 do_action">
+						<select class="form-control" id="machine-1" required>
+							<?php
+								echo $machine_list;
+							?>
+						</select>
+					</div>
+					<div class="form-group col-md-3 do_action">
+						<select class="form-control" id="machine-2">
+							<?php
+								echo $machine_list;
+							?>
+						</select>
+					</div>
+					<div class="form-group col-md-3 do_action">
+						<select class="form-control" id="machine-3">
+							<?php
+								echo $machine_list;
+							?>>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<label for="from">From</label>
+						<input type="text" id="from" name="from" required>
+						<label for="to">to</label>
+						<input type="text" id="to" name="to" required>
+					</div>
+					<div class="row do_action">
+						<button id="plotgraph" type="button" class="btn btn-primary btn-xs">Plot Graph</button>
+					</div>
+				</div>
+			</form>
+			<div class="row">
+				<div id="comparemachines" style="height: 250px;"></div>
 			</div>
 		</div>
-		<div class="col-sm-7 col-sm-offset-3 col-md-7 col-md-offset-2 main">
-			<div class="row">
-				<div class="col-md-6">
-					<label for="from">From</label>
-					<input type="text" id="from" name="from">
-					<label for="to">to</label>
-					<input type="text" id="to" name="to">
-				</div>
-				<div class="col-md-2 do_action">
-					<button id="plotgraph" type="button" class="btn btn-primary btn-xs">Plot Graph</button>
-				</div>
-			</div>
-			<div class="row">
-				<div id="myfirstchart" style="height: 250px;"></div>
-			</div>
-		</div>
-		<div class="col-sm-3 ">
-			<div class="row">
-				<div class="col-md-12">
-					<label>Select Machines</label>&nbsp;(up to 3)
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<select multiple size="1">
-						<option>BAZ 1- WC 221</option>
-						<option>test</option>
-						<option>test</option>
-						<option>test</option>
-					</select>
+		<div class="col-md-3 col-sm-offset-3 col-md-3 col-md-offset-2 main">
+			<div class="panel panel-default">
+				<div class="panel-heading">Legend</div>
+				<div class="panel-body legend">
+					<label class="text-primary" for="blue">Blue:<span>WC 221 - BAZ 1</span></label><br>
+					<label class="text-success" for="green">Green:<span>WC 222 - BAZ 2</span></label><br>
+					<label class="text-danger" for="red">Red:<span>WC 223 - BAZ 3</span></label>
 				</div>
 			</div>
 		</div>
@@ -253,6 +190,7 @@ require '../includes/check_login.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
+<script src="../js/validator.js"></script>
 <!--<script src="../assets/js/docs.min.js"></script>-->
 
 <script>
@@ -283,13 +221,22 @@ require '../includes/check_login.php';
 			}
 		});
 	});
+	$('#machine-2').prop('disabled', 'disabled');
+	$('#machine-3').prop('disabled', 'disabled');
 	
-	$("select").change(function () {
-		if($("select option:selected").length > 3) {
-			//your code here
-		}
+	$( ".do_action" ).on( "change", "[id=machine-1]", function() {
+		$('#machine-2').prop('disabled', false);
+		
+		$("#machine-2 option[value='1']").remove();
+		$("#machine-3 option[value='1']").remove();
 	});
 	
+	$( ".do_action" ).on( "change", "[id=machine-2]", function() {
+		
+		$('#machine-3').prop('disabled', false);
+		
+		$("#machine-2").append('<option value="1">BAZ 1</option>');
+	});
 	
 	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
 		var start_date = $( "#from" ).val();
@@ -303,10 +250,10 @@ require '../includes/check_login.php';
 
 	function graph_plotter(newStartDate, newEndDate){
 		var request = $.getJSON("../ajax/graph1.php", {starttime : newStartDate, endtime :  newEndDate}, function(dates) {
-			$("#myfirstchart").html(" ");
+			$("#comparemachines").html(" ");
 			new Morris.Line({
 				// ID of the element in which to draw the chart.
-				element: 'myfirstchart',
+				element: 'comparemachines',
 				// Chart data records -- each entry in this array corresponds to a point on
 				// the chart.
 				data: dates,
