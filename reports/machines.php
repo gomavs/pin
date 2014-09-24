@@ -175,9 +175,9 @@ while($row = mysqli_fetch_array($result)) {
 			<div class="panel panel-default">
 				<div class="panel-heading">Legend</div>
 				<div class="panel-body legend">
-					<label class="text-primary" for="blue">Blue:<span>WC 221 - BAZ 1</span></label><br>
-					<label class="text-success" for="green">Green:<span>WC 222 - BAZ 2</span></label><br>
-					<label class="text-danger" for="red">Red:<span>WC 223 - BAZ 3</span></label>
+					<label class="text-primary legend-1" for="blue">Blue:<span></span></label><br>
+					<label class="text-success legend-2" for="green">Green:<span></span></label><br>
+					<label class="text-danger legend-3" for="red">Red:<span></span></label>
 				</div>
 			</div>
 		</div>
@@ -194,13 +194,17 @@ while($row = mysqli_fetch_array($result)) {
 <!--<script src="../assets/js/docs.min.js"></script>-->
 
 <script>
+	window.selectedMachines = [];
+	$('#machine-2').prop('disabled', 'disabled');
+	$('#machine-3').prop('disabled', 'disabled');
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var myDate = new Date();
 	todaysDate = ( months[(myDate.getMonth())] + '-' + (myDate.getDate()) + '-' + (myDate.getFullYear()));
 	var oneWeekAgo = new Date();
 	oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 	var start_date = ( months[(oneWeekAgo.getMonth())] + '-' + (oneWeekAgo.getDate()) + '-' + (oneWeekAgo.getFullYear()));
-	graph_plotter(start_date, todaysDate);
+	var test = "1-2-3";
+	graph_plotter(start_date, todaysDate, test);
 	$(function() {
 		$( "#from" ).datepicker({
 			defaultDate: "+1w",
@@ -221,46 +225,108 @@ while($row = mysqli_fetch_array($result)) {
 			}
 		});
 	});
-	$('#machine-2').prop('disabled', 'disabled');
-	$('#machine-3').prop('disabled', 'disabled');
-	
+
 	$( ".do_action" ).on( "change", "[id=machine-1]", function() {
 		var valueMachine1 = $('#machine-1').val();
 		var selectedMachine1 = $('#machine-1').find(":selected").text();
-
-		$("#machine-2 option[value=" + valueMachine1 + "]").remove();
-		$("#machine-3 option[value=" + valueMachine1 + "]").remove();
-
-		$('#machine-2').prop('disabled', false);
+		if (selectedMachines[0] != null) {
+			if(selectedMachines[0][0] != valueMachine1 && selectedMachines[0][0] != 0){
+				$("#machine-2").append('<option value="' + selectedMachines[0][0] + '">' + selectedMachines[0][1] + '</option>');
+				$("#machine-3").append('<option value="' + selectedMachines[0][0] + '">' + selectedMachines[0][1] + '</option>');
+			}
+		}
+		if(valueMachine1 == 0){
+			$(".legend-1 span").html(" ");
+			$(".legend-2 span").html(" ");
+			$(".legend-3 span").html(" ");
+			$("#machine-1").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+			$("#machine-2").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+			$("#machine-1").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
+			$("#machine-3").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
+			selectedMachines[0] = [0, 0];
+			selectedMachines[1] = [0, 0];
+			selectedMachines[2] = [0, 0];
+			$("#machine-2").find('option').removeAttr("selected");
+			$("#machine-3").find('option').removeAttr("selected");
+			$('#machine-2').prop('disabled', 'disabled');
+			$('#machine-3').prop('disabled', 'disabled');
+		}else{
+			selectedMachines[0] = [valueMachine1, selectedMachine1];
+			$(".legend-1 span").html(selectedMachine1);
+			$("#machine-2 option[value=" + valueMachine1 + "]").remove();
+			$("#machine-3 option[value=" + valueMachine1 + "]").remove();
+			$('#machine-2').prop('disabled', false);
+		}
 	});
 	
 	$( ".do_action" ).on( "change", "[id=machine-2]", function() {
 		var valueMachine2 = $('#machine-2').val();
 		var selectedMachine2 = $('#machine-2').find(":selected").text();
-		$("#machine-1 option[value=" + valueMachine2 + "]").remove();
-		$("#machine-3 option[value=" + valueMachine2 + "]").remove();
+		if (selectedMachines[1] != null) {
+			if(selectedMachines[1][0] != valueMachine2 && selectedMachines[1][0] != 0){
+				$("#machine-1").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
+				$("#machine-3").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
+			}
+		}
 		if(valueMachine2 == 0){
-			$('#machine-3 option[value=0]').attr('selected','selected');
+			$(".legend-2 span").html(" ");
+			$(".legend-3 span").html(" ");
+			$("#machine-1").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+			$("#machine-2").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+			selectedMachines[1] = [0, 0];
+			selectedMachines[2] = [0, 0];
+			$("#machine-3").find('option').removeAttr("selected");
 			$('#machine-3').prop('disabled', 'disabled');
 		}else{
+			selectedMachines[1] = [valueMachine2, selectedMachine2];
+			$(".legend-2 span").html(selectedMachine2);
+			$("#machine-1 option[value=" + valueMachine2 + "]").remove();
+			$("#machine-3 option[value=" + valueMachine2 + "]").remove();
 			$('#machine-3').prop('disabled', false);
 		}
-
-		//$("#machine-2").append('<option value="1">BAZ 1</option>');
+	});
+	
+	$( ".do_action" ).on( "change", "[id=machine-3]", function() {
+		var valueMachine3 = $('#machine-3').val();
+		var selectedMachine3 = $('#machine-3').find(":selected").text();
+		if (selectedMachines[2] != null) {
+			if(selectedMachines[2][0] != valueMachine3 && selectedMachines[2][0] != 0){
+				$("#machine-1").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+				$("#machine-2").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+			}
+		}	
+		if(valueMachine3 == 0){
+			$(".legend-3 span").html(" ");
+			selectedMachines[2] = [0, 0];
+		}else{
+			selectedMachines[2] = [valueMachine3, selectedMachine3];
+			$(".legend-3 span").html(selectedMachine3);
+			$("#machine-1 option[value=" + valueMachine3 + "]").remove();
+			$("#machine-2 option[value=" + valueMachine3 + "]").remove();
+		}
 	});
 	
 	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
+		var machineList = "";
 		var start_date = $( "#from" ).val();
 		var end_date = end_date = $( "#to" ).val();
 		start_date=start_date.split(" ");
 		var newStartDate=start_date[1]+"-"+start_date[0]+"-"+start_date[2];
 		end_date=end_date.split(" ");
 		var newEndDate=end_date[1]+"-"+end_date[0]+"-"+end_date[2];
-		graph_plotter(newStartDate, newEndDate);
+		var i;
+		for (i = 0; i < selectedMachines.length; ++i) {
+			if(selectedMachines[i][0] != null && selectedMachines[i][0] > 0){
+				machineList += selectedMachines[i][0] + "-";
+			}
+		}
+		machineList = machineList.slice(0,-1);
+		alert (machineList);
+		graph_plotter(newStartDate, newEndDate, machineList);
 	});
 
-	function graph_plotter(newStartDate, newEndDate){
-		var request = $.getJSON("../ajax/graph1.php", {starttime : newStartDate, endtime :  newEndDate}, function(dates) {
+	function graph_plotter(newStartDate, newEndDate, machineList){
+		var request = $.getJSON("../ajax/graph2.php", {starttime : newStartDate, endtime :  newEndDate, machines : machineList}, function(dates) {
 			$("#comparemachines").html(" ");
 			new Morris.Line({
 				// ID of the element in which to draw the chart.
