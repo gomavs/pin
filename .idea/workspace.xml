@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a9e913e6-9607-4659-ae39-e04dd7001a8e" name="Default" comment="" />
+    <list default="true" id="a9e913e6-9607-4659-ae39-e04dd7001a8e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reports/machines.php" afterPath="$PROJECT_DIR$/reports/machines.php" />
+    </list>
     <ignored path="pin.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,7 +37,7 @@
       <file leaf-file-name="machining.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/machining.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="30" selection-start="593" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="5678">
+            <state line="19" column="21" selection-start="593" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="5678">
               <folding />
             </state>
           </provider>
@@ -44,7 +46,7 @@
       <file leaf-file-name="reports.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reports/reports.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="247" column="30" selection-start="8673" selection-end="8673" vertical-scroll-proportion="-12.961538" vertical-offset="3862" max-vertical-offset="5185">
+            <state line="247" column="30" selection-start="8673" selection-end="8673" vertical-scroll-proportion="0.0" vertical-offset="3862" max-vertical-offset="5185">
               <folding />
             </state>
           </provider>
@@ -53,9 +55,9 @@
       <file leaf-file-name="machines.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reports/machines.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="232" column="56" selection-start="8004" selection-end="8004" vertical-scroll-proportion="0.56792873" vertical-offset="3434" max-vertical-offset="5678">
+            <state line="245" column="52" selection-start="9078" selection-end="9078" vertical-scroll-proportion="0.6057907" vertical-offset="3621" max-vertical-offset="4964">
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1411530528550" expanded="true" signature="138:215" placeholder="SELECT * FRO..workcenter..." />
               </folding>
             </state>
           </provider>
@@ -64,7 +66,7 @@
       <file leaf-file-name="graph1.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ajax/graph1.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="5" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0" vertical-offset="139" max-vertical-offset="1020">
+            <state line="44" column="5" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.0" vertical-offset="88" max-vertical-offset="969">
               <folding />
             </state>
           </provider>
@@ -91,7 +93,7 @@
       <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="1" selection-start="2030" selection-end="2030" vertical-scroll-proportion="0.0" vertical-offset="1320" max-vertical-offset="2261">
+            <state line="132" column="1" selection-start="2085" selection-end="2085" vertical-scroll-proportion="0.0" vertical-offset="1405" max-vertical-offset="2346">
               <folding />
             </state>
           </provider>
@@ -275,7 +277,7 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FullScreen" value="false" />
     <property name="SearchEverywhereHistory" value="" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/GitHub/PortableGit_6d98349f44ba975cf6c762a720f8259a267ea445/bin/git.exe" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/GitHub/uxvf0tqq.sot/bin/git.exe" />
     <property name="recentsLimit" value="5" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="restartRequiresConfirmation" value="true" />
@@ -285,10 +287,7 @@
       <recent name="C:\xampp\htdocs\pin" />
     </key>
   </component>
-  <component name="RunManager" selected="PHP Script.buildtree.php">
-    <configuration default="false" name="buildtree.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true">
-      <method />
-    </configuration>
+  <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
       <method />
@@ -302,14 +301,7 @@
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="PHP Script.buildtree.php" />
-    </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="PHP Script.buildtree.php" />
-      </list>
-    </recent_temporary>
+    <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
@@ -344,7 +336,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -360,12 +352,12 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32947367" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -597,7 +589,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="1" selection-start="2030" selection-end="2030" vertical-scroll-proportion="0.0" vertical-offset="1320" max-vertical-offset="2261">
+        <state line="132" column="1" selection-start="2085" selection-end="2085" vertical-scroll-proportion="0.0" vertical-offset="1405" max-vertical-offset="2346">
           <folding />
         </state>
       </provider>
@@ -625,7 +617,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/machining.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="593" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="5678">
+        <state line="19" column="21" selection-start="593" selection-end="622" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="5678">
           <folding />
         </state>
       </provider>
@@ -644,7 +636,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax/graph1.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="5" selection-start="1546" selection-end="1546" vertical-scroll-proportion="0.0" vertical-offset="139" max-vertical-offset="1020">
+        <state line="44" column="5" selection-start="1413" selection-end="1413" vertical-scroll-proportion="0.0" vertical-offset="88" max-vertical-offset="969">
           <folding />
         </state>
       </provider>
@@ -660,16 +652,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reports/reports.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="247" column="30" selection-start="8673" selection-end="8673" vertical-scroll-proportion="-12.961538" vertical-offset="3862" max-vertical-offset="5185">
+        <state line="247" column="30" selection-start="8673" selection-end="8673" vertical-scroll-proportion="0.0" vertical-offset="3862" max-vertical-offset="5185">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reports/machines.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="232" column="56" selection-start="8004" selection-end="8004" vertical-scroll-proportion="0.56792873" vertical-offset="3434" max-vertical-offset="5678">
+        <state line="245" column="52" selection-start="9078" selection-end="9078" vertical-scroll-proportion="0.6057907" vertical-offset="3621" max-vertical-offset="4964">
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1411530528550" expanded="true" signature="138:215" placeholder="SELECT * FRO..workcenter..." />
           </folding>
         </state>
       </provider>

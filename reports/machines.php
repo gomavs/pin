@@ -1,6 +1,6 @@
 <?php
 require '../includes/check_login.php';
-$machine_list = "<option>Select a Machine</option>";
+$machine_list = "<option value=\"0\">Select a Machine</option>";
 $result = mysqli_query($db,"SELECT * FROM workcenter WHERE type = 1 AND inservice = 1 ORDER BY center ASC");
 while($row = mysqli_fetch_array($result)) {
 	$mid =  $row['id'];
@@ -225,17 +225,28 @@ while($row = mysqli_fetch_array($result)) {
 	$('#machine-3').prop('disabled', 'disabled');
 	
 	$( ".do_action" ).on( "change", "[id=machine-1]", function() {
+		var valueMachine1 = $('#machine-1').val();
+		var selectedMachine1 = $('#machine-1').find(":selected").text();
+
+		$("#machine-2 option[value=" + valueMachine1 + "]").remove();
+		$("#machine-3 option[value=" + valueMachine1 + "]").remove();
+
 		$('#machine-2').prop('disabled', false);
-		
-		$("#machine-2 option[value='1']").remove();
-		$("#machine-3 option[value='1']").remove();
 	});
 	
 	$( ".do_action" ).on( "change", "[id=machine-2]", function() {
-		
-		$('#machine-3').prop('disabled', false);
-		
-		$("#machine-2").append('<option value="1">BAZ 1</option>');
+		var valueMachine2 = $('#machine-2').val();
+		var selectedMachine2 = $('#machine-2').find(":selected").text();
+		$("#machine-1 option[value=" + valueMachine2 + "]").remove();
+		$("#machine-3 option[value=" + valueMachine2 + "]").remove();
+		if(valueMachine2 == 0){
+			$('#machine-3 option[value=0]').attr('selected','selected');
+			$('#machine-3').prop('disabled', 'disabled');
+		}else{
+			$('#machine-3').prop('disabled', false);
+		}
+
+		//$("#machine-2").append('<option value="1">BAZ 1</option>');
 	});
 	
 	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
