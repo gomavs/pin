@@ -41,14 +41,18 @@ foreach($daterange as $date){
 		$query->bind_param("iii", $start, $end, $mid);
 		$query->execute();
 		$result = $query->get_result();
-		$row_cnt = $result->num_rows;
+		if(is_null($result->num_rows)){
+			$row_cnt = 0;
+		}else{
+			$row_cnt = $result->num_rows;
+		}
 		$count_data[$i] = $row_cnt;
 		$i++;
 	}
 	$i--;
 	$theday = date( "Y-m-d", $start );
 	switch($i){
-		case 0: $data[] = (object)array("day"=>$theday, "a:"=>$count_data[0]); break;
+		case 0: $data[] = (object)array("day"=>$theday, "a"=>$count_data[0]); break;
 		case 1: $data[] = (object)array("day"=>$theday, "a"=>$count_data[0], "b"=>$count_data[1]); break;
 		case 2: $data[] = (object)array("day"=>$theday, "a"=>$count_data[0], "b"=>$count_data[1], "c"=>$count_data[2]); break;
 	}

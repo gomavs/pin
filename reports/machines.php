@@ -1,13 +1,15 @@
 <?php
 require '../includes/check_login.php';
+
+$machine_array = [];
+
 $machine_list = "<option value=\"0\">Select a Machine</option>";
 $result = mysqli_query($db,"SELECT * FROM workcenter WHERE type = 1 AND inservice = 1 ORDER BY center ASC");
 while($row = mysqli_fetch_array($result)) {
 	$mid =  $row['id'];
 	$wc = $row['center'];
 	$mName = $row['name'];
-	$machine_list .= "<option value=\"".$mid."\">WC ".$wc."&nbsp; &nbsp;-&nbsp; &nbsp;".$mName."</option>";
-
+	$machine_list .= "<option value=\"".$mid."\">WC ".$wc."&nbsp; &nbsp;".$mName."</option>";
 }
 
 ?>
@@ -194,6 +196,7 @@ while($row = mysqli_fetch_array($result)) {
 <!--<script src="../assets/js/docs.min.js"></script>-->
 
 <script>
+	
 	window.selectedMachines = [];
 	$('#machine-2').prop('disabled', 'disabled');
 	$('#machine-3').prop('disabled', 'disabled');
@@ -203,14 +206,31 @@ while($row = mysqli_fetch_array($result)) {
 	var oneWeekAgo = new Date();
 	oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 	var start_date = ( months[(oneWeekAgo.getMonth())] + '-' + (oneWeekAgo.getDate()) + '-' + (oneWeekAgo.getFullYear()));
-	var test = "1-2-3";
-	graph_plotter(start_date, todaysDate, test);
+	
+	var request = $.getJSON("../ajax/randommachines.php", function(data) {
+		
+		var j = 0;
+		$.each(data, function(key, value) {
+			alert(value.id + " WC " + value.center + " " + value.name);
+			selectedMachines[j] = [value.id, "WC " + value.center + "&nbsp; &nbsp;" + value.name];
+			j++;
+		});
+		var i;
+		for (i = 0; i < selectedMachines.length; ++i) {
+			if(selectedMachines[i][0] != null && selectedMachines[i][0] > 0){
+				machineList += selectedMachines[i][0] + "-";
+			}
+		}
+		machineList = machineList.slice(0,-1);
+		graph_plotter(start_date, todaysDate, machineList);
+	});
+	
 	$(function() {
 		$( "#from" ).datepicker({
 			defaultDate: "+1w",
 			dateFormat:"dd M yy",
 			changeMonth: true,
-			numberOfMonths: 3,
+			numberOfMonths: 2,
 			onClose: function( selectedDate ) {
 				$( "#to" ).datepicker( "option", "minDate", selectedDate );
 			}
@@ -219,7 +239,7 @@ while($row = mysqli_fetch_array($result)) {
 			defaultDate: "+1w",
 			dateFormat:"dd M yy",
 			changeMonth: true,
-			numberOfMonths: 3,
+			numberOfMonths: 2,
 			onClose: function( selectedDate ) {
 				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
 			}
@@ -321,13 +341,18 @@ while($row = mysqli_fetch_array($result)) {
 			}
 		}
 		machineList = machineList.slice(0,-1);
-		alert (machineList);
 		graph_plotter(newStartDate, newEndDate, machineList);
 	});
 
 	function graph_plotter(newStartDate, newEndDate, machineList){
 		var request = $.getJSON("../ajax/graph2.php", {starttime : newStartDate, endtime :  newEndDate, machines : machineList}, function(dates) {
 			$("#comparemachines").html(" ");
+			var label_list = [];
+			for (i = 0; i < selectedMachines.length; ++i) {
+				if(selectedMachines[i][0] != null && selectedMachines[i][0] > 0){
+					label_list[i] = selectedMachines[i][1];
+				}
+			}
 			new Morris.Line({
 				// ID of the element in which to draw the chart.
 				element: 'comparemachines',
@@ -340,8 +365,13 @@ while($row = mysqli_fetch_array($result)) {
 				ykeys: ['a', 'b', 'c'],
 				// Labels for the ykeys -- will be displayed when you hover over the
 				// chart.
-				labels: ['value'],
+				labels: label_list, //['a', 'b', 'c'],
+				lineColors: ["blue", "green", "red"],
 				xLabels:"day",
+				hideHover: "auto",
+				hoverCallback: function (index, options, content, row) {
+				  return (content);
+				},
 				resize: "true"
 			});
 		});
