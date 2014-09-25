@@ -337,7 +337,7 @@ while($row = mysqli_fetch_array($result)) {
 				// The name of the data record attribute that contains x-values.
 				xkey: 'day',
 				// A list of names of data record attributes that contain y-values.
-				ykeys: ['value'],
+				ykeys: ['a', 'b', 'c'],
 				// Labels for the ykeys -- will be displayed when you hover over the
 				// chart.
 				labels: ['value'],
