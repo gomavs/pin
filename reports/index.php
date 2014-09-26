@@ -102,7 +102,7 @@ require '../includes/check_login.php';
 			<ul class="nav nav-sidebar">
 				<li class="active"><a href="#">Overview</a></li>
 				<li><a href="machines.php">Machine Reports</a></li>
-				<li><a href="#">User Reports</a></li>
+				<li><a href="userreports.php">User Reports</a></li>
 				<li><a href="#">Performed Studies</a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
@@ -207,7 +207,7 @@ require '../includes/check_login.php';
 
 
 		<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">
-			<h1 class="page-header">Completed Time Studies</h1>
+			<h2 class="page-header">Total Completed Time Studies</h2>
 			<div class="row">
 				<div class="col-md-6">
 					<label for="from">From</label>

@@ -3,13 +3,13 @@ require '../includes/check_login.php';
 
 $machine_array = [];
 
-$machine_list = "<option value=\"0\">Select a Machine</option>";
-$result = mysqli_query($db,"SELECT * FROM workcenter WHERE type = 1 AND inservice = 1 ORDER BY center ASC");
+$user_list = "<option value=\"0\">Select a User</option>";
+$result = mysqli_query($db,"SELECT * FROM users WHERE active = 1 ORDER BY lastname ASC");
 while($row = mysqli_fetch_array($result)) {
-	$mid =  $row['id'];
-	$wc = $row['center'];
-	$mName = $row['name'];
-	$machine_list .= "<option value=\"".$mid."\">WC ".$wc."&nbsp; &nbsp;".$mName."</option>";
+	$uid =  $row['id'];
+	$firstname = $row['firstname'];
+	$lastname = $row['lastname'];
+	$user_list .= "<option value=\"".$uid."\">".$firstname." ".$lastname."</option>";
 }
 
 ?>
@@ -35,7 +35,7 @@ while($row = mysqli_fetch_array($result)) {
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
-	
+
 	<link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 	<link href="../css/sb-admin-2.css" rel="stylesheet">
 	<link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -80,9 +80,9 @@ while($row = mysqli_fetch_array($result)) {
 					</ul>
 				</li>
 				<?php
-					if($_SESSION['user_auth_level'] >= 3){
-						echo "<li><a href=\"index.php\">Reports</a></li>";
-					}
+				if($_SESSION['user_auth_level'] >= 3){
+					echo "<li><a href=\"index.php\">Reports</a></li>";
+				}
 				?>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -107,15 +107,15 @@ while($row = mysqli_fetch_array($result)) {
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
 	<li><a href="index.php">Reports</a></li>
-	<li class="active">Machine Reports</li>
+	<li class="active">User Reports</li>
 </ol>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a href="index.php">Overview</a></li>
-				<li class="active"><a href="#">Machine Reports</a></li>
-				<li><a href="userreports.php">User Reports</a></li>
+				<li><a href="machines.php">Machine Reports</a></li>
+				<li class="active"><a href="#">User Reports</a></li>
 				<li><a href="#">Performed Studies</a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
@@ -126,33 +126,33 @@ while($row = mysqli_fetch_array($result)) {
 				<li><a href="">More navigation</a></li>
 			</ul>
 		</div>
-		
+
 
 		<div class="col-md-10 col-md-offset-2 main">
-			<h2 class="page-header">Time Studies Completed By Machine</h2>
+			<h2 class="page-header">Time Studies Completed By User</h2>
 		</div>
 
 		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<form data-toggle="validator" role="form" id="graph_machine">
 				<div class="row">
 					<div class="form-group col-md-3 do_action">
-						<select class="form-control" id="machine-1" required>
+						<select class="form-control" id="user-1" required>
 							<?php
-								echo $machine_list;
+							echo $user_list;
 							?>
 						</select>
 					</div>
 					<div class="form-group col-md-3 do_action">
-						<select class="form-control" id="machine-2">
+						<select class="form-control" id="user-2">
 							<?php
-								echo $machine_list;
+							echo $user_list;
 							?>
 						</select>
 					</div>
 					<div class="form-group col-md-3 do_action">
-						<select class="form-control" id="machine-3">
+						<select class="form-control" id="user-3">
 							<?php
-								echo $machine_list;
+							echo $user_list;
 							?>>
 						</select>
 					</div>
@@ -170,7 +170,7 @@ while($row = mysqli_fetch_array($result)) {
 				</div>
 			</form>
 			<div class="row">
-				<div id="comparemachines" style="height: 250px;"></div>
+				<div id="compareusers" style="height: 250px;"></div>
 			</div>
 		</div>
 
@@ -187,34 +187,34 @@ while($row = mysqli_fetch_array($result)) {
 <!--<script src="../assets/js/docs.min.js"></script>-->
 
 <script>
-	
-	window.selectedMachines = [];
+
+	window.selectedUsers = [];
 	window.array_toggle = 0;
-	$('#machine-2').prop('disabled', 'disabled');
-	$('#machine-3').prop('disabled', 'disabled');
+	$('#user-2').prop('disabled', 'disabled');
+	$('#user-3').prop('disabled', 'disabled');
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var myDate = new Date();
 	todaysDate = ( months[(myDate.getMonth())] + '-' + (myDate.getDate()) + '-' + (myDate.getFullYear()));
 	var oneWeekAgo = new Date();
 	oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 	var start_date = ( months[(oneWeekAgo.getMonth())] + '-' + (oneWeekAgo.getDate()) + '-' + (oneWeekAgo.getFullYear()));
-	
-	var request = $.getJSON("../ajax/randommachines.php", function(data) {
+
+	var request = $.getJSON("../ajax/randomusers.php", function(data) {
 		var j = 0;
 		$.each(data, function(key, value) {
-			selectedMachines[j] = [value.id, "WC " + value.center + "&nbsp; &nbsp;" + value.name];
+			selectedUsers[j] = [value.id, value.firstname + " " + value.lastname];
 			j++;
 		});
 		var i;
-		var machineList = "";
-		for (i = 0; i < selectedMachines.length; ++i) {
-			if(selectedMachines[i][0] != null && selectedMachines[i][0] > 0){
-				machineList += selectedMachines[i][0] + "-";
+		var userList = "";
+		for (i = 0; i < selectedUsers.length; ++i) {
+			if(selectedUsers[i][0] != null && selectedUsers[i][0] > 0){
+				userList += selectedUsers[i][0] + "-";
 
 			}
 		}
-		machineList = machineList.slice(0,-1);
-		graph_plotter(start_date, todaysDate, machineList);
+		userList = userList.slice(0,-1);
+		graph_plotter(start_date, todaysDate, userList);
 		array_toggle = 1;
 	});
 
@@ -239,85 +239,85 @@ while($row = mysqli_fetch_array($result)) {
 		});
 	});
 
-	$( ".do_action" ).on( "change", "[id=machine-1]", function() {
+	$( ".do_action" ).on( "change", "[id=user-1]", function() {
 		if($array_toggle = 1){
-			selectedMachines[0] = [0, 0];
-			selectedMachines[1] = [0, 0];
-			selectedMachines[2] = [0, 0];
+			selectedUsers[0] = [0, 0];
+			selectedUsers[1] = [0, 0];
+			selectedUsers[2] = [0, 0];
 			$array_toggle = 0;
 		}
-		var valueMachine1 = $('#machine-1').val();
-		var selectedMachine1 = $('#machine-1').find(":selected").text();
-		if (selectedMachines[0] != null) {
-			if(selectedMachines[0][0] != valueMachine1 && selectedMachines[0][0] != 0){
-				$("#machine-2").append('<option value="' + selectedMachines[0][0] + '">' + selectedMachines[0][1] + '</option>');
-				$("#machine-3").append('<option value="' + selectedMachines[0][0] + '">' + selectedMachines[0][1] + '</option>');
+		var valueUser1 = $('#user-1').val();
+		var selectedUser1 = $('#user-1').find(":selected").text();
+		if (selectedUsers[0] != null) {
+			if(selectedUsers[0][0] != valueUser1 && selectedUsers[0][0] != 0){
+				$("#user-2").append('<option value="' + selectedUsers[0][0] + '">' + selectedUsers[0][1] + '</option>');
+				$("#user-3").append('<option value="' + selectedUsers[0][0] + '">' + selectedUsers[0][1] + '</option>');
 			}
 		}
-		if(valueMachine1 == 0){
-			$("#machine-1").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
-			$("#machine-2").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
-			$("#machine-1").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
-			$("#machine-3").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
-			selectedMachines[0] = [0, 0];
-			selectedMachines[1] = [0, 0];
-			selectedMachines[2] = [0, 0];
-			$("#machine-2").find('option').removeAttr("selected");
-			$("#machine-3").find('option').removeAttr("selected");
-			$('#machine-2').prop('disabled', 'disabled');
-			$('#machine-3').prop('disabled', 'disabled');
+		if(valueUser1 == 0){
+			$("#user-1").append('<option value="' + selectedUsers[2][0] + '">' + selectedUsers[2][1] + '</option>');
+			$("#user-2").append('<option value="' + selectedUsers[2][0] + '">' + selectedUsers[2][1] + '</option>');
+			$("#user-1").append('<option value="' + selectedUsers[1][0] + '">' + selectedUsers[1][1] + '</option>');
+			$("#user-3").append('<option value="' + selectedUsers[1][0] + '">' + selectedUsers[1][1] + '</option>');
+			selectedUsers[0] = [0, 0];
+			selectedUsers[1] = [0, 0];
+			selectedUsers[2] = [0, 0];
+			$("#user-2").find('option').removeAttr("selected");
+			$("#user-3").find('option').removeAttr("selected");
+			$('#user-2').prop('disabled', 'disabled');
+			$('#user-3').prop('disabled', 'disabled');
 		}else{
-			selectedMachines[0] = [valueMachine1, selectedMachine1];
-			$("#machine-2 option[value=" + valueMachine1 + "]").remove();
-			$("#machine-3 option[value=" + valueMachine1 + "]").remove();
-			$('#machine-2').prop('disabled', false);
+			selectedUsers[0] = [valueUser1, selectedUser1];
+			$("#user-2 option[value=" + valueUser1 + "]").remove();
+			$("#user-3 option[value=" + valueUser1 + "]").remove();
+			$('#user-2').prop('disabled', false);
 		}
 	});
-	
-	$( ".do_action" ).on( "change", "[id=machine-2]", function() {
-		var valueMachine2 = $('#machine-2').val();
-		var selectedMachine2 = $('#machine-2').find(":selected").text();
-		if (selectedMachines[1] != null) {
-			if(selectedMachines[1][0] != valueMachine2 && selectedMachines[1][0] != 0){
-				$("#machine-1").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
-				$("#machine-3").append('<option value="' + selectedMachines[1][0] + '">' + selectedMachines[1][1] + '</option>');
+
+	$( ".do_action" ).on( "change", "[id=user-2]", function() {
+		var valueUser2 = $('#user-2').val();
+		var selectedUser2 = $('#user-2').find(":selected").text();
+		if (selectedUsers[1] != null) {
+			if(selectedUsers[1][0] != valueUser2 && selectedUsers[1][0] != 0){
+				$("#user-1").append('<option value="' + selectedUsers[1][0] + '">' + selectedUsers[1][1] + '</option>');
+				$("#user-3").append('<option value="' + selectedUsers[1][0] + '">' + selectedUsers[1][1] + '</option>');
 			}
 		}
-		if(valueMachine2 == 0){
-			$("#machine-1").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
-			$("#machine-2").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
-			selectedMachines[1] = [0, 0];
-			selectedMachines[2] = [0, 0];
-			$("#machine-3").find('option').removeAttr("selected");
-			$('#machine-3').prop('disabled', 'disabled');
+		if(valueUser2 == 0){
+			$("#user-1").append('<option value="' + selectedUsers[2][0] + '">' + selectedUsers[2][1] + '</option>');
+			$("#user-2").append('<option value="' + selectedUsers[2][0] + '">' + selectedUsers[2][1] + '</option>');
+			selectedUsers[1] = [0, 0];
+			selectedUsers[2] = [0, 0];
+			$("#user-3").find('option').removeAttr("selected");
+			$('#user-3').prop('disabled', 'disabled');
 		}else{
-			selectedMachines[1] = [valueMachine2, selectedMachine2];
-			$("#machine-1 option[value=" + valueMachine2 + "]").remove();
-			$("#machine-3 option[value=" + valueMachine2 + "]").remove();
-			$('#machine-3').prop('disabled', false);
+			selectedUsers[1] = [valueUser2, selectedUser2];
+			$("#user-1 option[value=" + valueUser2 + "]").remove();
+			$("#user-3 option[value=" + valueUser2 + "]").remove();
+			$('#user-3').prop('disabled', false);
 		}
 	});
-	
-	$( ".do_action" ).on( "change", "[id=machine-3]", function() {
-		var valueMachine3 = $('#machine-3').val();
-		var selectedMachine3 = $('#machine-3').find(":selected").text();
-		if (selectedMachines[2] != null) {
-			if(selectedMachines[2][0] != valueMachine3 && selectedMachines[2][0] != 0){
-				$("#machine-1").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
-				$("#machine-2").append('<option value="' + selectedMachines[2][0] + '">' + selectedMachines[2][1] + '</option>');
+
+	$( ".do_action" ).on( "change", "[id=user-3]", function() {
+		var valueUser3 = $('#user-3').val();
+		var selectedUser3 = $('#user-3').find(":selected").text();
+		if (selectedUsers[2] != null) {
+			if(selectedUsers[2][0] != valueUser3 && selectedUsers[2][0] != 0){
+				$("#user-1").append('<option value="' + selectedUsers[2][0] + '">' + selectedUsers[2][1] + '</option>');
+				$("#user-2").append('<option value="' + selectedUsers[2][0] + '">' + selectedUsers[2][1] + '</option>');
 			}
-		}	
-		if(valueMachine3 == 0){
-			selectedMachines[2] = [0, 0];
+		}
+		if(valueUser3 == 0){
+			selectedUsers[2] = [0, 0];
 		}else{
-			selectedMachines[2] = [valueMachine3, selectedMachine3];
-			$("#machine-1 option[value=" + valueMachine3 + "]").remove();
-			$("#machine-2 option[value=" + valueMachine3 + "]").remove();
+			selectedUsers[2] = [valueUser3, selectedUser3];
+			$("#user-1 option[value=" + valueUser3 + "]").remove();
+			$("#user-2 option[value=" + valueUser3 + "]").remove();
 		}
 	});
-	
+
 	$( ".do_action" ).on( "click", "[id = plotgraph]", function() {
-		var machineList = "";
+		var userList = "";
 		var start_date = $( "#from" ).val();
 		var end_date = end_date = $( "#to" ).val();
 		start_date=start_date.split(" ");
@@ -325,23 +325,23 @@ while($row = mysqli_fetch_array($result)) {
 		end_date=end_date.split(" ");
 		var newEndDate=end_date[1]+"-"+end_date[0]+"-"+end_date[2];
 		var i;
-		for (i = 0; i < selectedMachines.length; ++i) {
-			if(selectedMachines[i][0] != null && selectedMachines[i][0] > 0){
-				machineList += selectedMachines[i][0] + "-";
+		for (i = 0; i < selectedUsers.length; ++i) {
+			if(selectedUsers[i][0] != null && selectedUsers[i][0] > 0){
+				userList += selectedUsers[i][0] + "-";
 			}
 		}
-		machineList = machineList.slice(0,-1);
-		graph_plotter(newStartDate, newEndDate, machineList);
+		userList = userList.slice(0,-1);
+		graph_plotter(newStartDate, newEndDate, userList);
 	});
 
-	function graph_plotter(newStartDate, newEndDate, machineList){
-		var request = $.getJSON("../ajax/graph2.php", {starttime : newStartDate, endtime :  newEndDate, machines : machineList}, function(dates) {
-			$("#comparemachines").html(" ");
+	function graph_plotter(newStartDate, newEndDate, userList){
+		var request = $.getJSON("../ajax/graph3.php", {starttime : newStartDate, endtime :  newEndDate, users : userList}, function(dates) {
+			$("#compareusers").html(" ");
 			var label_list = [];
 			var key_list = [];
-			for (i = 0; i < selectedMachines.length; ++i) {
-				if(selectedMachines[i][0] != null && selectedMachines[i][0] > 0){
-					label_list[i] = selectedMachines[i][1];
+			for (i = 0; i < selectedUsers.length; ++i) {
+				if(selectedUsers[i][0] != null && selectedUsers[i][0] > 0){
+					label_list[i] = selectedUsers[i][1];
 					switch(i){
 						case 0: key_list[i] = "a"; break;
 						case 1: key_list[i] = "b"; break;
@@ -352,7 +352,7 @@ while($row = mysqli_fetch_array($result)) {
 			}
 			new Morris.Line({
 				// ID of the element in which to draw the chart.
-				element: 'comparemachines',
+				element: 'compareusers',
 				// Chart data records -- each entry in this array corresponds to a point on
 				// the chart.
 				data: dates,
@@ -369,7 +369,7 @@ while($row = mysqli_fetch_array($result)) {
 			});
 		});
 	}
-	
+
 </script>
 </body>
 </html>

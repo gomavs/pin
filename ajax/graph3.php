@@ -3,6 +3,10 @@ require_once("../includes/dbConnect.php");
 
 $start_time = strtotime($_GET['starttime']);
 $end_time = strtotime($_GET['endtime']);
+if($_GET['users']){
+	$user_list = explode("-", $_GET['users']);
+}
+$total_users = count($user_list);
 $time_diff = $end_time - $start_time;
 if($time_diff < 86400*15){//less than 16 days = days
 	$multiplier = 86400;
@@ -23,28 +27,35 @@ $startfrom = date( "Y-m-d", $start_time );
 $goto = date("Y-m-d", $end_time);
 $begin = new DateTime( $startfrom );
 $end = new DateTime( $goto );
-$end = $end->modify( '+1 day' ); 
-
+$end = $end->modify( '+1 day' );
 $interval = new DateInterval($skip_by);
 $daterange = new DatePeriod($begin, $interval ,$end);
+$query = $db->prepare("SELECT * FROM times WHERE start_time >= ? AND end_time < ? AND completedby = ? ORDER BY end_time ASC");
 foreach($daterange as $date){
-    $start = $date->format("Ymd");
-	//echo $start;
+	$count_data = [];
+	$i = 0;
+	$start = $date->format("Ymd");
 	$start =  strtotime($start);
 	$end = $start + $multiplier;
-	$completed = 1;
-	$query = $db->prepare("SELECT * FROM times WHERE start_time >= ? AND end_time < ? AND completed = ? ORDER BY end_time ASC");
-	$query->bind_param("iii", $start, $end, $completed);
-	$query->execute();
-	$result = $query->get_result();
-	$row_cnt = $result->num_rows;
-	
-	switch($skip_by){
-		case "PT1H" : $theday = $start; break;
-		default : $theday = date( "Y-m-d", $start );
+	foreach($user_list as $uid){
+		$query->bind_param("iii", $start, $end, $uid);
+		$query->execute();
+		$result = $query->get_result();
+		if(is_null($result->num_rows)){
+			$row_cnt = 0;
+		}else{
+			$row_cnt = $result->num_rows;
+		}
+		$count_data[$i] = $row_cnt;
+		$i++;
 	}
-	
-	$data[] = (object)array("day"=>$theday, "value"=>$row_cnt);
+	$i--;
+	$theday = date( "Y-m-d", $start );
+	switch($i){
+		case 0: $data[] = (object)array("day"=>$theday, "a"=>$count_data[0]); break;
+		case 1: $data[] = (object)array("day"=>$theday, "a"=>$count_data[0], "b"=>$count_data[1]); break;
+		case 2: $data[] = (object)array("day"=>$theday, "a"=>$count_data[0], "b"=>$count_data[1], "c"=>$count_data[2]); break;
+	}
 }
 
 echo json_encode($data);
