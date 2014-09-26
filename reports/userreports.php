@@ -116,18 +116,9 @@ while($row = mysqli_fetch_array($result)) {
 				<li><a href="index.php">Overview</a></li>
 				<li><a href="machines.php">Machine Reports</a></li>
 				<li class="active"><a href="#">User Reports</a></li>
-				<li><a href="#">Performed Studies</a></li>
-			</ul>
-			<ul class="nav nav-sidebar">
-				<li><a href="">Nav item</a></li>
-				<li><a href="">Nav item again</a></li>
-				<li><a href="">One more nav</a></li>
-				<li><a href="">Another nav item</a></li>
-				<li><a href="">More navigation</a></li>
+				<li><a href="partreports.php">Performed Studies</a></li>
 			</ul>
 		</div>
-
-
 		<div class="col-md-10 col-md-offset-2 main">
 			<h2 class="page-header">Time Studies Completed By User</h2>
 		</div>
