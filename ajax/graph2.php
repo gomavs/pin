@@ -8,6 +8,9 @@ if($_GET['machines']){
 }
 $total_machines = count($machine_list);
 $time_diff = $end_time - $start_time;
+$multiplier = 86400;
+$skip_by = "P1D";
+/*
 if($time_diff < 86400*15){//less than 16 days = days
 	$multiplier = 86400;
 	$skip_by = "P1D";
@@ -20,7 +23,7 @@ if($time_diff < 86400*15){//less than 16 days = days
 }else{//greater than a year = years
 	$multiplier = 31536000;
 	$skip_by = "P1Y";
-}
+}*/
 $row_cnt = 0;
 $data = [];
 $startfrom = date( "Y-m-d", $start_time );

@@ -110,47 +110,44 @@ require '../includes/check_login.php';
 			<h2 class="page-header">Part Time Studies Completed</h2>
 		</div>
 		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2">
-				<div class="row">
-					
+				<div class="row col-md">
 					<div class="col-md-3">
 						<label for="from">Date</label>
 						<input type="text" id="from" name="from" required>
 					</div>
-					
 					<div class="col-md-1">
 						<button id="searchdate" type="button" class="btn btn-primary btn-xs">Search Date</button>
 					</div>
-					
 				</div>
 			</form>
-			<div class="row">
-			<table id="table_id" class="display">
-				<thead>
-					<tr>
-						<th>Part Number</th>
-						<th>Part Description</th>
-						<th>Parent Number</th>
-						<th>Machine</th>
-						<th>Time</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Row 1 Data 1</td>
-						<td>Row 1 Data 2</td>
-						<td>Row 1 Data 3</td>
-						<td>Row 1 Data 4</td>
-						<td>Row 1 Data 5</td>
-					</tr>
-					<tr>
-						<td>Row 2 Data 1</td>
-						<td>Row 2 Data 2</td>
-						<td>Row 2 Data 3</td>
-						<td>Row 2 Data 4</td>
-						<td>Row 2 Data 5</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="row col-md-12">
+				<table id="table_id" class="display">
+					<thead>
+						<tr>
+							<th>Part Number</th>
+							<th>Part Description</th>
+							<th>Parent Number</th>
+							<th>Machine</th>
+							<th>Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Row 1 Data 1</td>
+							<td>Row 1 Data 2</td>
+							<td>Row 1 Data 3</td>
+							<td>Row 1 Data 4</td>
+							<td>Row 1 Data 5</td>
+						</tr>
+						<tr>
+							<td>Row 2 Data 1</td>
+							<td>Row 2 Data 2</td>
+							<td>Row 2 Data 3</td>
+							<td>Row 2 Data 4</td>
+							<td>Row 2 Data 5</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 
@@ -167,10 +164,26 @@ require '../includes/check_login.php';
 <!--<script src="../assets/js/docs.min.js"></script>-->
 
 <script>
+/*
 	$(document).ready( function () {
 		$('#table_id').DataTable();
 	});
-
+*/
+	$(document).ready(function() {
+		$('#table_id').dataTable( {
+			"processing": true,
+			"serverSide": true,
+			"ajax": {
+				"url": "../ajax/updatepartsreport.php",
+				"data": function ( d ) {
+					d.myKey = "myValue";
+					// d.custom = $('#myInput').val();
+					// etc
+				}
+			}
+		} );
+	} );
+	
 	
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var myDate = new Date();
