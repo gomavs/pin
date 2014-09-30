@@ -172,7 +172,6 @@ require '../includes/check_login.php';
 	$(document).ready(function() {
 		$('#table_id').dataTable( {
 			"processing": true,
-			"serverSide": true,
 			"ajax": {
 				"url": "../ajax/updatepartsreport.php",
 				"data": function ( d ) {
