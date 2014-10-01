@@ -36,7 +36,7 @@ foreach($daterange as $date){
 	$start =  strtotime($start);
 	$end = $start + $multiplier;
 	$completed = 1;
-	$query = $db->prepare("SELECT * FROM times WHERE start_time >= ? AND end_time < ? AND completed = ? ORDER BY end_time ASC");
+	$query = $db->prepare("SELECT * FROM times WHERE end_time >= ? AND end_time < ? AND completed = ? ORDER BY end_time ASC");
 	$query->bind_param("iii", $start, $end, $completed);
 	$query->execute();
 	$result = $query->get_result();

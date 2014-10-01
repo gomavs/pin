@@ -1,13 +1,17 @@
 <?php
 require_once("../includes/dbConnect.php");
 
+$start_time = strtotime($_GET['starttime']);
+$end_time = strtotime($_GET['endtime']);
+
+
 $q = 1;
 $data = [];
-$query = $db->prepare("SELECT * FROM times WHERE completed = ?");
+$query = $db->prepare("SELECT * FROM times WHERE end_time >= ? AND end_time < ? AND completed = ? ORDER BY end_time ASC");
 $query2 = $db->prepare("SELECT * FROM part WHERE id = ?");
 $query3 = $db->prepare("SELECT * FROM part WHERE id = ?");
 $query4 = $db->prepare("SELECT * FROM workcenter WHERE id = ?");
-$query->bind_param("i", $q);
+$query->bind_param("iii", $start_time, $end_time, $q);
 $query->execute();
 $result = $query->get_result();
 while (($row = $result->fetch_object()) !== NULL) {
@@ -15,7 +19,7 @@ while (($row = $result->fetch_object()) !== NULL) {
 	$end_time = $row->end_time;
 	$completed_on = date("M d, Y",$end_time);
 	$diff = $end_time - $start_time;
-	$elapsed_time = date('H:i:s', $diff);
+	$elapsed_time = date('i:s', $diff);
 	$query2->bind_param("i", $row->item_id);
 	$query2->execute();
 	$result2 = $query2->get_result();

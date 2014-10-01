@@ -33,7 +33,7 @@ $end = new DateTime( $goto );
 $end = $end->modify( '+1 day' );
 $interval = new DateInterval($skip_by);
 $daterange = new DatePeriod($begin, $interval ,$end);
-$query = $db->prepare("SELECT * FROM times WHERE start_time >= ? AND end_time < ? AND machine_id = ? ORDER BY end_time ASC");
+$query = $db->prepare("SELECT * FROM times WHERE end_time >= ? AND end_time < ? AND machine_id = ? ORDER BY end_time ASC");
 foreach($daterange as $date){
 	$count_data = [];
 	$i = 0;

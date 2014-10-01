@@ -111,11 +111,13 @@ require '../includes/check_login.php';
 		</div>
 		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2">
 				<div class="row col-md">
-					<div class="col-md-3">
-						<label for="from">Date</label>
+					<div class="col-md-6">
+						<label for="from">From</label>
 						<input type="text" id="from" name="from" required>
+						<label for="to">to</label>
+						<input type="text" id="to" name="to" required>
 					</div>
-					<div class="col-md-1">
+					<div class="col-md-1 do_action">
 						<button id="searchdate" type="button" class="btn btn-primary btn-xs">Search Date</button>
 					</div>
 				</div>
@@ -135,22 +137,13 @@ require '../includes/check_login.php';
 					</thead>
 					<tbody>
 						<tr>
-							<td>Row 1 Data 1</td>
-							<td>Row 1 Data 2</td>
-							<td>Row 1 Data 3</td>
-							<td>Row 1 Data 4</td>
-							<td>Row 1 Data 5</td>
-							<td>Row 1 Data 6</td>
-							<td>Row 1 Data 7</td>
-						</tr>
-						<tr>
-							<td>Row 2 Data 1</td>
-							<td>Row 2 Data 2</td>
-							<td>Row 2 Data 3</td>
-							<td>Row 2 Data 4</td>
-							<td>Row 2 Data 5</td>
-							<td>Row 2 Data 6</td>
-							<td>Row 2 Data 7</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
@@ -170,27 +163,6 @@ require '../includes/check_login.php';
 <!--<script src="../assets/js/docs.min.js"></script>-->
 
 <script>
-/*
-	$(document).ready( function () {
-		$('#table_id').DataTable();
-	});
-*/
-	$(document).ready(function() {
-		$('#table_id').dataTable( {
-			"processing": true,
-			//"ajax": {
-				//"url": "../ajax/updatepartsreport.php"
-
-				"bProcessing": true,
-				"sAjaxDataProp":"",
-				"bServerSide": true,
-				"sAjaxSource": "../ajax/updatepartsreport.php"
-
-
-			//}
-		} );
-	} );
-	
 	
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var myDate = new Date();
@@ -198,8 +170,7 @@ require '../includes/check_login.php';
 	var oneWeekAgo = new Date();
 	oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 	var start_date = ( months[(oneWeekAgo.getMonth())] + '-' + (oneWeekAgo.getDate()) + '-' + (oneWeekAgo.getFullYear()));
-
-
+	table_fill(start_date, todaysDate);
 	$(function() {
 		$( "#from" ).datepicker({
 			defaultDate: "+1w",
@@ -210,14 +181,51 @@ require '../includes/check_login.php';
 				$( "#to" ).datepicker( "option", "minDate", selectedDate );
 			}
 		});
+		$( "#to" ).datepicker({
+			defaultDate: "+1w",
+			dateFormat:"dd M yy",
+			changeMonth: true,
+			numberOfMonths: 2,
+			onClose: function( selectedDate ) {
+				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		});
 	});
 
 	$( ".do_action" ).on( "click", "[id = searchdate]", function() {
 		var start_date = $( "#from" ).val();
+		var end_date = end_date = $( "#to" ).val();
 		start_date=start_date.split(" ");
 		var newStartDate=start_date[1]+"-"+start_date[0]+"-"+start_date[2];
-		alert(newStartDate);
+		end_date=end_date.split(" ");
+		var newEndDate=end_date[1]+"-"+end_date[0]+"-"+end_date[2];
+		$('#table_id').dataTable( {
+			destroy: true
+		} );
+		
+		table_fill(newStartDate, newEndDate);
 	});
+	
+	function table_fill(startDate, endDate){
+		$(document).ready(function() {
+			$('#table_id').dataTable( {
+				//"processing": true,
+				"bProcessing": true,
+				"sAjaxDataProp":"",
+				//"bServerSide": true,
+				"ajax": "../ajax/updatepartsreport.php?starttime=" + startDate + "&endtime=" + endDate,
+				"columns": [
+					{ "data": "Part Number" },
+					{ "data": "Part Description" },
+					{ "data": "Parent Number" },
+					{ "data": "Work Center" },
+					{ "data": "Machine" },
+					{ "data": "Date" },
+					{ "data": "Time" }
+				]
+			} );
+		} );
+	};
 
 </script>
 </body>
