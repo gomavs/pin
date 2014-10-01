@@ -28,9 +28,7 @@ while (($row = $result->fetch_object()) !== NULL) {
 	$query4->execute();
 	$result4 = $query4->get_result();
 	$row4 = $result4->fetch_assoc();
-	$work_center = "WC ".$row4['center']." ".$row4['name'];
-	echo $work_center;
-	$data[] = ["Part Number"=>$row2['partnumber'], "Part Description"=>$row2['partdesc'], "Parent Number"=>$row3['partnumber'], "Machine"=>$work_center, "Date"=>$completed_on, "Time"=>$elapsed_time];
+	$data[] = ["Part Number"=>$row2['partnumber'], "Part Description"=>$row2['partdesc'], "Parent Number"=>$row3['partnumber'], "Work Center"=>$row4['center'], "Machine"=>$row4['name'], "Date"=>$completed_on, "Time"=>$elapsed_time];
 }
 echo json_encode($data);
 

@@ -127,7 +127,9 @@ require '../includes/check_login.php';
 							<th>Part Number</th>
 							<th>Part Description</th>
 							<th>Parent Number</th>
+							<th>Work Center</th>
 							<th>Machine</th>
+							<th>Date</th>
 							<th>Time</th>
 						</tr>
 					</thead>
@@ -138,6 +140,8 @@ require '../includes/check_login.php';
 							<td>Row 1 Data 3</td>
 							<td>Row 1 Data 4</td>
 							<td>Row 1 Data 5</td>
+							<td>Row 1 Data 6</td>
+							<td>Row 1 Data 7</td>
 						</tr>
 						<tr>
 							<td>Row 2 Data 1</td>
@@ -145,6 +149,8 @@ require '../includes/check_login.php';
 							<td>Row 2 Data 3</td>
 							<td>Row 2 Data 4</td>
 							<td>Row 2 Data 5</td>
+							<td>Row 2 Data 6</td>
+							<td>Row 2 Data 7</td>
 						</tr>
 					</tbody>
 				</table>
@@ -172,14 +178,16 @@ require '../includes/check_login.php';
 	$(document).ready(function() {
 		$('#table_id').dataTable( {
 			"processing": true,
-			"ajax": {
-				"url": "../ajax/updatepartsreport.php",
-				"data": function ( d ) {
-					d.myKey = "myValue";
-					// d.custom = $('#myInput').val();
-					// etc
-				}
-			}
+			//"ajax": {
+				//"url": "../ajax/updatepartsreport.php"
+
+				"bProcessing": true,
+				"sAjaxDataProp":"",
+				"bServerSide": true,
+				"sAjaxSource": "../ajax/updatepartsreport.php"
+
+
+			//}
 		} );
 	} );
 	
