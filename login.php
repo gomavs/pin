@@ -25,6 +25,7 @@ if(isset($_POST['submit'])){
 				$_SESSION['user_pass'] = $password;
 				$_SESSION['user_auth_level'] = $row->authlevel;
 				$_SESSION['logged'] = 1;
+				$_SESSION['time'] = time();
 				$logged_in = 1;
 				header("location:index.php");
 			}else{

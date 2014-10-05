@@ -110,14 +110,14 @@ require '../includes/check_login.php';
 			<h2 class="page-header">Part Time Studies Completed</h2>
 		</div>
 		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2">
-				<div class="row col-md">
+				<div class="row col-md-12">
 					<div class="col-md-6">
 						<label for="from">From</label>
 						<input type="text" id="from" name="from" required>
 						<label for="to">to</label>
 						<input type="text" id="to" name="to" required>
 					</div>
-					<div class="col-md-1 do_action">
+					<div class="col-md-2 do_action">
 						<button id="searchdate" type="button" class="btn btn-primary btn-xs">Search Date</button>
 					</div>
 				</div>
@@ -191,6 +191,8 @@ require '../includes/check_login.php';
 			}
 		});
 	});
+	
+	var table;
 
 	$( ".do_action" ).on( "click", "[id = searchdate]", function() {
 		var start_date = $( "#from" ).val();
@@ -199,16 +201,14 @@ require '../includes/check_login.php';
 		var newStartDate=start_date[1]+"-"+start_date[0]+"-"+start_date[2];
 		end_date=end_date.split(" ");
 		var newEndDate=end_date[1]+"-"+end_date[0]+"-"+end_date[2];
-		$('#table_id').dataTable( {
-			destroy: true
-		} );
+		table.destroy();
 		
 		table_fill(newStartDate, newEndDate);
 	});
 	
 	function table_fill(startDate, endDate){
 		$(document).ready(function() {
-			$('#table_id').dataTable( {
+			table = $('#table_id').DataTable( {
 				//"processing": true,
 				"bProcessing": true,
 				"sAjaxDataProp":"",

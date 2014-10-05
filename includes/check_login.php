@@ -4,8 +4,8 @@ require_once 'dbConnect.php';
 
 $errors = array();
 if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
-	$logged_in = 0;
-	header('location:login.php');
+	//$logged_in = 0;
+	//header('location:login.php');
 	
 } else {
     if(!get_magic_quotes_gpc()) {
@@ -31,18 +31,18 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 	$active = $row['active'];
 	if ($active == 1) {
 		$hash = $row['password'];
-		if (password_verify($_SESSION['user_pass'], $hash)) {
+		if (time() - $_SESSION['time'] < 1800 && password_verify($_SESSION['user_pass'], $hash)) {
 			$_SESSION['user_id'] = $row['id'];
 			$_SESSION['user_first_name'] = $row['firstname'];
 			$_SESSION['user_last_name'] = $row['lastname'];
 			$_SESSION['user_email'] = $row['email'];
 			$_SESSION['user_auth_level'] = $row['authlevel'];
 			$_SESSION['logged'] = 1;
+			$_SESSION['time'] = time();
 			$logged_in = 1;
 		}else{
 			$logged_in = 0;
-			unset($_SESSION['user_email']);
-			unset($_SESSION['password']);
+			session_destroy();
 			header('location:login.php');
 		}
 	}
