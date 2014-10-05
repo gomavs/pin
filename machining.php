@@ -168,6 +168,7 @@ include 'includes/navbar.php';
 		});
 		$(".tree li").click(function(event) {
 			event.stopPropagation();
+			console.log(this);
 		});
 	});
 
@@ -184,7 +185,6 @@ include 'includes/navbar.php';
 		$('#autocomplete').autocomplete({
 			serviceUrl:"ajax/search.php",
 			onSelect: function(suggestion) {
-				console.log(suggestion);
 			}
 		});
 	});
@@ -197,7 +197,6 @@ include 'includes/navbar.php';
 		$(".boom").removeClass("boom");
 		$(this).addClass("boom");
 		var request = $.getJSON("ajax/gettimes.php", {id : rowId}, function(data) {
-			console.log(data);
 			$("#partNumber").html(partNumber);
 			$.each(machine_list, function(k, v){
 				$("#runner-" + v).runner('stop');

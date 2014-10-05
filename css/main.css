@@ -36,10 +36,10 @@
 	position:absolute;
 	left:50%;
 }
-.tree ul:hover{
+.tree ul:hover, .boom {
 	background-color:#fff;
 }
-.tree li:hover {
+.tree li:hover .boom {
 	background-color:#f5f5f5;
 }
 
