@@ -107,7 +107,7 @@ while($row = mysqli_fetch_array($result)) {
 </head>
 <body>
 <?php
-include '../includes/navbar2.php';
+include '../includes/navbar.php';
 ?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>

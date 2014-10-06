@@ -1,3 +1,28 @@
+<?php
+//echo dirname($_SERVER['PHP_SELF']);
+$folders = explode ('/', $_SERVER['PHP_SELF']);
+//echo $folders[1];
+$foler_count = count($folders);
+/*for($i = 1; $i < $foler_count; $i++){
+echo $folders[$i]."<br>";
+}*/
+if($foler_count > 3){
+	$relative = "../";
+	$url_admin = "admin.php";
+}else{
+	$relative = "";
+	$url_admin = "admin/admin.php";
+}
+////////////////URL's////////////////////
+$url_home = $relative."index.php";
+$url_machining = $relative."machining.php";
+$url_settings = $relative."settings.php";
+//$url_admin = $relative."admin.php";
+
+
+
+?>
+
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 	<!-- Brand and toggle get grouped for better mobile display -->
@@ -19,7 +44,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">Cutting</a></li>
 						<li><a href="#">Edgebanding</a></li>
-						<li><a href="machining.php">Machining</a></li>
+						<li><a href="<?php echo $url_machining; ?>">Machining</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Assembly</a></li>
 						<li class="divider"></li>
@@ -36,16 +61,16 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="settings.php">Settings</a></li>
+						<li><a href="<?php echo $url_settings; ?>">Settings</a></li>
 						<?php
 						if($_SESSION['user_auth_level'] == 5){
-						 echo "<li class=\"divider\"></li><li><a href=\"./admin/admin.php\">Administration</a></li>";}
+						 echo "<li class=\"divider\"></li><li><a href=\"".$url_admin."\">Administration</a></li>";}
 						?>
 					</ul>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<a href="logout.php" class="btn btn-default navbar-btn btn-xs">Sign Out</a>
+				<a href="logout.php" class="btn btn-primary navbar-btn btn-xs">Sign Out</a>
 			</ul>
 			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="settings.php"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?>&nbsp;</b></a></p>
  

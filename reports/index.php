@@ -104,6 +104,7 @@ require '../includes/check_login.php';
 				<li><a href="machines.php">Machine Reports</a></li>
 				<li><a href="userreports.php">User Reports</a></li>
 				<li><a href="partreports.php">Performed Studies</a></li>
+				<li><a href="itemreport.php">Part Times</a></li>
 			</ul>
 		</div>
 		<div class="col-md-10 col-md-offset-2 main">

@@ -1,3 +1,12 @@
+<?php
+//echo dirname($_SERVER['PHP_SELF']);
+$folders = explode ('/', $_SERVER['PHP_SELF']);
+//echo $folders[2];
+$result = count($folders);
+for($i=1;$i<$result;$i++){
+echo $folders[$i]."<br>";
+}
+?>
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 	<!-- Brand and toggle get grouped for better mobile display -->
@@ -45,7 +54,7 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<a href="../logout.php" class="btn btn-default navbar-btn btn-xs">Sign Out</a>
+				<a href="../logout.php" class="btn btn-primary navbar-btn btn-xs">Sign Out</a>
 			</ul>
 			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="../settings.php"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?>&nbsp;</b></a></p>
  

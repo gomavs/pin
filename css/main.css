@@ -131,3 +131,7 @@ tr.clickableRow {
 	position:absolute;
 	left:40%;
 }
+
+.bottom_fix{
+	margin-bottom: 20px;
+}

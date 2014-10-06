@@ -92,7 +92,7 @@ function display_children($category_id, $level){
 </head>
 <body>
 <?php
-include '../includes/navbar2.php';
+include '../includes/navbar.php';
 ?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>

@@ -1,6 +1,5 @@
 <?php
 session_start();
-//require 'includes/check_login.php';
 require_once 'includes/dbConnect.php';
 $errors = array();
 if(isset($_SESSION['logged']) && $_SESSION['logged'] == 1){
@@ -35,9 +34,7 @@ if(isset($_POST['submit'])){
 			$errors[] = "The entered email address or the password is incorrect.";
 		}
 	}
-	
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

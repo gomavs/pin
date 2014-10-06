@@ -92,7 +92,7 @@ require '../includes/check_login.php';
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
 	<li><a href="index.php">Reports</a></li>
-	<li class="active">Performed Studies</li>
+	<li class="active">Part Times</li>
 </ol>
 <div class="container-fluid">
 	<div class="row">
@@ -101,14 +101,12 @@ require '../includes/check_login.php';
 				<li><a href="index.php">Overview</a></li>
 				<li><a href="machines.php">Machine Reports</a></li>
 				<li><a href="userreports.php">User Reports</a></li>
-				<li class="active"><a href="#">Performed Studies</a></li>
-				<li><a href="itemreport.php">Part Times</a></li>
+				<li><a href="partreports.php">Performed Studies</a></li>
+				<li class="active"><a href="#">Part Times</a></li>
 			</ul>
 		</div>
-
-
 		<div class="col-md-10 col-md-offset-2 main">
-			<h2 class="page-header">Part Time Studies Completed</h2>
+			<h2 class="page-header">Part Times</h2>
 		</div>
 		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2">
 				<div class="row col-md-12 bottom_fix">

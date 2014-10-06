@@ -117,6 +117,7 @@ while($row = mysqli_fetch_array($result)) {
 				<li><a href="machines.php">Machine Reports</a></li>
 				<li class="active"><a href="#">User Reports</a></li>
 				<li><a href="partreports.php">Performed Studies</a></li>
+				<li><a href="itemreport.php">Part Times</a></li>
 			</ul>
 		</div>
 		<div class="col-md-10 col-md-offset-2 main">
