@@ -36,59 +36,9 @@ require '../includes/check_login.php';
 </head>
 
 <body>
-
-<div class="navbar navbar-default" role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Pin Time Study</a>
-		</div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part Timing <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Cutting</a></li>
-						<li><a href="#">Edgebanding</a></li>
-						<li><a href="../machining.php">Machining</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Assembly</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Packaging</a></li>
-					</ul>
-				</li>
-				<?php
-				if($_SESSION['user_auth_level'] >= 3){
-					echo "<li><a href=\"index.php\">Reports</a></li>";
-				}
-				?>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="../settings.php">Settings</a></li>
-						<?php
-						if($_SESSION['user_auth_level'] == 5){
-							echo "<li class=\"divider\"></li><li><a href=\"../admin/admin.php\">Administration</a></li>";}
-						?>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<a href="../logout.php" class="btn btn-default navbar-btn btn-xs">Sign Out</a>
-			</ul>
-			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="../settings.php"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?>&nbsp;</b></a></p>
-		</div><!-- /.navbar-collapse -->
-	</div>
-</div>
+<?php
+include '../includes/navbar.php';
+?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
 	<li><a href="index.php">Reports</a></li>
@@ -96,29 +46,18 @@ require '../includes/check_login.php';
 </ol>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-3 col-md-2 sidebar">
-			<ul class="nav nav-sidebar">
-				<li><a href="index.php">Overview</a></li>
-				<li><a href="machines.php">Machine Reports</a></li>
-				<li><a href="userreports.php">User Reports</a></li>
-				<li><a href="partreports.php">Performed Studies</a></li>
-				<li class="active"><a href="#">Part Times</a></li>
-			</ul>
-		</div>
 		<div class="col-md-10 col-md-offset-2 main">
 			<h2 class="page-header">Part Times</h2>
 		</div>
-		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2">
+		<div class="col-md-12">
 				<div class="row col-md-12 bottom_fix">
-					<div class="col-md-6">
-						<label for="from">From</label>
-						<input type="text" id="from" name="from" required>
-						<label for="to">to</label>
-						<input type="text" id="to" name="to" required>
-					</div>
-					<div class="col-md-2 do_action">
-						<button id="searchdate" type="button" class="btn btn-primary btn-xs">Search Date</button>
-					</div>
+					<form method = "POST">
+						<div class="col-md-2"><label>Part Number:</label></div>
+						<div class="col-md-3"><input type="text" class="form-control" name="partnumber" id="autocomplete" autofocus placeholder="Enter part number"><input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/></div>
+					</form>
+					<!--<div class="col-md-2 do_action">
+						<button id="searchdate" type="button" class="btn btn-primary">Search Part</button>
+					</div>-->
 				</div>
 			</form>
 			<div class="row col-md-12">
@@ -156,6 +95,7 @@ require '../includes/check_login.php';
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.autocomplete.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script type="text/javascript" charset="utf8" src="../js/jquery.dataTables.js"></script>
@@ -170,26 +110,15 @@ require '../includes/check_login.php';
 	oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 	var start_date = ( months[(oneWeekAgo.getMonth())] + '-' + (oneWeekAgo.getDate()) + '-' + (oneWeekAgo.getFullYear()));
 	table_fill(start_date, todaysDate);
-	$(function() {
-		$( "#from" ).datepicker({
-			defaultDate: "+1w",
-			dateFormat:"dd M yy",
-			changeMonth: true,
-			numberOfMonths: 2,
-			onClose: function( selectedDate ) {
-				$( "#to" ).datepicker( "option", "minDate", selectedDate );
-			}
-		});
-		$( "#to" ).datepicker({
-			defaultDate: "+1w",
-			dateFormat:"dd M yy",
-			changeMonth: true,
-			numberOfMonths: 2,
-			onClose: function( selectedDate ) {
-				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
+	
+	$(function(){
+		$('#autocomplete').autocomplete({
+			serviceUrl:"../ajax/search.php",
+			onSelect: function(suggestion) {
 			}
 		});
 	});
+	
 	
 	var table;
 

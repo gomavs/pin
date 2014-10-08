@@ -53,7 +53,16 @@ $url_settings = $relative."settings.php";
 				</li>
 				<?php
 					if($_SESSION['user_auth_level'] >= 3){
-						echo "<li><a href=\"reports/index.php\">Reports</a></li>";
+						echo "<li class=\"dropdown\">";
+						echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Reports<span class=\"caret\"></span></a>";
+						//echo "<li><a href=\"reports/index.php\">Reports</a></li>";
+						echo "<ul class=\"dropdown-menu\" role=\"menu\">";
+						echo "<li><a href=\"reports/index.php\">Overview</a></li>";
+						echo "<li><a href=\"reports/machines.php\">Machine Reports</a></li>";
+						echo "<li><a href=\"reports/userreports.php\">User Reports</a></li>";
+						echo "<li><a href=\"reports/partreports.php\">Performed Studies</a></li>";
+						echo "<li><a href=\"reports/itemreport.php\">Part Times</a></li>";
+						echo "</ul></li>";
 					}
 					?>
 			</ul>

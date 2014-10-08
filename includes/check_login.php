@@ -5,7 +5,7 @@ require_once 'dbConnect.php';
 $errors = array();
 if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 	//$logged_in = 0;
-	//header('location:login.php');
+	header('location:login.php');
 	
 } else {
     if(!get_magic_quotes_gpc()) {

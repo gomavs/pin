@@ -36,59 +36,9 @@ require '../includes/check_login.php';
 </head>
 
 <body>
-
-<div class="navbar navbar-default" role="navigation">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">Pin Time Study</a>
-		</div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Part Timing <span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Cutting</a></li>
-						<li><a href="#">Edgebanding</a></li>
-						<li><a href="../machining.php">Machining</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Assembly</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Packaging</a></li>
-					</ul>
-				</li>
-				<?php
-				if($_SESSION['user_auth_level'] >= 3){
-					echo "<li><a href=\"index.php\">Reports</a></li>";
-				}
-				?>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="../settings.php">Settings</a></li>
-						<?php
-						if($_SESSION['user_auth_level'] == 5){
-							echo "<li class=\"divider\"></li><li><a href=\"../admin/admin.php\">Administration</a></li>";}
-						?>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<a href="../logout.php" class="btn btn-default navbar-btn btn-xs">Sign Out</a>
-			</ul>
-			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="../settings.php"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?>&nbsp;</b></a></p>
-		</div><!-- /.navbar-collapse -->
-	</div>
-</div>
+<?php
+include '../includes/navbar.php';
+?>
 <ol class="breadcrumb">
 	<li><a href="..">Home</a></li>
 	<li><a href="index.php">Reports</a></li>
@@ -96,23 +46,12 @@ require '../includes/check_login.php';
 </ol>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-3 col-md-2 sidebar">
-			<ul class="nav nav-sidebar">
-				<li><a href="index.php">Overview</a></li>
-				<li><a href="machines.php">Machine Reports</a></li>
-				<li><a href="userreports.php">User Reports</a></li>
-				<li class="active"><a href="#">Performed Studies</a></li>
-				<li><a href="itemreport.php">Part Times</a></li>
-			</ul>
-		</div>
-
-
-		<div class="col-md-10 col-md-offset-2 main">
+		<div class="col-md-12 main">
 			<h2 class="page-header">Part Time Studies Completed</h2>
 		</div>
-		<div class="col-md-10 col-sm-offset-3 col-md-10 col-md-offset-2">
+		<div class="col-md-12">
 				<div class="row col-md-12 bottom_fix">
-					<div class="col-md-6">
+					<div class="col-md-5">
 						<label for="from">From</label>
 						<input type="text" id="from" name="from" required>
 						<label for="to">to</label>
