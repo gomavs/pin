@@ -29,15 +29,11 @@ while($row = mysqli_fetch_array($result)) {
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href="../css/dashboard.css" rel="stylesheet">
 	<link href="../css/main.css" rel="stylesheet">
 	<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.5.1.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="http://cdn.oesmith.co.uk/morris-0.5.1.min.js"></script>
-
-	<link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-	<link href="../css/sb-admin-2.css" rel="stylesheet">
 	<link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="../css/jquery-ui.css" rel="stylesheet">
 	<link href="../css/main.css" rel="stylesheet">

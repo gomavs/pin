@@ -18,11 +18,7 @@ require '../includes/check_login.php';
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href="../css/dashboard.css" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-	<link href="../css/sb-admin-2.css" rel="stylesheet">
-	<link href="../font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="../css/jquery-ui.css" rel="stylesheet">
 	<link href="../css/main.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/jquery.dataTables.css">
@@ -46,7 +42,7 @@ include '../includes/navbar.php';
 </ol>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12 main">
+		<div class="col-md-12">
 			<h2 class="page-header">Part Time Studies Completed</h2>
 		</div>
 		<div class="col-md-12">

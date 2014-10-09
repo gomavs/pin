@@ -117,7 +117,7 @@ include 'includes/navbar.php';
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-5"><label>Part Number:</label></div>
-				<div class="col-md-5"><label id="partNumber">Testing</label></div>
+				<div class="col-md-5"><label id="partNumber"> </label></div>
 			</div>
 			<div class="row">
 				<table class="table table-hover tabletimes">

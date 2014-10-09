@@ -1,11 +1,16 @@
 <?php
 session_start();
 require_once 'dbConnect.php';
-
+$folders = explode ('/', $_SERVER['PHP_SELF']);
+$foler_count = count($folders);
+if($foler_count > 3){
+	$location = "location: ../login.php";
+}else{
+	$location = "location: login.php";
+}
 $errors = array();
 if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
-	//$logged_in = 0;
-	header('location:login.php');
+	header($location);
 	
 } else {
     if(!get_magic_quotes_gpc()) {
@@ -22,7 +27,6 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 	}	
 	
 	if($num_rows != 1) {
-        $logged_in = 0;
         unset($_SESSION['user_email']);
         unset($_SESSION['user_pass']);
         // kill incorrect session variables.
@@ -39,11 +43,9 @@ if (!isset($_SESSION['user_email']) || !isset($_SESSION['user_pass'])) {
 			$_SESSION['user_auth_level'] = $row['authlevel'];
 			$_SESSION['logged'] = 1;
 			$_SESSION['time'] = time();
-			$logged_in = 1;
 		}else{
-			$logged_in = 0;
 			session_destroy();
-			header('location:login.php');
+			header($location);
 		}
 	}
 	unset($row['password']);

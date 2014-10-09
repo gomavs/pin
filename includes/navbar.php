@@ -1,25 +1,22 @@
 <?php
-//echo dirname($_SERVER['PHP_SELF']);
 $folders = explode ('/', $_SERVER['PHP_SELF']);
-//echo $folders[1];
 $foler_count = count($folders);
-/*for($i = 1; $i < $foler_count; $i++){
-echo $folders[$i]."<br>";
-}*/
 if($foler_count > 3){
 	$relative = "../";
-	$url_admin = "admin.php";
 }else{
 	$relative = "";
-	$url_admin = "admin/admin.php";
 }
 ////////////////URL's////////////////////
 $url_home = $relative."index.php";
+$url_logout = $relative."logout.php";
 $url_machining = $relative."machining.php";
 $url_settings = $relative."settings.php";
-//$url_admin = $relative."admin.php";
-
-
+$url_admin = $relative."admin/admin.php";
+$url_overview = $relative."reports/index.php";
+$url_machine_reports = $relative."reports/machines.php";
+$url_user_reports = $relative."reports/userreports.php";
+$url_part_reports = $relative."reports/partreports.php";
+$url_item_reports = $relative."reports/itemreport.php";
 
 ?>
 
@@ -57,11 +54,11 @@ $url_settings = $relative."settings.php";
 						echo "<a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Reports<span class=\"caret\"></span></a>";
 						//echo "<li><a href=\"reports/index.php\">Reports</a></li>";
 						echo "<ul class=\"dropdown-menu\" role=\"menu\">";
-						echo "<li><a href=\"reports/index.php\">Overview</a></li>";
-						echo "<li><a href=\"reports/machines.php\">Machine Reports</a></li>";
-						echo "<li><a href=\"reports/userreports.php\">User Reports</a></li>";
-						echo "<li><a href=\"reports/partreports.php\">Performed Studies</a></li>";
-						echo "<li><a href=\"reports/itemreport.php\">Part Times</a></li>";
+						echo "<li><a href=\"".$url_overview."\">Overview</a></li>";
+						echo "<li><a href=\"".$url_machine_reports."\">Machine Reports</a></li>";
+						echo "<li><a href=\"".$url_user_reports."\">User Reports</a></li>";
+						echo "<li><a href=\"".$url_part_reports."\">Performed Studies</a></li>";
+						echo "<li><a href=\"".$url_item_reports."\">Part Times</a></li>";
 						echo "</ul></li>";
 					}
 					?>
@@ -79,7 +76,7 @@ $url_settings = $relative."settings.php";
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<a href="logout.php" class="btn btn-primary navbar-btn btn-xs">Sign Out</a>
+				<a href="<?php echo $url_logout ?>" class="btn btn-primary navbar-btn btn-xs">Sign Out</a>
 			</ul>
 			<p class="navbar-text navbar-right">Signed in as <a class="navbar-link" href="settings.php"><b><?php echo $_SESSION['user_first_name']." ".$_SESSION['user_last_name'] ?>&nbsp;</b></a></p>
  
