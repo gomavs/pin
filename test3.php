@@ -1,4 +1,4 @@
-<?php
+<?php*87023++65
 
 $begin = new DateTime( '2014-08-01' );
 //echo $begin . "<br>";

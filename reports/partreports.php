@@ -138,7 +138,6 @@ include '../includes/navbar.php';
 		end_date=end_date.split(" ");
 		var newEndDate=end_date[1]+"-"+end_date[0]+"-"+end_date[2];
 		table.destroy();
-		
 		table_fill(newStartDate, newEndDate);
 	});
 	
