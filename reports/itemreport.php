@@ -2,42 +2,48 @@
 require '../includes/check_login.php';
 $build_table= "";
 $search_value = "";
+$data = [];
 if(isset($_POST["partnumber"])){
-	$ul_count = 0;
 	$last_level = 0;
 	$search_value = $_POST["partnumber"];
-	$data = [];
+	
+	//////////////////////// Get info for entered part number ///////////////////////////////////
 	$query = $db->prepare("SELECT * FROM part WHERE partnumber = ?");
 	$query->bind_param("s", $_POST["partnumber"]);
 	$query->execute();
 	$result = $query->get_result();
 	$row = $result->fetch_assoc();
-	$query = $db->prepare("SELECT * FROM part WHERE parentid = ?");
-	$query->bind_param("i", $row['id']);
-	$query->execute();
-	$result = $query->get_result();
-	$row_cnt = $result->num_rows;
+	//////////////////////// Is this part a parent or a child? ///////////////////////////////////
+	$query2 = $db->prepare("SELECT * FROM part WHERE parentid = ?");
+	$query2->bind_param("i", $row['id']);
+	$query2->execute();
+	$result2 = $query2->get_result();
+	$row2 = $result2->fetch_assoc();
+	$row_cnt = $result2->num_rows;
 	if($row_cnt > 0){
+	//////////////////////// This is a parent ///////////////////////////////////
 		echo "test";
 	}else{
-		echo "test2";
+	//////////////////////// This is a child ///////////////////////////////////
+		$query = $db->prepare("SELECT * FROM part WHERE id = ?");
+		$query->bind_param("i", $row['parentid']);
+		$query->execute();
+		$result = $query->get_result();
+		$row4 = $result->fetch_assoc();
 		$completed = 1;
-		$query2 = $db->prepare("SELECT * FROM times WHERE item_id = ? AND completed = ? ORDER BY end_time ASC");
-		$query2->bind_param("ii", $row['id'], $completed);
-		$query2->execute();
-		$result = $query2->get_result();
-	/*	while (($row2 = $result->fetch_object()) !== NULL) {
-			
-			$data[] = ["Part Number"=>$row2['partnumber'], "Part Description"=>$row2['partdesc'], "Parent Number"=>$row3['partnumber'], "Work Center"=>$row4['center'], "Machine"=>$row4['name'], "Date"=>$completed_on, "Time"=>$elapsed_time];
-		}*/
+		$query3 = $db->prepare("SELECT times.*, workcenter.* FROM times LEFT JOIN workcenter ON times.machine_id = workcenter.id WHERE times.item_id = ? AND times.completed = ? ORDER BY times.end_time ASC");
+		$query3->bind_param("ii", $row['id'], $completed);
+		$query3->execute();
+		$result3 = $query3->get_result();
+		while (($row3 = $result3->fetch_object()) !== NULL) {
+			$data[] = ["Part Number"=>$row['partnumber'], "Part Description"=>$row['partdesc'], "Parent Number"=>$row4['partnumber'], "Work Center"=>$row3->center, "Machine"=>$row3->name, "Date"=>date("M d, Y", $row3->end_time), "Time"=>secondsToWords($row3->end_time - $row3->start_time)];
+		}
+		json_encode($data);
 	}
-	
 	//display_children($row['id'], 1);
-	
-
-$build_table= "<table id=\"table_id\" class=\"display\"><thead>";
+$build_table= "<thead>";
 $build_table.= "<tr><th>Part Number</th><th>Part Description</th><th>Parent Number</th><th>Work Center</th><th>Machine</th><th>Date</th><th>Time</th></tr>";					
-$build_table.= "</thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>";	
+$build_table.= "</thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody>";	
 
 }
 /*
@@ -83,6 +89,25 @@ function display_children($category_id, $level){
 		display_children($row['id'], $level+1);
 	}
 }*/
+
+function secondsToWords($seconds){
+    /*** return value ***/
+    $ret = "";
+    /*** get the hours ***/
+    $hours = intval(intval($seconds) / 3600);
+    if($hours > 0){
+        $ret .= $hours."hr ";
+    }
+    /*** get the minutes ***/
+    $minutes = bcmod((intval($seconds) / 60),60);
+    if($hours > 0 || $minutes > 0){
+        $ret .= $minutes."m ";
+    }
+    /*** get the seconds ***/
+    $seconds = bcmod(intval($seconds),60);
+    $ret .= $seconds."s";
+    return $ret;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,7 +154,9 @@ include '../includes/navbar.php';
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<?php echo $build_table; ?>
+			<table id="table_id" class="display">
+				<?php echo $build_table; ?>
+			</table>
 		</div>
 	</div>
 </div>
@@ -137,7 +164,10 @@ include '../includes/navbar.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.autocomplete.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script type="text/javascript" charset="utf8" src="../js/jquery.dataTables.js"></script>
 <script>
+var data = "";
 $(function(){
 	$('#autocomplete').autocomplete({
 		serviceUrl:"../ajax/search.php",
@@ -146,7 +176,27 @@ $(function(){
 	});
 });
 	
-	
+
+$(document).ready(function() {
+	$('#table_id').DataTable( {
+		//"processing": true,
+		//"bProcessing": true,
+		//"sAjaxDataProp":"",
+		//"bServerSide": true,
+		//"ajax": "../ajax/updatepartsreport.php?starttime=" + startDate + "&endtime=" + endDate,
+		data: data,
+		"columns": [
+			{ "data": "Part Number" },
+			{ "data": "Part Description" },
+			{ "data": "Parent Number" },
+			{ "data": "Work Center" },
+			{ "data": "Machine" },
+			{ "data": "Date" },
+			{ "data": "Time" }
+		]
+	});
+});
+
 </script>
 </body>
 </html>
